@@ -1,0 +1,88 @@
+.main {
+    text-align: center;
+    margin: 0 auto;
+    margin-top: 30px;
+    border: 1px #cccccc solid;
+    height: auto;
+    width: 80%;
+    padding: 5px 15px;
+}
+
+.main > .row {
+    margin-top: 20px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.box a {
+    padding-right: 20px;
+}
+
+.laydate-icon {
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+}
+
+.icon {
+    height: 30px;
+    line-height: 30px;
+
+}
+
+.xian {
+    background-color: orange;
+    width: 100px;
+    height: 50px;
+    line-height: 50px;
+    font-size: 17px;
+    float: right;
+    margin-right: 18px;
+    margin-top: -8px;
+}
+
+.xian > a {
+    color: white;
+    font-weight: bold;
+}
+
+.none {
+    background-color: #f4f4f4;
+    margin-top: 42px;
+    width: 1350px;
+    margin-left: 20px;
+
+}
+
+.none > .row > .row {
+    text-align: center;
+    line-height: 40px;
+    margin: 0;
+    color: #525252;
+}
+.none > .row > .row >div{
+   line-height: 50px;
+}
+#cityChoice {
+    height: 30px;
+    border: 0px;
+    width: 150px;
+    text-align: center;
+    color: #9f9f9f;
+}
+.cityChoice {
+    height: 30px;
+    border: 0px;
+    width: 150px;
+    color: #9f9f9f;
+}
+.table-bordered td,th{
+    text-align: center;
+}
+.table-bordered{
+    margin-top: 20px;
+}

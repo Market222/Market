@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.OrangeBank.dao.MarketMapper">
+
+    <resultMap id="queryMarkets" type="Market">
+        <association property="position" javaType="Position"></association>
+        <association property="marketBack" javaType="MarketBack"></association>
+        <association property="shoopping" javaType="Shoopping"></association>
+        <association property="client" javaType="Client"></association>
+    </resultMap>
+
+    <select id="queryMarket" resultMap="queryMarkets">
+        SELECT * FROM market mr,shoopping s,`position` p,marketBack m,`client` c
+        <where>
+            mr.market_shooppingid = s.shoopping_id AND p.position_id = s.shoopping_warehouseid AND m.marketBack_id = mr.market_marketBackid AND m.marketBack_clientId = c.client_id
+            <if test="market_id!=null and market_id!=''">and mr.market_id= #{market_id}</if>
+            <if test="shoopping!=null and shoopping.shoopping_id!=null and shoopping.shoopping_id!=''">and s.shoopping_id=#{shoopping.shoopping_id}</if>
+            <if test="shoopping!=null and shoopping.shoopping_name!=null and shoopping.shoopping_name!=''">and s.shoopping_name=#{shoopping.shoopping_name}</if>
+            <if test="client!=null and client.client_name !=null and client.client_name!=''">and c.client_name=#{client.client_name}</if>
+            <if test="client!=null and client.client_phone !=null and client.client_phone!=''">and c.client_phone=#{client.client_phone}</if>
+            <if test="client!=null and client.client_specialplane !=null and client.client_specialplane!=''">and c.client_specialplane=#{client.client_specialplane}</if>
+            <if test="client!=null and client.client_salesman !=null and client.client_salesman!=''">and c.client_salesman=#{client.client_salesman}</if>
+            <if test="client!=null and client.client_invoice !=null and client.client_invoice!=''">and c.client_invoice=#{client.client_invoice}</if>
+            <if test="marketBack!=null and marketBack.marketBack_id !=null and marketBack.marketBack_id!=''">and m.marketBack_id=#{marketBack.marketBack_id}</if>
+        </where>
+    </select>
+
+    <delete id="deleteMarket">
+        DELETE FROM market WHERE market_id = #{market_id}
+    </delete>
+
+    <select id="queryMarketBack" resultType="MarketBack">
+        SELECT * FROM marketBack
+        <where>
+            <if test="marketBack_id!=null and marketBack_id!=''">marketBack_id=#{marketBack_id}</if>
+        </where>
+    </select>
+
+    <select id="queryClient" resultType="Client">
+        SELECT * FROM `client`
+    </select>
+
+    <insert id="insertMarketBack">
+        INSERT INTO marketBack(marketBack_id,marketBack_clientId,marketBack_count,marketBack_address,marketBack_salesman,marketBack_preparedby,marketBack_prepareddate,marketBack_remark)
+        VALUES(#{marketBack_id},#{marketBack_clientId},#{marketBack_count},#{marketBack_address},#{marketBack_salesman},#{marketBack_preparedby},#{marketBack_prepareddate},#{marketBack_remark})
+    </insert>
+
+    <insert id="insertMarket">
+        INSERT INTO market(market_id,market_shooppingid,market_marketBackid)
+        VALUES(DEFAULT,#{market_shooppingid},#{market_marketBackid})
+    </insert>
+
+    <update id="updateMarketBack">
+        update marketBack
+        <set>
+            <if test="marketBack_clientId!=null and marketBack_clientId!=''">marketBack_clientId = #{marketBack_clientId},</if>
+            <if test="marketBack_count!=null and marketBack_count!=''">marketBack_count = #{marketBack_count},</if>
+            <if test="marketBack_address!=null and marketBack_address!=''">marketBack_address = #{marketBack_address},</if>
+            <if test="marketBack_salesman!=null and marketBack_salesman!=''">marketBack_salesman = #{marketBack_salesman},</if>
+        </set>
+        where marketBack_id = #{marketBack_id}
+    </update>
+
+</mapper>

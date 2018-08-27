@@ -1,0 +1,27 @@
+
+.heade li {
+    display: inline-block;
+    color: rgb(59, 59, 59);
+    margin: 0 3px;
+}
+
+.heade li a {
+    text-decoration: none;
+    color: black;
+    font-size: 15px;
+}
+
+.heade li a:hover {
+    text-decoration: none;
+    color: rgba(255, 66, 0, 0.71);
+}
+
+.shouYe li {
+    display: inline-block;
+    margin: 10px 20px;
+    color: white;
+}
+.shouYe li a {
+    text-decoration: none;
+    color: white;
+}

@@ -1,0 +1,33 @@
+body{ color:#333; font-size:13px;}
+.panel{background:#fff;}
+form .form-group:last-child{padding-bottom:0;}
+
+
+/***主要内容***/
+.body-content{padding:20px 0; overflow:hidden;}
+.w50 { width:85%; float:left;}
+.w70{ width:100%; float:left;}
+.label label{ font-weight:normal; color:#333;}
+.form-group{ margin-bottom:12px;}
+.button{ padding:10px 15px;}
+.form-group .field{margin-right: 2rem}
+.form-group .field .file{ background:#FFF; border:0px;}
+.form-group .field input[type=radio]{ vertical-align:middle; line-height:35px; margin-right:5px;}
+.table th{ text-align:center;}
+.table td { vertical-align:middle;}
+
+
+/* 分页 */
+.pagelist {padding:10px 0; text-align:center;}
+.pagelist span,.pagelist a{ border-radius:3px; border:1px solid #dfdfdf;display:inline-block; padding:5px 12px;}
+.pagelist a{ margin:0 3px;}
+.pagelist span.current{ background:orange; color:#FFF; border-color:orange; margin:0 2px;}
+.pagelist a:hover{background:orange; color:#FFF; border-color:orange; }
+.pagelist label{ padding-left:15px; color:#999;}
+.pagelist label b{color:red; font-weight:normal; margin:0 3px;}
+
+
+
+
+
+

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.OrangeBank.dao.UsersMapper">
+    <select id="queryUsers" resultType="Users">
+        SELECT * FROM users
+    </select>
+    <insert id="insertUsers">
+        INSERT INTO users(users_name,users_password,users_phone,users_company)
+        VALUES(#{users_name},#{users_password},#{users_phone},#{users_company});
+    </insert>
+    <select id="countUsers" resultType="_int">
+        SELECT COUNT(1) FROM users WHERE  users_name = #{users_name}
+    </select>
+</mapper>

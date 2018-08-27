@@ -1,0 +1,95 @@
+.tab-pane {
+    margin-left: 100px;
+    line-height: 20px;
+}
+
+body {
+    color: black;
+}
+
+b {
+    color: orange;
+}
+
+#myTabContent {
+    color: black;
+    margin: 30px 0;
+    height: 18px;
+    line-height: 18px;
+}
+
+.main {
+    border: 1px #ccc solid;
+    height: 600px;
+    width: 801px;
+    margin-left: 100px;
+
+}
+
+.main label {
+    margin: 20px 20px 10px 50px;
+}
+
+.body2 .col-md-3 {
+    text-align: center;
+    height: 160px;
+    line-height: 160px;
+    width: 25%;
+    border: 1px #cccccc dashed;
+
+}
+
+.body2 {
+    height: 411.6px;
+    width: 800px;
+    margin: 0;
+    padding-top: 20px;
+}
+
+.body2 .col-md-3 ul li{
+    text-align: center;
+    line-height: 30px;
+    list-style: none;
+    margin-left: -30px;
+
+}
+.body2 .col-md-3 ul li a{
+    color: orange;
+    text-decoration: underline;
+}
+.main2 {
+    position: relative;
+    float: right;
+    border: 1px #cccccc solid;
+    width: 350px;
+    height: 600px;
+    margin-top: -600px;
+    margin-right: 150px;
+}
+.main2 li{
+
+    list-style: none;
+    margin-left: -40px;
+    line-height: 50px;
+    height: 50px;
+
+
+}
+.main2 li:not(:first-child){
+    border-bottom: 1px #cccccc dashed;
+}
+.main2 li:first-child{
+    color: white;
+    font-weight: bold;
+    font-size: 15px;
+}
+.main2 li a{
+    margin-left: 30px;
+}
+.main2 li:nth-child(9){
+    border-bottom: 0px;
+}
+.main2 ul{
+    vertical-align: center;
+    list-style: none;
+}
