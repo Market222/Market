@@ -3,7 +3,75 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.OrangeBank.dao.OrderMapper">
+
+
     <select id="queryOrder" resultType="Order">
         SELECT * FROM Order
     </select>
+
+
+    <resultMap id="ordermap2" type="Order">
+        <id column="order_id" property="order_id"></id>
+        <collection property="stocks" javaType="Stock">
+
+        </collection>
+    </resultMap>
+    <select id="TotalRows" resultMap="ordermap2">
+        SELECT * FROM `order` o,stock s
+        <where>
+            o.`order_id`= s.stock_orderid
+             <if test="order_id !=null  ">
+                 AND o.`order_id`=#{order_id}
+             </if>
+         </where>
+
+
+    </select>
+
+
+    <resultMap id="ordermap" type="Order">
+        <id column="order_id" property="order_id"></id>
+        <collection property="stocks" javaType="Stock">
+        </collection>
+    </resultMap>
+    <select id="orderList" resultMap="ordermap">
+SELECT * FROM `order` o,stock s WHERE o.`order_id`= s.stock_orderid
+   </select>
+    <delete id="delOrder" >
+           DELETE  FROM  `order` WHERE order_id=#{order_id}
+    </delete>
+    <insert id="addOrder">
+            INSERT INTO `order`(`order_id`,`order_state`,`order_sendtime`,`order_stateConfirmation`,`order_confirmedTime`,`order_objection`,`order_countmoney`,`order_isship`,`order_shiptime`,`order_warehousestatus`,`order_usersid`)
+		    VALUES(#{order_id},#{order_state},#{order_sendtime},#{order_stateConfirmation},#{order_confirmedTime},#{order_objection},#{order_countmoney},#{order_isship},#{order_shiptime},#{order_warehousestatus},#{order_usersid})
+    </insert>
+    <update id="updateOrder">
+            UPDATE `order`
+            <set>
+                <if test="order_state!=null and order_state!=''">
+                    order_state=#{order_state},
+                </if>
+                <if test="order_sendtime!=null">
+                    `order_sendtime`=#{order_sendtime},
+                </if>
+                <if test="order_stateConfirmation!=null and order_stateConfirmation!=''">
+                    order_stateConfirmation=#{order_stateConfirmation},
+                </if>
+                <if test="order_confirmedTime!=null">
+                    order_confirmedTime=#{order_confirmedTime},
+                </if>
+                <if test="order_objection!=null and order_objection!=''">
+                    order_objection=#{order_objection},
+                </if>
+                <if test="order_isship!=null and order_isship!=''">
+                    order_isship=#{order_isship},
+                </if>
+                <if test="order_shiptime!=null">
+                    order_shiptime=#{order_shiptime},
+                </if>
+                <if test="order_warehousestatus!=null and order_warehousestatus!=''">
+                    order_warehousestatus=#{order_warehousestatus}
+                </if>
+            </set>
+        where order_id=#{order_id}
+    </update>
 </mapper>

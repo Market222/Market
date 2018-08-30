@@ -60,7 +60,7 @@
                     style=" border-right: 1px solid #ccc;width: 1px;margin-left: 10px;margin-right: 10px"></a>
             </div>
             <div class="row body2">
-                <div class="col-md-3" style="border-left:0px"><a href="/OrangBank/Order" style="margin-left: -10px"><img
+                <div class="col-md-3" style="border-left:0px"><a href="/OrangBank/tiao" style="margin-left: -10px"><img
                         src="../statics/img/jinhuo.png"></a></div>
                 <div class="col-md-3"><a href="#" style="margin-left: -6px"><img src="../statics/img/jinhuotuihui.png"></a>
                 </div>

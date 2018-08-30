@@ -113,7 +113,7 @@
                 { "data": "order_id","render": function ( data, type, full, meta ) {
 
 
-                        return "  <td ><a href='OrderView/" +data + "'><i class=\"fa fa-desktop \"></i></a>&nbsp;&nbsp;<a href=\"#\"><i\n" +
+                        return "  <td ><a href='OrderView/" +data + "'><i class=\"fa fa-desktop \"></i></a>&nbsp;&nbsp;<a href='OrderDel/"+data+"'><i\n" +
                             "                            class=\"fa fa-trash\"></i></a>&nbsp;&nbsp;<a  href='javascript:xg("+data+")'><i class=\"fa fa-edit\"></i><span\n" +
                             "                            class=\"text-muted\"></span></a></td>";
                     }}

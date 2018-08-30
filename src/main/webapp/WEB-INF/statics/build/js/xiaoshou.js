@@ -25,7 +25,7 @@ $(function () {
                         var td = "<td scope='row'>"+count+"</td>";
                         count++;
                         var summ= data[i].marketBack.marketBack_count * data[i].shoopping.shoopping_marketmoney;
-                        td += "<td style='width: 10%'><a href=\"/OrangBank/ShoppingView?did="+data[i].market_id+"\"><i class=\"fa fa-desktop\"></i></a>&nbsp;&nbsp;<a href=\"/OrangBank/deleteShopping?sid="+data[i].shoopping.shoopping_id+"\"><i\n" +
+                        td += "<td style='width: 10%'><a href=\"/OrangBank/ShoppingView?did="+data[i].market_id+"\"><i class=\"fa fa-desktop\"></i></a>&nbsp;&nbsp;<a href=\"/OrangBank/deleteShopping?sid="+data[i].market_id+"\"><i\n" +
                             "                            class=\"fa fa-trash\"></i></a>&nbsp;&nbsp;<a href=\"/OrangBank/ShopUpd?sid="+data[i].marketBack.marketBack_id+"\"><i class=\"fa fa-edit\"></i><span\n" +
                             "                            class=\"text-muted\"></span></a></td>";
                         td += "<td style='width: 10%'>"+data[i].shoopping.shoopping_name+"</td>"

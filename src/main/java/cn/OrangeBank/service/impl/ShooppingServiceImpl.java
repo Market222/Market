@@ -14,12 +14,7 @@ public class ShooppingServiceImpl implements ShooppingService {
     @Resource
     private ShooppingMapper shooppingMapper;
 
-
-    public List<Shoopping> queryShoopping(Shoopping shoopping) {
-        return shooppingMapper.queryShoopping(shoopping);
-    }
-
-    public int deleteShopping(Shoopping shoopping) {
-        return shooppingMapper.deleteShopping(shoopping);
+    public List<Shoopping> shopList(Shoopping shop) {
+        return shooppingMapper.shopList(shop);
     }
 }

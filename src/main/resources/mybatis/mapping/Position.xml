@@ -2,8 +2,9 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.OrangeBank.dao.ShooppingMapper">
-    <select id="shopList" resultType="Shoopping">
-              SELECT * FROM shoopping
+<mapper namespace="cn.OrangeBank.dao.PositionMapper">
+
+    <select id="posList" resultType="Position">
+        SELECT * FROM position
     </select>
 </mapper>
