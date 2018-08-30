@@ -5,58 +5,59 @@ import java.util.Date;
 
 public class Supplier {
 
-  private long supplier_id;
-  private String supplier_name;
-  private String supplier_contact;
-  private String supplier_phone;
-  private long supplier_static;
-  private Date supplier_cooperationtime;
+  private Integer supplierId;
+  private String supplierName;
+  private String supplierContact;
+  private String supplierPhone;
+  private Integer supplierStatic;
+  private Date supplierCooperationtime;
 
-  public String getSupplier_contact() {
-    return supplier_contact;
+
+  public Integer getSupplierId() {
+    return supplierId;
   }
 
-  public void setSupplier_contact(String supplier_contact) {
-    this.supplier_contact = supplier_contact;
+  public void setSupplierId(Integer supplierId) {
+    this.supplierId = supplierId;
   }
 
-  public String getSupplier_phone() {
-    return supplier_phone;
+  public String getSupplierName() {
+    return supplierName;
   }
 
-  public void setSupplier_phone(String supplier_phone) {
-    this.supplier_phone = supplier_phone;
+  public void setSupplierName(String supplierName) {
+    this.supplierName = supplierName;
   }
 
-  public long getSupplier_static() {
-    return supplier_static;
+  public String getSupplierContact() {
+    return supplierContact;
   }
 
-  public void setSupplier_static(long supplier_static) {
-    this.supplier_static = supplier_static;
+  public void setSupplierContact(String supplierContact) {
+    this.supplierContact = supplierContact;
   }
 
-  public long getSupplier_id() {
-    return supplier_id;
+  public String getSupplierPhone() {
+    return supplierPhone;
   }
 
-  public void setSupplier_id(long supplier_id) {
-    this.supplier_id = supplier_id;
+  public void setSupplierPhone(String supplierPhone) {
+    this.supplierPhone = supplierPhone;
   }
 
-  public String getSupplier_name() {
-    return supplier_name;
+  public Integer getSupplierStatic() {
+    return supplierStatic;
   }
 
-  public void setSupplier_name(String supplier_name) {
-    this.supplier_name = supplier_name;
+  public void setSupplierStatic(Integer supplierStatic) {
+    this.supplierStatic = supplierStatic;
   }
 
-  public Date getSupplier_cooperationtime() {
-    return supplier_cooperationtime;
+  public Date getSupplierCooperationtime() {
+    return supplierCooperationtime;
   }
 
-  public void setSupplier_cooperationtime(Date supplier_cooperationtime) {
-    this.supplier_cooperationtime = supplier_cooperationtime;
+  public void setSupplierCooperationtime(Date supplierCooperationtime) {
+    this.supplierCooperationtime = supplierCooperationtime;
   }
 }

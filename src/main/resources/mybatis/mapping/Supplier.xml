@@ -4,7 +4,59 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.OrangeBank.dao.SupplierMapper">
 
-    <select id="suplist" resultType="Supplier">
-        SELECT * FROM supplier
+    <resultMap id="Supplier" type="Supplier">
+        <result column="supplier_id" property="supplierId"/>
+        <result column="supplier_name" property="supplierName"/>
+        <result column="supplier_contact" property="supplierContact"/>
+        <result column="supplier_phone" property="supplierPhone"/>
+        <result column="supplier_static" property="supplierStatic"/>
+    </resultMap>
+
+
+    <select id="queryList" resultMap="Supplier">
+        SELECT * FROM supplier s
+        <where>
+            <if test="supplierId!=null and supplierId!=''"> AND  s.supplier_id LIKE CONCAT ('%',#{supplierId},'%') or s.supplier_name  LIKE CONCAT ('%',#{supplierId},'%')</if>
+        </where>
+        limit #{begin},#{end}
     </select>
+
+
+    <select id="count" resultType="int">
+        select count(1) from supplier
+    </select>
+
+
+    <insert id="addSupp">
+           INSERT INTO supplier(supplier_name,supplier_contact,supplier_phone,supplier_static,supplier_cooperationtime)
+             VALUES(#{supplierName},#{supplierContact},#{supplierPhone},#{supplierStatic},NOW());
+    </insert>
+
+    <select id="queryList2" resultMap="Supplier">
+        select * from supplier where supplier_id = #{supplierId}
+    </select>
+
+    <update id="updateSupp">
+        UPDATE supplier
+        <set>
+            <if test="supplierName != null">supplier_name=#{supplierName},</if>
+            <if test="supplierContact != null">supplier_contact=#{supplierContact},</if>
+            <if test="supplierPhone != null">supplier_phone=#{supplierPhone},</if>
+            <if test="supplierStatic != null">supplier_static=#{supplierStatic},</if>
+            <if test="supplierCooperationtime!=null">supplier_cooperationtime=date(#{supplierCooperationtime,jdbcType=TIMESTAMP}),</if>
+        </set>
+        <where>
+            <if test="supplierId != null">
+                supplier_id = #{supplierId}
+            </if>
+        </where>
+    </update>
+
+
+    <delete id="deleteById">
+        DELETE FROM supplier WHERE supplier_id = #{delId}
+    </delete>
+
+
+
 </mapper>
