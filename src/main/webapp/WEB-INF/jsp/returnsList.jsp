@@ -17,17 +17,15 @@
 <link href="../statics/datatables/css/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
 <link href="../statics/datatables/css/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
 
+
 <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
-    <li><a href="/OrangBank/tiao2"><font style="vertical-align: inherit;"><font
-            style="vertical-align: inherit;">首页</font></font></a>
-    </li>
     <li role="presentation" class="active"><a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab"
                                               aria-expanded="true"><font style="vertical-align: inherit;"><font
-            style="vertical-align: inherit;">进货订单</font></font></a>
+            style="vertical-align: inherit;">进货退货</font></font></a>
     </li>
 </ul>
 <div class="main">
-    <button onclick="window.location.href='AddOrder'">新增</button>
+    <button onclick="window.location.href='ReturnsAdd'">新增</button>
     <table id="tabless" class="table table-striped table-bordered dt-responsive <%--nowrap--%>" cellspacing="0" width="100%" >
 
 
@@ -55,9 +53,16 @@
             "serverSide":true,//服务器端获取数据
             "bStateSave": false,//不缓存数据
             "ajax": {
-                "url":"/OrangBank/OrderList",
+                "url":"/Returns/ReturnsList",
                 "type": "POST",
                 "dataType" : "JSON"
+                // "data": function (datas) {
+                //     datas.appInfo=JSON.stringify({"softwareName":$("#softwareName").val(),
+                //         "status":$("#status").val(),
+                //         "flatformId":$("#flatformId").val(),
+                //         "categoryLevel1":$("#class1").val(),"categoryLevel2":$("#class2").val(),
+                //         "categoryLevel3":$("#class3").val()});
+                // }
             },
             lengthMenu: [ //自定义分页长度
                 [ 10, 20, 50 ],
@@ -65,57 +70,68 @@
             ],
             "searching" : false,//关闭搜索框
             "columnDefs":[
-                {"title":"订单号","targets":0},
+                {"title":"退货单号","targets":0},
                 {"title":"商品名称","targets":1},
                 {"title":"单位","targets":2},
                 {"title":"值","targets":3},
-                {"title":"销售单价","targets":4},
+                {"title":"进货单价","targets":4},
                 {"title":"仓库","targets":5},
                 {"title":"操作","targets":6}
             ],
             "columns": [
-                { "data": "order_id"},
-                { "data": "stocks","render": function ( data, type, full, meta ) {
-                    var zhi='';
-                        for(var i=0;i<data.length;i++){
-                            zhi+="<p>"+data[i].stock_name+"</p>"
-                        }
-                  return zhi;
-                    } },
-                { "data": "stocks","render": function ( data, type, full, meta ) {
+                { "data": "returns_id"},
+                { "data": "ret","render": function ( data, type, full, meta ) {
                         var zhi='';
                         for(var i=0;i<data.length;i++){
-                            zhi+="<p>"+data[i].stock_unit+"</p>"
+                            zhi+="<p>"+data[i].shop.shoopping_name+"</p>"
                         }
                         return zhi;
                     } },
-                { "data": "stocks","render": function ( data, type, full, meta ) {
+                { "data": "ret","render": function ( data, type, full, meta ) {
                         var zhi='';
                         for(var i=0;i<data.length;i++){
-                            zhi+="<p>"+data[i].stock_count+"</p>"
+                            zhi+="<p>"+data[i].shop.shoopping_unit+"</p>"
                         }
                         return zhi;
                     } },
-                { "data": "stocks","render": function ( data, type, full, meta ) {
+                { "data": "ret","render": function ( data, type, full, meta ) {
                         var zhi='';
                         for(var i=0;i<data.length;i++){
-                            zhi+="<p>"+data[i].stock_ordermoney+"元</p>"
+                            zhi+="<p>"+data[i].returnsshoop_count+"</p>"
                         }
                         return zhi;
                     } },
-                { "data": "stocks","render": function ( data, type, full, meta ) {
+                { "data": "ret","render": function ( data, type, full, meta ) {
                         var zhi='';
                         for(var i=0;i<data.length;i++){
-                            zhi+="<p>"+data[i].stock_warehouseid+"</p>"
+                            zhi+="<p>"+data[i].shop.shoopping_stockmoney+"</p>"
                         }
                         return zhi;
                     } },
-                { "data": "order_id","render": function ( data, type, full, meta ) {
+                { "data": "ret","render": function ( data, type, full, meta ) {
+                        var zhi='';
+                        for(var i=0;i<data.length;i++){
+                            zhi+="<p>"+data[i].shop.shoopping_warehouseid+"</p>"
+                        }
+                        return zhi;
+                    } },
+                { "data": "returns_id","render": function ( data, type, full, meta ) {
 
-
-                        return "  <td ><a href='OrderView/" +data + "'><i class=\"fa fa-desktop \"></i></a>&nbsp;&nbsp;<a href=\"#\"><i\n" +
-                            "                            class=\"fa fa-trash\"></i></a>&nbsp;&nbsp;<a  href='javascript:xg("+data+")'><i class=\"fa fa-edit\"></i><span\n" +
-                            "                            class=\"text-muted\"></span></a></td>";
+                        return '<div class="btn-group" style="width: 110px;">\n' +
+                            '  <button type="button" class="btn btn-danger btn-group ">点击操作</button>\n' +
+                            '  <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-expanded="false">\n' +
+                            '    <span class="caret"></span>\n' +
+                            '    <span class="sr-only">Toggle Dropdown</span>\n' +
+                            '  </button>\n' +
+                            '  <ul class="dropdown-menu" role="menu">\n'+
+                            '    <li><a   href="OrderView/'+data+'" >查看</a>\n' +
+                            '    </li>\n' +
+                            '    <li><a href="#">修改</a>\n' +
+                            '    </li>\n' +
+                            '    <li><a href="OrderDel/'+data+'">删除</a>\n' +
+                            '    </li>\n' +
+                            '  </ul>\n' +
+                            '</div>';
                     }}
             ],
             "oLanguage" : { // 国际化配置

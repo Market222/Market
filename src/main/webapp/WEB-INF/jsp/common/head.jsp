@@ -13,6 +13,8 @@
     <link href="../../statics/vendors/nprogress/nprogress.css" rel="stylesheet">
     <!-- Custom Theme Style -->
     <link href="../../statics/build/css/custom.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../../statics/CSS/hzw-city-picker.css">
+    <script src="../../statics/laydate/laydate.js"></script>
 </head>
 <style>
 
