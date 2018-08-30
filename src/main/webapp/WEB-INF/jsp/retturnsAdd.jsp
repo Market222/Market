@@ -45,7 +45,7 @@
         </div>
 
         <div class="item form-group">
-            <label class="control-label col-md-3 col-s  m-3 col-xs-12" for="name">发送状态 <span class="required">*</span>
+            <label class="control-label col-md-3 col-s  m-3 col-xs-12" for="name">状态 <span class="required">*</span>
             </label>
             <div class="col-md-6 col-sm-6 col-xs-12">
                 <select id="pid" name="order_state" onchange="gradeChange()"
