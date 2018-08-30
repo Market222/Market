@@ -6,6 +6,5 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/OrangBank")
 public class MarketBackController {
-
-
+ public  void dd(){};
 }
