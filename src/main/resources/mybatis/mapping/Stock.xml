@@ -23,7 +23,6 @@
             <if test="stock_ordermoney>0">
                 `stock_ordermoney`=#{ stock_ordermoney}
             </if>
-
         </set>
 
       WHERE `stock_id`=#{stock_id}
