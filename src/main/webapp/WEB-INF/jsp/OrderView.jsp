@@ -159,12 +159,12 @@
                         });
                     </script>
                 </div>
-                dgdf
+
                 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                     确认状态:<select id="pid2" class="form-control"   onchange="gradeChange2()"   disabled="disabled"
                                  name="order_state">
-                    <option <c:if test="${orders.order_stateConfirmation=='未确认'}"> selected="selected"</c:if>>未确认</option>
-                    <option <c:if test="${orders.order_stateConfirmation=='已确认'}"> selected="selected"</c:if>>已确认</option>
+                    <option <c:if test="${orders.order_stateConfirmation=='未确定'}"> selected="selected"</c:if>>未确认</option>
+                    <option <c:if test="${orders.order_stateConfirmation=='已确定'}"> selected="selected"</c:if>>已确认</option>
                 </select>
                 </div>
                 <c:if test="${orders.order_confirmedTime!=null && orders.order_confirmedTime!='' }">
@@ -180,65 +180,67 @@
                                     readonly="readonly">
                     </div>
                 </c:if>
-                <c:if test="${orders.order_objection==null || orders.order_objection==''}">
-                    <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        发货状态:
-                        <select id="pid3" class="form-control"  onchange="gradeChange3()"   disabled="disabled"
-                                name="order_state">
-                            <option <c:if test="${orders.order_isship=='供应商未发货'}"> selected="selected"</c:if>>供应商未发货</option>
-                            <option <c:if test="${orders.order_isship=='供应商已发货'}"> selected="selected"</c:if>>供应商已发货</option>
+                <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                    发货状态:
+                    <select id="pid3" class="form-control"  onchange="gradeChange3()"   disabled="disabled"
+                            name="order_state">
+                        <option <c:if test="${orders.order_isship=='未发货'}"> selected="selected"</c:if>>供应商未发货</option>
+                        <option <c:if test="${orders.order_isship=='已发货'}"> selected="selected"</c:if>>供应商已发货</option>
                         </select>
-                    </div>
-                    <c:if test="${!orders.order_shiptime==null || !orders.order_shiptime==''}">
-                        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                            发货时间:<input type="text" id="input8" class="form-control"
-                                        readonly="readonly"
-                                        value="<fmt:formatDate  type="date" value="${orders.order_shiptime}" />"/>
-                        </div>
-                    </c:if>
-                    <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        商品编号: <input type="text" id="input9" class="form-control has-feedback-left" disabled="disabled"
-                                     value="${orders.stocks.stock_id}"/>
-                    </div>
+                </div>
 
-                    <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        商品名称:<input type="text" id="input10" class="form-control"
-                                    readonly="readonly" value="${orders.stocks.stock_name}"/>
-                    </div>
-                    <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        商品描述: <input type="text" id="input11" class="form-control has-feedback-left" readonly="readonly"
-                                     value="${orders.stocks.stock_describe}"/>
-                    </div>
-                    <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        商品单位:<input type="text" id="input12" class="form-control"
-                                    readonly="readonly" value="${orders.stocks.stock_unit}"/>
-                    </div>
-                    <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback-left">
-                        单价:<input type="text" id="input13" class="form-control"
-                        0121490621          readonly="readonly" value="${orders.stocks.stock_ordermoney}"/>
-                    </div>
-                    <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        商品数量: <input type="number" id="input14" class="form-control has-feedback-left" readonly="readonly"
-                                     value="${orders.stocks.stock_count}" />
+                <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                    发货时间:<input type="text" id="input8" class="form-control"
+                                readonly="readonly"
+                                value="<fmt:formatDate  type="date" value="${orders.order_shiptime}" />"/>
+                </div>
 
-                    </div>
 
-                    <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback-left">
-                        总金额:<input type="text" id="input15" class="form-control"
-                                   readonly="readonly"
-                                   value="${orders.stocks.stock_count*orders.stocks.stock_ordermoney}"/>
-                    </div>
-                    <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        <%--仓库: <input type="text" id="input16" class="form-control has-feedback" readonly="readonly"--%>
-                                   <%--value="${orders.shoopping.shoopping_warehouseid}"/>--%>
-                            仓库:  <select id="pid4" class="form-control"   onchange="gradeChange4()"  disabled="disabled"
-                                    name="order_state">
-                                <option <c:if test="${orders.stocks.stock_warehouseid=='1'}"> selected="selected"</c:if>>1</option>
-                                <option <c:if test="${orders.stocks.stock_warehouseid=='2'}"> selected="selected"</c:if>>2</option>
-                            </select>
-                    </div>
 
-                </c:if>
+                <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                    商品名称:<select id="name" class="form-control has-feedback-left">
+                                    <c:forEach items="${orders.stocks}" var="sto">
+                                        <option value="${sto.stock_id}">${sto.stock_name}</option>
+                                    </c:forEach>
+                             </select>
+
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                    商品编号: <input type="text" id="input9" class="form-control has-feedback-left" disabled="disabled"
+                                 value="${stocks.stock_id}"/>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                    商品描述: <input type="text" id="input11" class="form-control form-control2 has-feedback-left" readonly="readonly"
+                                 value="${stocks.stock_describe}"/>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                    商品单位:<input type="text" id="input12" class="form-control"
+                                readonly="readonly" value="${stocks.stock_unit}"/>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback-left">
+                    单价:<input type="text" id="input13" class="form-control form-control2"   readonly="readonly" value="${stocks.stock_ordermoney}"/>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                    商品数量: <input type="number" id="input14" class="form-control form-control2 has-feedback-left" readonly="readonly"
+                                 value="${stocks.stock_count}" />
+
+                </div>
+
+                <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback-left">
+                    总金额:<input type="text" id="input15" class="form-control"
+                               readonly="readonly"
+                               value="${stocks.stock_count*stocks.stock_ordermoney}"/>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                    <%--仓库: <input type="text" id="input16" class="form-control has-feedback" readonly="readonly"--%>
+                    <%--value="${orders.shoopping.shoopping_warehouseid}"/>--%>
+                    仓库:  <select id="pid4" class="form-control"   onchange="gradeChange4()"  disabled="disabled"
+                                 name="order_state">
+                    <option <c:if test="${stocks.stock_warehouseid==1}"> selected="selected"</c:if>>1</option>
+                    <option <c:if test="${stocks.stock_warehouseid==2}"> selected="selected"</c:if>>2</option>
+                    </select>
+                </div>
+
                 <div class="clearfix"></div>
                 <div class="ln_solid"></div>
 
@@ -247,15 +249,34 @@
                                 style="vertical-align: inherit;">返回</font></font></button>
                         <button type="button" class="btn btn-success bianji" onclick="bj()">编辑</button>
                     </div>
-
-
             </form>
         </div>
     </div>
 
 </div>
+
+
 <%@include file=".././jsp/common/foot.jsp" %>
 <script>
+    $("#name").change(function () {
+         var num=$(this).val();
+        $.ajax({
+            type: "GET",//请求类型
+            url: "/OrangBank/Shop",//请求的url
+            data:{"id":num},
+            dataType: "json",//ajax接口（请求url）返回的数据类型
+            success: function (data) {//data：返回数据（json对象）
+
+              $("#input9").val(data[0].stock_id);
+                $("#input11").val(data[0].stock_describe);
+                $("#input12").val(data[0].stock_unit);
+                $("#input13").val(data[0].stock_ordermoney);
+                $("#input14").val(data[0].stock_count);
+                $("#input15").val(data[0].stock_count*data[0].stock_ordermoney);
+                $("#pid4").val(data[0].stock_warehouseid)
+            }
+        });
+    })
     function bj() {
         if($(".bianji").html()=='编辑'){
             if(confirm("确认编辑此订单信息么？")){
@@ -265,17 +286,31 @@
             }
         }else if($(".bianji").html()=='保存'){
             if(confirm("确认保存您修改的订单信息么？")){
+                $.ajax({
+                    type: "GET",//请求类型
+                    url: "/OrangBank/UpdateOrder",//请求的url
+                    data:{"orderId":$("#input1").val()},
+                    dataType: "json",//ajax接口（请求url）返回的数据类型
+                    success: function (data) {//data：返回数据（json对象）
+                        if(data=="true"){
+                            alert("保存成功")
+                        }else{
+                            alert("保存失败");
+                        }
+                    }
+                });
+
                 $(".bianji").html("编辑");
             }else {
                 return;
             }
         }
-        $(".form-control").removeAttr("readOnly");
-        $('.laydate-icon').removeAttr("disabled");
-        $('#pid3').removeAttr("disabled");
-        $('#pid2').removeAttr("disabled");
-        $('#pid').removeAttr("disabled");
-        $('#pid4').removeAttr("disabled");
+        $(".form-control2").removeAttr("readOnly");
+        // $('.laydate-icon').removeAttr("disabled");
+        // $('#pid3').removeAttr("disabled");
+        // $('#pid2').removeAttr("disabled");
+        // $('#pid').removeAttr("disabled");
+        // $('#pid4').removeAttr("disabled");
     }
 
 </script>

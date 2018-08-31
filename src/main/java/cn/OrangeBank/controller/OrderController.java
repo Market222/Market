@@ -7,6 +7,7 @@ import cn.OrangeBank.service.PositionService;
 import cn.OrangeBank.service.StockService;
 import cn.OrangeBank.service.SuppliershoopService;
 import com.alibaba.fastjson.JSON;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -72,6 +73,26 @@ public class OrderController {
         return "OrderView";
     }
 
+    @RequestMapping(value = "/Shop",produces = {"application/json;charset=utf-8"})
+    @ResponseBody
+    public String shop(@RequestParam("id") Integer id){
+
+        List<Stock> stocks = stockService.stoList(id);
+        return JSON.toJSONString(stocks);
+    }
+
+    @RequestMapping("/UpdateOrder")
+    @ResponseBody
+    public String updateOrder(@RequestParam() Integer id){
+        Stock st=new Stock();
+        st.setStock_id(id);
+        int i = stockService.updateSto(st);
+        String pan="";
+        if(i>0){
+             pan="true";
+        }
+        return JSON.toJSONString(pan);
+    }
 
     //添加
     @RequestMapping("/AddOrder")

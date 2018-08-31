@@ -7,4 +7,26 @@
         INSERT INTO stock(`stock_id`,`stock_name`,`stock_describe`,`stock_unit`,`stock_count`,stock_ordermoney,`stock_warehouseid`,`stock_orderid`)
         VALUES(DEFAULT,#{stock_name},#{stock_describe},#{stock_unit},#{stock_count},#{stock_ordermoney},#{stock_warehouseid},#{stock_orderid})
     </insert>
+    <select id="stoList" resultType="Stock">
+          SELECT* FROM stock <where>stock_id=${id}</where>
+
+    </select>
+    <update id="updateSto" >
+        UPDATE stock
+        <set>
+            <if test="stock_describe!=null and stock_describe!=''">
+                `stock_describe`=#{ stock_describe}
+            </if>
+            <if test="stock_count>0">
+                `stock_count`=#{ stock_count}
+            </if>
+            <if test="stock_ordermoney>0">
+                `stock_ordermoney`=#{ stock_ordermoney}
+            </if>
+
+        </set>
+
+      WHERE `stock_id`=#{stock_id}
+
+    </update>
 </mapper>

@@ -62,9 +62,9 @@
             <div class="row body2">
                 <div class="col-md-3" style="border-left:0px"><a href="/OrangBank/tiao" style="margin-left: -10px"><img
                         src="../statics/img/jinhuo.png"></a></div>
-                <div class="col-md-3"><a href="#" style="margin-left: -6px"><img src="../statics/img/jinhuotuihui.png"></a>
+                <div class="col-md-3"><a href="/OrangBank/tiao2" style="margin-left: -6px"><img src="../statics/img/jinhuotuihui.png"></a>
                 </div>
-                <div class="col-md-3"><a href="#" style="margin-left: -10px"><img src="../statics/img/fukuan.png"></a></div>
+                <div class="col-md-3"><a href="/OrangBank/tiao2" style="margin-left: -10px"><img src="../statics/img/fukuan.png"></a></div>
                 <div class="col-md-3" style="border-right:0px">
                         <ul style="text-align: center;margin-top: 20px">
                             <li> <a href="#">进货订单入库</a></li>
