@@ -73,14 +73,17 @@
                             <li> <a href="#">进货退回</a></li>
                         </ul>
                 </div>
-                <div class="col-md-3" style="border-left:0px"><a href="/OrangBank/xiaoshou" style="margin-left: -10px"><img
-                        src="../statics/img/xiaoshou.png"></a></div>
-                <div class="col-md-3"><a href="#" style="margin-left: -10px"><img src="../statics/img/xiaoshoutuihuo.png"></a>
-                </div>
-                <div class="col-md-3"><a href="#" style="margin-left: -10px"><img src="../statics/img/shoukuan.png"></a></div>
-                <div class="col-md-3" style="border-right:0px;margin: 0"><a href="#"
-                                                                            style="margin-left: -10px;"><img
-                        src="../statics/img/chuku.png" style="width: 196px"></a></div>
+                <div class="col-md-3" style="border-left:0px"><a href="/OrangBank/xiaoshou" style="margin-left: -10px">
+                    <img src="../statics/img/xiaoshou.png"></a></div>
+
+                <div class="col-md-3"><a href="/sInfo" style="margin-left: -10px">
+                    <img src="../statics/img/xiaoshoutuihuo.png"></a></div>
+
+                <div class="col-md-3"><a href="#" style="margin-left: -10px">
+                    <img src="../statics/img/shoukuan.png"></a></div>
+
+                <div class="col-md-3" style="border-right:0px;margin: 0"><a href="#" style="margin-left: -10px;">
+                    <img src="../statics/img/chuku.png" style="width: 196px"></a></div>
             </div>
 
         </div>

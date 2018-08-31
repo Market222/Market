@@ -149,7 +149,7 @@ public class OrderController {
     @RequestMapping(value = "/Suplist", produces = {"application/json;charset=utf-8"})
     @ResponseBody
     public String suplist(){
-        List<Supplier> suplist = supplierMapper.suplist();
+        List<Supplier> suplist = supplierMapper.queryList(null);
         return JSON.toJSONString(suplist);
     }
     //供应商
