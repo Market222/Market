@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -81,12 +82,25 @@ public class OrderController {
         return JSON.toJSONString(stocks);
     }
 
-    @RequestMapping("/UpdateOrder")
+    @RequestMapping(value = "/UpdateOrder")
     @ResponseBody
-    public String updateOrder(@RequestParam() Integer id){
-        Stock st=new Stock();
-        st.setStock_id(id);
-        int i = stockService.updateSto(st);
+    public String updateOrder( @RequestParam() String id ,
+                               @RequestParam() String describe,
+                               @RequestParam() String count ,
+                               @RequestParam() String ordermoney ,
+                               Stock sto){
+
+        try {
+                     describe = new String(describe.getBytes(
+                    "ISO-8859-1"), "utf-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        sto.setStock_id(Integer.valueOf(id));
+      sto.setStock_describe(describe);
+      sto.setStock_count(Integer.valueOf(ordermoney));
+      sto.setStock_ordermoney(Double.valueOf(count));
+        int i = stockService.updateSto(sto);
         String pan="";
         if(i>0){
              pan="true";

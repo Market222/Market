@@ -12,20 +12,15 @@
 
     </select>
     <update id="updateSto" >
-        UPDATE stock
-        <set>
-            <if test="stock_describe!=null and stock_describe!=''">
-                `stock_describe`=#{ stock_describe}
-            </if>
-            <if test="stock_count>0">
-                `stock_count`=#{ stock_count}
-            </if>
-            <if test="stock_ordermoney>0">
-                `stock_ordermoney`=#{ stock_ordermoney}
-            </if>
-        </set>
 
-      WHERE `stock_id`=#{stock_id}
+        UPDATE `stock` set
 
+                `stock_describe`=#{stock_describe},
+
+                `stock_count`=#{stock_count},
+
+                `stock_ordermoney`=#{stock_ordermoney}
+
+        WHERE `stock_id`= #{stock_id}
     </update>
 </mapper>

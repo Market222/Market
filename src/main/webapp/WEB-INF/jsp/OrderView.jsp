@@ -286,10 +286,19 @@
             }
         }else if($(".bianji").html()=='保存'){
             if(confirm("确认保存您修改的订单信息么？")){
+                var id=$("#input9").val();
+                var de=$("#input11").val();
+                var co=$("#input13").val();
+                var m=$("#input14").val();
                 $.ajax({
                     type: "GET",//请求类型
                     url: "/OrangBank/UpdateOrder",//请求的url
-                    data:{"orderId":$("#input1").val()},
+                    data: {
+                            "id":id,
+                                "describe":de,
+                                "count":co,
+                                "ordermoney":m
+                        },
                     dataType: "json",//ajax接口（请求url）返回的数据类型
                     success: function (data) {//data：返回数据（json对象）
                         if(data=="true"){
