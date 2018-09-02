@@ -13,4 +13,32 @@
     <select id="countUsers" resultType="_int">
         SELECT COUNT(1) FROM users WHERE  users_name = #{users_name}
     </select>
+
+    <!--查询全部用户 -->
+    <select id="SelectUsers" resultType="Users">
+        SELECT * FROM users where 1=1
+        <if test="users_id>0">
+            and users_id=#{users_id}
+        </if>
+    </select>
+//
+    <!--修改-->
+    <update id="Update" >
+        UPDATE users
+        <set>
+            <if test="users_name != null">users_name=#{users_name},</if>
+            <if test="users_company != null">users_company=#{users_company},</if>
+            <if test="users_phone != null">users_phone=#{users_phone},</if>
+            <if test="users_password != null">users_password=#{users_password},</if>
+            <if test="users_truename != null">users_truename=#{users_truename},</if>
+            <if test="users_email != null">users_email=#{users_email},</if>
+            <if test="users_admin != null">users_admin=#{users_admin},</if>
+        </set>
+        where  users_id = #{users_id}
+    </update>
+    <!--删除用户-->
+    <delete id="Delete" >
+        Delete from users where  users_id=#{id}
+    </delete>
+
 </mapper>
