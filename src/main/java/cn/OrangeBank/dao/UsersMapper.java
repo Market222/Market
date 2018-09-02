@@ -18,6 +18,6 @@ public interface UsersMapper {
     List<Users> SelectUsers(Users users);
     //删除用户
     int Delete(@Param("id") Integer id);
-    //修改查询
+    //修改查询 //
     int  Update(Users users);
 }
