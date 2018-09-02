@@ -1,6 +1,7 @@
 package cn.OrangeBank.service.impl;
 
 import cn.OrangeBank.dao.SupplierShoopMapper;
+import cn.OrangeBank.entity.Supplier;
 import cn.OrangeBank.entity.Suppliershoop;
 import cn.OrangeBank.service.SuppliershoopService;
 import org.springframework.stereotype.Service;
@@ -18,5 +19,9 @@ public class SuppliershoopServiceImpl implements SuppliershoopService {
 
     public List<Suppliershoop> supList(Integer id, Integer shopid) {
         return supplierShoopMapper.supList(id,shopid);
+    }
+
+    public List<Suppliershoop> supShopList(Suppliershoop sup) {
+        return supplierShoopMapper.supShopList(sup);
     }
 }

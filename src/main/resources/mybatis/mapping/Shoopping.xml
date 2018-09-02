@@ -6,4 +6,12 @@
     <select id="shopList" resultType="Shoopping">
               SELECT * FROM shoopping
     </select>
+    <select id="queryShoopping" resultType="Shoopping">
+            SELECT * FROM shoopping
+            <where>
+                <if test="shoopping_name!=null and shoopping_name!=''">
+                    shoopping_name=#{shoopping_name}
+                </if>
+            </where>
+    </select>
 </mapper>

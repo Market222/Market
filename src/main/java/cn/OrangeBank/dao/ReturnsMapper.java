@@ -9,4 +9,5 @@ import java.util.Map;
 public interface ReturnsMapper{
     List<Returns> TotalRows(Returns returns);
     List<Returns> returnsList(Map map);
+    int addReturns(Returns returns);
 }
