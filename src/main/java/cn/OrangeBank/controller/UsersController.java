@@ -4,9 +4,10 @@ import cn.OrangeBank.entity.Users;
 import cn.OrangeBank.service.UsersService;
 import cn.OrangeBank.util.MD5andKL;
 import com.alibaba.fastjson.JSON;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -15,7 +16,6 @@ import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 @Controller
 @RequestMapping("/OrangBank")
@@ -79,7 +79,7 @@ public class UsersController {
     //判断用户有没有注册
     @RequestMapping("/countUsers")
     @ResponseBody
-    public Object countUsers(Users users,String users_name){
+    public Object countUsers(Users users, String users_name){
         users.setUsers_name(users_name);
         int i = usersService.countUsers(users);
         Map<String,Object> map = new HashMap<String, Object>();
@@ -99,4 +99,57 @@ public class UsersController {
         System.out.println(uuid);
         return mv;
     }*/
+
+    //查询用户
+    @RequestMapping("/SelectUsers")
+    public ModelAndView SelectUsers(Users users) {
+        List<Users> usersList = usersService.SelectUsers(users);
+        mv.addObject("usersList", usersList);
+        mv.setViewName("UsersSelect");
+        return mv;
+    }
+
+    //删除用户
+    @RequestMapping("/delete")
+    public  ModelAndView Delete(@Param("users_id") Integer  users_id){
+        int delete = usersService.Delete(users_id);
+        if(delete>0){
+            return new ModelAndView("redirect:/OrangBank/SelectUsers");
+        }else {
+            mv.setViewName("UsersSelect");
+        }
+        return mv;
+    }
+
+
+
+
+    //根据id查询用户
+    @RequestMapping("/SelectUsersid")
+    public ModelAndView SelectUsersid(Users users , @Param("users_id") Integer users_id) {
+        users.setUsers_id(users_id);
+        List<Users> users1 = usersService.SelectUsers(users);
+        for (Users users2 : users1) {
+            mv.addObject("users2", users2);
+        }
+        mv.setViewName("UsersUpdate");
+        return mv;
+    }
+    // *
+    //     *  修改用户
+    //     * @param users
+    //     * @param mv
+    //     * @return
+    //
+    @RequestMapping("/update")
+    public ModelAndView update(Users users, ModelAndView mv, @RequestParam(required = false) Integer users_id){
+        users.setUsers_id(users_id);
+        int i = usersService.Update(users);
+        if(i>0){
+            return new ModelAndView("redirect:/OrangBank/SelectUsers");
+        }else{
+            mv.setViewName("UsersSelect");
+        }
+        return mv;
+    }
 }
