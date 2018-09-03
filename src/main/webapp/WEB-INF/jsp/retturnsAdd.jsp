@@ -22,33 +22,43 @@
     </li>
 </ul>
 <div class="main" style="height: auto;">
-    <form style="margin: 0px auto" class="form-horizontal form-label-left"  novalidate action="/OrangBank/AddOrder" method="post">
+    <form style="margin: 0px auto" class="form-horizontal form-label-left"  novalidate action="/Returns/ReturnsAdd" method="post">
         <span class="section">新增APP基础信息</span>
 
       <div class="item form-group" >
             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="number">选择商品<span class="required">*</span>
             </label>
             <div class="col-md-6 col-sm-6 col-xs-12">
-                <select name="order_state" onchange="gradeChange()"
-                        name="order_state">
-                    <option >未发送</option>
-                    <option >已发送</option>
+                <select id="shop" style="display: inline-block ;width: 27%">
+
                 </select>
+                数量：
+                <input type="number" id="num" style="display: inline-block;height: 4.2%"/>
+                <input type="button" value="确定" id="ok"  style="display: inline-block;">
             </div>
         </div>
         <div class="item form-group" >
             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="number">退回商品列表<span class="required">*</span>
             </label>
-           <textarea id="tui" style="margin-right: 0px">
-
-           </textarea>
+           <textarea id="tui" name="shopList" style="margin-right: 0px"></textarea>
         </div>
 
+        <div class="item form-group" >
+            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="number">供应商<span class="required">*</span>
+            </label>
+            <input type="text" readonly="readonly" id="gong" />
+            <input type="hidden" readonly="readonly" id="gongid" />
+        </div>
+        <div class="item form-group" >
+            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="number">退回理由<span class="required">*</span>
+            </label>
+            <textarea id="tuiLi" style="margin-right: 0px" name="returns_returnsobjection"></textarea>
+        </div>
         <div class="item form-group">
-            <label class="control-label col-md-3 col-s  m-3 col-xs-12" for="name">状态 <span class="required">*</span>
+            <label class="control-label col-md-3 col-s  m-3 col-xs-12" for="name">发送状态 <span class="required">*</span>
             </label>
             <div class="col-md-6 col-sm-6 col-xs-12">
-                <select id="pid" name="order_state" onchange="gradeChange()"
+                <select id="pid" name="returns_state" onchange="gradeChange()"
                         name="order_state">
                     <option >未发送</option>
                     <option >已发送</option>
@@ -117,7 +127,7 @@
 
             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">发送时间 <span class="required">*</span>
             </label>
-            <input style="margin-left: -53%" name="order_sendtime" readonly="readonly" class="laydate-icon" id="demo"/>
+            <input style="margin-left: -53%" name="returns_sendtime" readonly="readonly" class="laydate-icon" id="demo"/>
 
             <script>
                 !function () {
@@ -170,11 +180,11 @@
         </div>
 
         <div class="item form-group ">
-            <label class="control-label col-md-3 col-sm-3 col-xs-12">确认状态 <span class="required">*</span>
+            <label class="control-label col-md-3 col-sm-3 col-xs-12">供应商确认状态 <span class="required">*</span>
             </label>
             <div class="col-md-6 col-sm-6 col-xs-12">
                 <select id="pid2"
-                        onchange="gradeChange2()" name="order_stateConfirmation">
+                        onchange="gradeChange2()" name="returns_stateConfirmation">
                     <option>待确认</option>
                     <option>已确认</option>
                 </select>
@@ -183,7 +193,7 @@
         <div class="item form-group queren" style="display: none">
             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="number">确认时间 <span class="required">*</span>
             </label>
-            <input style="margin-left: -53%" class="laydate-icon"  readonly="readonly" name="order_confirmedTime" id="demo1"/>
+            <input style="margin-left: -53%" class="laydate-icon"  readonly="readonly" name="returns_confirmedtime" id="demo1"/>
             <script>
                 !function () {
                     laydate.skin('molv');//切换皮肤，请查看skins下面皮肤库
@@ -238,7 +248,7 @@
             </label>
             <div class="col-md-6 col-sm-6 col-xs-12">
                 <select  id="pid3"
-                        onchange="gradeChange3()" name="">
+                        onchange="gradeChange3()" name="returns_objectionstatus">
                     <option >未拒绝</option>
                     <option >已拒绝</option>
                 </select>
@@ -248,28 +258,29 @@
             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="number">拒绝理由 <span class="required">*</span>
             </label>
             <div class="col-md-6 col-sm-6 col-xs-12">
-                <textarea style="width: 450px;margin-left:6%" id="textarea" required="required" name="order_objection"
+                <textarea style="width: 450px;margin-left:6%" id="textarea" required="required" name="returns_objection"
                           class="form-control col-md-7 col-xs-12"></textarea>
             </div>
         </div>
 
         <div class="ju">
         <div class="item form-group">
-            <label class="control-label col-md-3 col-sm-3 col-xs-12">发货状态 <span class="required">*</span>
+            <label class="control-label col-md-3 col-sm-3 col-xs-12">出库状态 <span class="required">*</span>
             </label>
             <div class="col-md-6 col-sm-6 col-xs-12">
                 <select id="pid4"
-                        onchange="gradeChange4()" name="order_isship">
-                    <option >待发货</option>
-                    <option >已发货</option>
+                        onchange="gradeChange4()" name="returns_warehousestatus">
+                    <option >未出库</option>
+                    <option >已出库</option>
                 </select>
             </div>
         </div>
-        <div class="item form-group shijian" style="display: none">
-            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="number">发货时间 <span class="required">*</span>
+        <div class="item form-group shijian" style="display: none" id="chu">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="number">出库时间 <span class="required">*</span>
             </label>
-            <input  style="margin-left: -52.5%" class="laydate-icon"  readonly="readonly" name="order_shiptime" id="demo2" />
+            <input  style="margin-left: -52.5%" class="laydate-icon"  readonly="readonly" name="returns_warehousetime" id="demo2" />
             <script>
+
                 !function () {
                     laydate.skin('molv');//切换皮肤，请查看skins下面皮肤库
                     laydate({elem: '#demo2'});//绑定元素
@@ -319,22 +330,75 @@
             </script>
         </div>
         <div class="item form-group" >
-            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="number">仓库<span class="required">*</span>
+            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="number">供应商收货状态<span class="required">*</span>
             </label>
             <div class="col-md-6 col-sm-6 col-xs-12">
-                <select id="cang"
-                        name="cang">
-
+                <select  name="returns_takestatus" id="shou">
+                        <option>未收货</option>
+                        <option>已收货</option>
                 </select>
             </div>
         </div>
+            <div class="item form-group shijian" id="shoutime" style="display: none">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="number">供应商收货时间 <span class="required">*</span>
+                </label>
+                <input  style="margin-left: -52.5%" class="laydate-icon"  readonly="readonly" name="returns_taketime" id="demo3" />
+                <script>
+                    !function () {
+                        laydate.skin('molv');//切换皮肤，请查看skins下面皮肤库
+                        laydate({elem: '#demo3'});//绑定元素
+
+                    }();
+                    //日期范围限制
+                    var start = {
+                        elem: '#start',
+                        format: 'YYYY-MM-DD',
+                        min: laydate.now(), //设定最小日期为当前日期
+                        max: '2099-06-16', //最大日期
+                        istime: true,
+                        istoday: false,
+                        choose: function (datas) {
+                            end.min = datas; //开始日选好后，重置结束日的最小日期
+                            end.start = datas //将结束日的初始值设定为开始日
+                        }
+                    };
+                    var end = {
+                        elem: '#end',
+                        format: 'YYYY-MM-DD',
+                        min: laydate.now(),
+                        max: '2099-06-16',
+                        istime: true,
+                        istoday: false,
+                        choose: function (datas) {
+                            start.max = datas; //结束日选好后，充值开始日的最大日期
+                        }
+                    };
+                    laydate(start);
+                    laydate(end);
+                    //自定义日期格式
+                    laydate({
+                        elem: '#test1',
+                        format: 'YYYY年MM月DD日',
+                        festival: true, //显示节日
+                        choose: function (datas) { //选择日期完毕的回调
+                            alert('得到：' + datas);
+                        }
+                    });
+                    //日期范围限定在昨天到明天
+                    laydate({
+                        elem: '#hello3',
+                        min: laydate.now(-1), //-1代表昨天，-2代表前天，以此类推
+                        max: laydate.now(+1) //+1代表明天，+2代表后天，以此类推
+                    });
+                </script>
+            </div>
             <div class="item form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12">入库状态 <span class="required">*</span>
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">供应商付款状态 <span class="required">*</span>
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                    <select  name="order_warehousestatus">
-                        <option >未入库</option>
-                        <option >已入库</option>
+                    <select  name="returns_paymentstatus">
+                        <option >未付款</option>
+                        <option >已付款</option>
                     </select>
                 </div>
             </div>
@@ -352,52 +416,95 @@
 
     <script src="../statics/vendors/jquery/dist/jquery.min.js"></script>
     <script>
-
-        /*供应商*/
-        $.ajax({
-            type: "GET",//请求类型
-            url: "/OrangBank/Suplist",//请求的url
-            dataType: "json",//ajax接口（请求url）返回的数据类型
-            success: function (data) {//data：返回数据（json对象）
-
-                if (data != null) {
-                    $("#gong").html("");//通过标签选择器，得到select标签，适用于页面里只有一个select
-                    var options = "<option value=\"0\">请选择</option>";
-                    for (var i = 0; i < data.length; i++) {
-                        //alert(data[i].id);
-                        //alert(data[i].proName);
-                        options += "<option value=\"" + data[i].supplier_id + "\">" + data[i].supplier_name + "</option>";
-                    }
-                    $("#gong").html(options);
-                }
+        /*时间隐藏*/
+        $("#pid4").change(function () {
+            if($(this).val()=="已出库"){
+                $("#chu").show();
+            }else{
+                $("#chu").hide();
+                $("#shou").val("未收货")
             }
-        });
 
-            /*供应商商品*/
+        })
+        $("#shou").change(function () {
+
+            if($(this).val()=="已收货"){
+                $("#shoutime").show();
+            }else{
+                $("#shoutime").hide();
+            }
+        })
+
+
+
+        shop();
+        function shop(){
+            /*商品*/
             $.ajax({
                 type: "GET",//请求类型
                 url: "/Returns/ShopList",//请求的url
-                data:{"id":$("#gong").val()},
+                data:{"supId":$("#gongid").val()},
+                dataType: "json",//ajax接口（请求url）返回的数据类型
+                success: function(data) {//data：返回数据（json对象）
+                    if (data!=null) {
+
+                        $("#shop").html("");//通过标签选择器，得到select标签，适用于页面里只有一个select
+                        var options = "<option value=\"0\">请选择</option>";
+
+
+                            for (var i = 0; i < data.length; i++) {
+                                        options += "<option>" + data[i].shoopping_name + "</option>";
+                                    }
+                            }
+
+
+                        $("#shop").html(options);
+                    }
+
+            });
+        }
+        function gong(){
+            /*供应商*/
+            $.ajax({
+                type: "POST",//请求类型
+                url: "/Returns/SupShopList",//请求的url
+                data:{"shop": $("#shop").val()},
                 dataType: "json",//ajax接口（请求url）返回的数据类型
                 success: function (data) {//data：返回数据（json对象）
-
                     if (data != null) {
-                        $("#sahngp").html("");//通过标签选择器，得到select标签，适用于页面里只有一个select
-                        var options='';
-                        for (var i = 0; i < data.length; i++) {
-                            options+="<input type='checkbox' name='name' value='"+data[i].suppliershoop_id+"'/> <label >"+data[i].suppliershoop_name+"</label>&nbsp;&nbsp;<label >数量：</label><input type='number' name='count'/> <br/>"
-                            // options += " <input type=\"checkbox\" id=\"check1\" value='sf' name=\"name\" >\n" +
-                            //     "\n" +
-                            //     "                            <label for=\"check1\">data[i].suppliershoop_name </label>\n";
-
-
+                        $("#gong").html("");
+                        $("#gong").val(data.supp.supplierName);
+                        var options = "<option value=\"0\">请选择</option>";
+                        for (var i = 0; i < data.shop.length; i++) {
+                            for (var s = 0; s < data.sup.length; s++) {
+                                if (data.shop[i].shoopping_name == data.sup[s].suppliershoop_name) {
+                                    options += "<option>" + data.shop[i].shoopping_name + "</option>";
+                                }
+                            }
+                            //alert(data[i].id);
+                            //alert(data[i].proName);
+                            $("#shop").html("");
+                            $("#shop").html(options);
                         }
-
-                        $("#sahngp").html(options);
                     }
                 }
             });
+        }
+        $("#ok").click(function () {
 
+               var tui=$("#tui").text();
+            if(tui==null || tui==""){
+                tui+=$("#shop").val()+"-"+$("#num").val();
+
+            }else{
+                tui+=","+$("#shop").val()+"-"+$("#num").val();
+            }
+            $("#tui").text(tui);
+            $("#num").val("");
+            /*供应商*/
+            gong();
+
+        })
 
         /*仓库*/
         $.ajax({

@@ -1,6 +1,8 @@
 package cn.OrangeBank.entity;
 
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -10,15 +12,19 @@ public class Returns {
   private String returns_id;
   private String returns_returnsobjection;
   private String returns_state;
+  @DateTimeFormat(pattern = "yyyy-MM-dd")
   private Date returns_sendtime;
   private String returns_stateConfirmation;
+  @DateTimeFormat(pattern = "yyyy-MM-dd")
   private Date returns_confirmedtime;
   private String returns_objectionstatus;
   private String returns_objection;
   private double returns_countmoney;
   private String returns_warehousestatus;
+  @DateTimeFormat(pattern = "yyyy-MM-dd")
   private Date returns_warehousetime;
   private String returns_takestatus;
+  @DateTimeFormat(pattern = "yyyy-MM-dd")
   private Date returns_taketime;
   private String returns_paymentstatus;
   private long returns_userid;

@@ -10,7 +10,7 @@ import java.util.List;
 
 @Service
 public class UsersServiceImpl implements UsersService {
-
+    //
     @Resource
     private UsersMapper usersMapper;
 
@@ -24,5 +24,17 @@ public class UsersServiceImpl implements UsersService {
 
     public int countUsers(Users users) {
         return usersMapper.countUsers(users);
+    }
+
+    public List<Users> SelectUsers(Users users) {
+        return usersMapper.SelectUsers(users);
+    }
+
+    public int Delete(int id) {
+        return usersMapper.Delete(id);
+    }
+
+    public int Update(Users users) {
+        return usersMapper.Update(users);
     }
 }

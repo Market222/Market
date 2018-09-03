@@ -37,7 +37,7 @@
 
 <script src="../statics/datatables/css/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="../statics/datatables/css/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-<script>
+<script >
 
     $("#xianshi").click(function (event) {
         $(".none").toggle();
@@ -46,6 +46,7 @@
             $(this).text(cur === '显示' ? '隐藏' : '显示');
         }
     });
+
     $(document).ready(function() {
 
         $("#tabless").DataTable({
@@ -115,24 +116,13 @@
                         }
                         return zhi;
                     } },
-                { "data": "returns_id","render": function ( data, type, full, meta ) {
+                     { "data": "returns_id","render": function ( data, type, full, meta ) {
 
-                        return '<div class="btn-group" style="width: 110px;">\n' +
-                            '  <button type="button" class="btn btn-danger btn-group ">点击操作</button>\n' +
-                            '  <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-expanded="false">\n' +
-                            '    <span class="caret"></span>\n' +
-                            '    <span class="sr-only">Toggle Dropdown</span>\n' +
-                            '  </button>\n' +
-                            '  <ul class="dropdown-menu" role="menu">\n'+
-                            '    <li><a   href="OrderView/'+data+'" >查看</a>\n' +
-                            '    </li>\n' +
-                            '    <li><a href="#">修改</a>\n' +
-                            '    </li>\n' +
-                            '    <li><a href="OrderDel/'+data+'">删除</a>\n' +
-                            '    </li>\n' +
-                            '  </ul>\n' +
-                            '</div>';
-                    }}
+
+                            return "  <td ><a href='OrderView/" +data + "'><i class=\"fa fa-desktop \"></i></a>&nbsp;&nbsp;<a   href='javascript:del(0)'><i\n" +
+                                "class=\"fa fa-trash\"></i></a>&nbsp;&nbsp;<a  href='javascript:xg("+data+")'><i class=\"fa fa-edit\"></i><span\n" +
+                                "class=\"text-muted\"></span></a></td>";
+                      }}
             ],
             "oLanguage" : { // 国际化配置
                 "sProcessing": "正在获取数据，请稍后...",
@@ -162,5 +152,26 @@
             fixedHeader: true
         });
     });
+    var del=  function (data) {
 
+            if(confirm("确认删除吗")){
+                /*供应商*/
+                $.ajax({
+                    type: "POST",//请求类型
+                    url: "/Returns/DelReturn",//请求的url
+                    data:{"id": data},
+                    dataType: "json",//ajax接口（请求url）返回的数据类型
+                    success: function (data) {//data：返回数据（json对象）
+                        if(data=="true"){
+                            alert(删除成功);
+                        }else{
+                            alert(删除失败);
+                        }
+                    }
+                });
+            }
+            else{
+                return;
+            }
+    }
 </script>

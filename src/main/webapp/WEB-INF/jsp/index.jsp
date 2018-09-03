@@ -54,7 +54,7 @@
             <div class="row body2">
                 <div class="col-md-3" style="border-left:0px"><a href="/OrangBank/tiao" style="margin-left: -10px"><img
                         src="../statics/img/jinhuo.png"></a></div>
-                <div class="col-md-3"><a href="/OrangBank/tiao2" style="margin-left: -6px"><img src="../statics/img/jinhuotuihui.png"></a>
+                <div class="col-md-3"><a href="/Returns/tiao" style="margin-left: -6px"><img src="../statics/img/jinhuotuihui.png"></a>
                 </div>
                 <div class="col-md-3"><a href="/OrangBank/tiao2" style="margin-left: -10px"><img src="../statics/img/fukuan.png"></a></div>
                 <div class="col-md-3" style="border-right:0px">

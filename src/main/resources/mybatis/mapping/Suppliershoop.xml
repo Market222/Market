@@ -10,4 +10,10 @@
             <if test="shopid>0">and suppliershoop_id =#{shopid}</if>
         </where>
     </select>
+    <select id="supShopList" resultType="Suppliershoop">
+          SELECT * FROM suppliershoop
+        <where>
+            <if test="suppliershoop_name!='' and suppliershoop_name!=null">suppliershoop_name=#{suppliershoop_name}</if>
+        </where>
+    </select>
 </mapper>

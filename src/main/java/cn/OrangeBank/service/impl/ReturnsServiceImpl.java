@@ -22,4 +22,12 @@ public class ReturnsServiceImpl implements ReturnsService {
     public List<Returns> returnsList(Map map) {
         return returnsMapper.returnsList(map);
     }
+
+    public int addReturns(Returns returns) {
+        return returnsMapper.addReturns(returns);
+    }
+
+    public int delReturns(Integer id) {
+        return returnsMapper.delReturns(id);
+    }
 }
