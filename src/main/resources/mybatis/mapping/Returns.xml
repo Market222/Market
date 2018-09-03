@@ -35,4 +35,7 @@
         INSERT INTO `returns` (`returns_id`,`returns_returnsobjection`,`returns_state`,`returns_sendtime`,`returns_stateConfirmation`,`returns_confirmedtime`,`returns_objectionstatus`,`returns_objection`,`returns_countmoney`,`returns_warehousestatus`,`returns_warehousetime`,`returns_takestatus`,`returns_taketime`,`returns_paymentstatus`,`returns_userid`)
                           VALUES(#{returns_id},#{returns_returnsobjection},#{returns_state},#{returns_sendtime},#{returns_stateConfirmation},#{returns_confirmedtime},#{returns_objectionstatus},#{returns_objection},#{returns_countmoney},#{returns_warehousestatus},#{returns_warehousetime},#{returns_takestatus},#{returns_taketime},#{returns_paymentstatus},#{returns_userid})
     </insert>
+    <delete id="delReturns">
+        delete from  `returns` where returns_id=#{id}
+    </delete>
 </mapper>

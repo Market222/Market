@@ -5,6 +5,7 @@ import cn.OrangeBank.entity.*;
 import cn.OrangeBank.service.*;
 import com.alibaba.fastjson.JSON;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -132,4 +133,14 @@ public class ReturnsController {
             }
         }
 
+    @RequestMapping("/DelReturn")
+    @ResponseBody
+    public String delReturn( @RequestParam() Integer id) {
+        int i = returnsService.delReturns(id);
+        String pan="";
+        if(i>0){
+            pan="true";
+        }
+        return JSON.toJSONString(pan);
     }
+}
