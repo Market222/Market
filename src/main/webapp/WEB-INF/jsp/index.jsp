@@ -15,15 +15,7 @@
         <div id="myTabContent" class="row">
             <div role="tabpanel" class="tab-pane fade active in col-md-3" id="tab_content1" aria-labelledby="home-tab">
                 <p><font style="vertical-align: inherit;"><strong
-                        style="vertical-align: inherit;">深圳市绿色原野公司，张三</strong></font></p>
-            </div>
-            <div role="tabpanel" class="col-md-3" aria-labelledby="home-tab">
-                <p><font style="vertical-align: inherit;"><strong
-                        style="vertical-align: inherit;">财富号：</strong><b>88888888</b></font></p>
-            </div>
-            <div class="col-md-3" aria-labelledby="home-tab">
-                <p><font style="vertical-align: inherit;"><strong
-                        style="vertical-align: inherit;">天下通：</strong><b>88888888</b></font></p>
+                        style="vertical-align: inherit;">${userEntity.users_company},${userEntity.users_truename}</strong></font></p>
             </div>
         </div>
 

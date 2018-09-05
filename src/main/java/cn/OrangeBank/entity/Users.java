@@ -8,8 +8,32 @@ public class Users {
     private String users_company;//公司名称
     private String users_truename;//真实姓名
     private String users_email;//邮箱
-    private Integer users_admin; //角色
-    //
+    private Integer users_roleid;//角色表id
+
+    public String getUsers_truename() {
+        return users_truename;
+    }
+
+    public void setUsers_truename(String users_truename) {
+        this.users_truename = users_truename;
+    }
+
+    public String getUsers_email() {
+        return users_email;
+    }
+
+    public void setUsers_email(String users_email) {
+        this.users_email = users_email;
+    }
+
+    public Integer getUsers_roleid() {
+        return users_roleid;
+    }
+
+    public void setUsers_roleid(Integer users_roleid) {
+        this.users_roleid = users_roleid;
+    }
+
     public Integer getUsers_id() {
         return users_id;
     }
@@ -48,29 +72,5 @@ public class Users {
 
     public void setUsers_company(String users_company) {
         this.users_company = users_company;
-    }
-
-    public String getUsers_truename() {
-        return users_truename;
-    }
-
-    public void setUsers_truename(String users_truename) {
-        this.users_truename = users_truename;
-    }
-
-    public String getUsers_email() {
-        return users_email;
-    }
-
-    public void setUsers_email(String users_email) {
-        this.users_email = users_email;
-    }
-
-    public Integer getUsers_admin() {
-        return users_admin;
-    }
-
-    public void setUsers_admin(Integer users_admin) {
-        this.users_admin = users_admin;
     }
 }
