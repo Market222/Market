@@ -10,9 +10,17 @@ public class Shoopping {
     private Integer shoopping_count;//商品数量
     private double shoopping_stockmoney;//进货单价
     private double shoopping_marketmoney;//销货单价
+    private Integer shoopping_sales;//销量
     private Integer shoopping_warehouseid;//仓库id
 
 
+    public Integer getShoopping_sales() {
+        return shoopping_sales;
+    }
+
+    public void setShoopping_sales(Integer shoopping_sales) {
+        this.shoopping_sales = shoopping_sales;
+    }
 
     public Integer getShoopping_id() {
         return shoopping_id;

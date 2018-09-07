@@ -4,6 +4,11 @@
 <%@include file="../jsp/common/head.jsp" %>
 <link href="../statics/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
 <link type="text/css" rel="styleSheet"  href="../statics/CSS/index.css" />
+<script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.bootcss.com/Swiper/3.4.2/js/swiper.jquery.min.js"></script>
+<script src="../statics/JSPwindow/lib/layui/layui.js"></script>
+<script type="text/javascript" src="../statics/JSPwindow/js/xadmin.js"></script>
+
 <div class="x_content">
     <div class="" role="tabpanel" data-example-id="togglable-tabs" style="position: relative;">
         <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
@@ -97,8 +102,18 @@
                 <li><a href="#">付款单列表</a></li>
                 <li><a href="#">供应商历史价格查询</a></li>
                 <li><a href="#">客户历史价格查询</a></li>
-                <li><a href="#">销售排行榜</a></li>
+                <li><a onclick="Sales_charts('销售排行榜','/OrangBank/Sales_charts2','800','700')"  href="javascript:;" title="修改">销售排行榜</a></li>
+                <%--<li><a  href="#" onclick="tk()" >销售排行榜</a></li>--%>
             </ul>
         </div>
     </div>
 <%@include file="../jsp/common/foot.jsp" %>
+
+    <script>
+        // 编辑
+        function Sales_charts(title,url,w,h) {
+            x_admin_show(title,url,w,h);
+        }
+
+
+         </script>

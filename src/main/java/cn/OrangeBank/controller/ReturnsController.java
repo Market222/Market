@@ -40,7 +40,7 @@ public class ReturnsController {
     @RequestMapping(value = "SupShopList",produces = {"application/json;charset=utf-8"})
     @ResponseBody
     public String supShopList(@RequestParam()String shop){
-        Suppliershoop sup=new Suppliershoop();
+            Suppliershoop sup=new Suppliershoop();
         sup.setSuppliershoop_name(shop);
         List<Suppliershoop> suppliershoops = suppliershoopService.supShopList(sup);
         int suppId = (int)suppliershoops.get(0).getSuppliershoop_supplierid();

@@ -10,6 +10,9 @@
 <link rel="stylesheet" type="text/css" href="../statics/CSS/hzw-city-picker.css">
 <script src="../statics/build/js/laydate/laydate.js"></script>
 <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
+    <li><a href="/OrangBank/tiao2"><font style="vertical-align: inherit;"><font
+            style="vertical-align: inherit;">首页</font></font></a>
+    </li>
     <li role="presentation" class="active"><a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab"
                                               aria-expanded="true"><font style="vertical-align: inherit;"><font
             style="vertical-align: inherit;">销售订单</font></font></a>
@@ -131,7 +134,7 @@
 
             </div>
         </div>
-        <div class="x_content" style="overflow-x: auto; overflow-y: auto; height: 300px;margin-top: 20px">
+        <div class="x_content" style="overflow-x: auto; overflow-y: auto; height: 350px;margin-top: 20px">
             <table class="table table-bordered">
                 <thead>
                 <tr>
@@ -146,13 +149,10 @@
                 </tr>
                 </thead>
                 <tbody class="box">
-
                 </tbody>
             </table>
         </div>
-
     </div>
-
 </div>
 <%@include file="../jsp/common/foot.jsp" %>
 <script>
