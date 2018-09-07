@@ -56,8 +56,8 @@
         <li><a href="#">资金</a></li>
         <li><a href="#">报表</a></li>
         <li><a href="#">设置</a></li>
-        <li style="float: right"><a href="#">退出</a></li>
-        <li><a href="/OrangBank/exitUser">退出</a></li>
+
+        <li style="float: right"><a href="/OrangBank/exitUser">退出</a></li>
     </ul>
 </div>
 

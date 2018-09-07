@@ -63,7 +63,7 @@
                 </div>
                 <div class="col-md-3"><a href="/sInfo" style="margin-left: -10px"><img src="../statics/img/fukuan.png"></a></div>
                 <div class="col-md-3" style="border-right:0px">
-                        <ul style="text-align: center;margin-top: 20px">
+                        <ul style="text-align: center;margin-top: 30%;">
                             <li> <a href="#">进货订单入库</a></li>
                             <li> <a href="#">进货退回</a></li>
                         </ul>
@@ -82,7 +82,7 @@
             </div>
 
         </div>
-      <%--  <div class="main2" >
+      <div class="main2" >
             <ul>
                 <li style="text-align:center;background-color: orange">快速查看</li>
                 <li><a href="#">进货订单及退回单列表</a></li>
@@ -93,9 +93,9 @@
                 <li><a href="#">供应商历史价格查询</a></li>
                 <li><a href="#">客户历史价格查询</a></li>
                 <li><a onclick="Sales_charts('销售排行榜','/OrangBank/Sales_charts2','800','700')"  href="javascript:;" title="修改">销售排行榜</a></li>
-                <%--<li><a  href="#" onclick="tk()" >销售排行榜</a></li>--%>
+            <%--<li><a  href="#" onclick="tk()" >销售排行榜</a></li>--%>
             </ul>
-        </div>--%>
+        </div>
     </div>
 <%@include file="../jsp/common/foot.jsp" %>
 
