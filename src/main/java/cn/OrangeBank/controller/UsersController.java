@@ -23,7 +23,6 @@ import java.util.Map;
 @Controller
 @RequestMapping("/OrangBank")
 public class UsersController {
-///
     @Resource
     private UsersService usersService;
 
@@ -155,21 +154,8 @@ public class UsersController {
         return mv;
     }
 
-    //根据id查询用户
-    @RequestMapping("/queryUseraa")
-    public ModelAndView queryUserid(Users users ,  @Param("users_id")  Integer users_id ,Role role ) {
-        users.setUsers_id(users_id);
-        List<Users> grusers = usersService.SelectUsers(users);
-        List<Role> grroleList = usersService.SelectRole(role);
-        mv.addObject("roleList1", grroleList);
-        for (Users grusers2:grusers){
-            mv.addObject("users3", grusers2);
-        }
-        mv.setViewName("GRUsersUpdate");
-        return mv;
-    }
     // *
-    //     *  修改用户
+    //     *  修改个人用户
     //     * @param users
     //     * @param mv
     //     * @return
@@ -179,9 +165,10 @@ public class UsersController {
         users.setUsers_id(users_id);
         int i = usersService.Update(users);
         if(i>0){
-            return new ModelAndView("redirect:/OrangBank/queryUseraa");
+            return SelectUsersid(users,users_id,null);
+            /* return new ModelAndView("redirect:/OrangBank/queryUseraa?id=users_id");*/
         }else{
-            mv.setViewName("GRUsersUpdate");
+            mv.setViewName("UsersUpdate");
         }
         return mv;
     }

@@ -29,7 +29,7 @@
             </c:if>
             <c:if test="${userEntity.role_id!=1}">
             <div role="tabpanel" class="tab-pane fade active in col-md-3" id="tab_content3" aria-labelledby="home-tab">
-                <a href="/OrangBank/queryUseraa?users_id=${userEntity.users_id}">个人信息</a>
+                <a href="/OrangBank/SelectUsersid?users_id=${userEntity.users_id}">个人信息</a>
             </div>
             </c:if>
         </div>
