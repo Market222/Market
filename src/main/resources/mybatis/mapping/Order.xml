@@ -17,12 +17,13 @@
         </collection>
     </resultMap>
     <select id="TotalRows" resultMap="ordermap2">
-        SELECT * FROM `order` o,stock s
+        SELECT * FROM `order` o,stock s,`position` p
         <where>
             o.`order_id`= s.stock_orderid
-             <if test="order_id !=null  ">
-                 AND o.`order_id`=#{order_id}
-             </if>
+            AND p.`position_id`=s.stock_warehouseid
+            <if test="order_id !=null  ">
+                AND o.order_id LIKE CONCAT('%',#{order_id},'%')
+            </if>
          </where>
 
 
@@ -35,8 +36,21 @@
         </collection>
     </resultMap>
     <select id="orderList" resultMap="ordermap">
-SELECT * FROM `order` o,stock s WHERE o.`order_id`= s.stock_orderid
-LIMIT #{start},#{length}
+        SELECT * FROM `order` o,stock s ,`position` p
+<where>
+    o.`order_id`= s.stock_orderid
+    AND p.`position_id`=s.stock_warehouseid
+    <if test=" appInfo.order_id!=null and appInfo.order_id!=''">
+        AND o.order_id LIKE CONCAT('%',#{appInfo.order_id},'%')
+    </if>
+    <if test="appInfo.stock_name!=null and appInfo.stock_name!=''">
+        AND  s.`stock_name` LIKE CONCAT('%',#{appInfo.stock_name},'%')
+    </if>
+    <if test="appInfo.position_name!=null and appInfo.position_name!=''">
+        AND  p.`position_name` LIKE CONCAT('%',#{appInfo.position_name},'%')
+    </if>
+</where>
+   LIMIT #{start},#{length}
    </select>
     <delete id="delOrder" >
            DELETE  FROM  `order` WHERE order_id=#{order_id}

@@ -12,6 +12,9 @@
                 <if test="shoopping_name!=null and shoopping_name!=''">
                     shoopping_name=#{shoopping_name}
                 </if>
+                <if test="shoopping_id>0">
+                    shoopping_id=#{shoopping_id}
+                </if>
             </where>
     </select>
 </mapper>

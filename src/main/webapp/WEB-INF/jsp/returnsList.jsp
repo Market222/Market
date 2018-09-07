@@ -25,6 +25,7 @@
     </li>
 </ul>
 <div class="main">
+
     <button onclick="window.location.href='ReturnsAdd'">新增</button>
     <table id="tabless" class="table table-striped table-bordered dt-responsive <%--nowrap--%>" cellspacing="0" width="100%" >
 
@@ -119,8 +120,8 @@
                      { "data": "returns_id","render": function ( data, type, full, meta ) {
 
 
-                            return "  <td ><a href='OrderView/" +data + "'><i class=\"fa fa-desktop \"></i></a>&nbsp;&nbsp;<a   href='javascript:del(\""+data+"\")'><i\n" +
-                                "class=\"fa fa-trash\"></i></a>&nbsp;&nbsp;<a  href='javascript:xg("+data+")'><i class=\"fa fa-edit\"></i><span\n" +
+                            return "  <td ><a href='ReturnsView/" +data + "'><i class=\"fa fa-desktop \"></i></a>&nbsp;&nbsp;<a   href='javascript:del(\""+data+"\")'><i\n" +
+                                "class=\"fa fa-trash\"></i></a>&nbsp;&nbsp;<a  href='tiao2/"+data+"'><i class=\"fa fa-edit\"></i><span\n" +
                                 "class=\"text-muted\"></span></a></td>";
                       }}
             ],

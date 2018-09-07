@@ -5,6 +5,7 @@ import cn.OrangeBank.entity.*;
 import cn.OrangeBank.service.*;
 import com.alibaba.fastjson.JSON;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -61,6 +62,14 @@ public class ReturnsController {
     @RequestMapping("tiao")
     public String tiao(){
         return  "returnsList";
+    }
+    @RequestMapping("tiao2/{id}")
+    public String tiao2(@PathVariable() String id ,Model m){
+        Returns returns=new Returns();
+        returns.setReturns_id(id);
+        List<Returns> returnsList = returnsService.TotalRows(returns);
+        m.addAttribute("returnsList",returnsList.get(0));
+        return  "returnsUpdate";
     }
 
     @RequestMapping(value = "ShopList",produces = {"application/json;charset=utf-8"})
@@ -144,5 +153,36 @@ public class ReturnsController {
             pan="true";
         }
         return JSON.toJSONString(pan);
+    }
+
+    @RequestMapping("/ReturnsView/{id}")
+    public String returnsView(@PathVariable() String id, Model m) {
+        Returns returns=new Returns();
+        returns.setReturns_id(id);
+        List<Returns> returnsList = returnsService.TotalRows(returns);
+        m.addAttribute("returnsList",returnsList.get(0));
+        return "returnsView";
+    }
+
+
+    @RequestMapping(value = "/Shop",produces = {"application/json;charset=utf-8"})
+    @ResponseBody
+    public String shop(@RequestParam("id") Integer id,@RequestParam("orderId") String orderId){
+        Returnsshoop ret =new Returnsshoop();
+        ret.setShop(new Shoopping());
+        ret.getShop().setShoopping_id(id);
+        ret.setReturnsshoop_orderid(orderId);
+        List<Returnsshoop> returnsshoops = returnsshoopService.reList(ret);
+        return JSON.toJSONString(returnsshoops);
+    }
+
+    @RequestMapping(value = "/UpdateReturns",produces = {"application/json;charset=utf-8"})
+    @ResponseBody
+    public String updateReturns(@RequestParam("id") Integer id,@RequestParam("count")Integer count){
+        Returnsshoop re=new Returnsshoop();
+        re.setReturnsshoop_id(id);
+        re.setReturnsshoop_count(count);
+        int shop = returnsshoopService.updateShop(re);
+        return JSON.toJSONString(shop);
     }
 }

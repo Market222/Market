@@ -29,8 +29,14 @@
     </resultMap>
     <select id="TotalRows" resultMap="count">
           SELECT * FROM `returns` r ,returnsshoop s,shoopping p
-          WHERE s.`returnsshoop_shooppingid`=p.`shoopping_id`
-          AND s.`returnsshoop_orderid` =r.`returns_id`
+          <where>
+              s.`returnsshoop_shooppingid`=p.`shoopping_id`
+              AND s.`returnsshoop_orderid` =r.`returns_id`
+              <if test="returns_id!=null and returns_id!=''">
+                 and r.returns_id=#{returns_id}
+              </if>
+          </where>
+
 
     </select>
     <insert id="addReturns">

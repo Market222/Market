@@ -27,6 +27,12 @@
     </li>
 </ul>
 <div class="main">
+    条件：<select id="pan">
+    <option value="1">订单号</option>
+    <option value="2">商品名称</option>
+    <option value="3">仓库</option>
+</select>
+    <input type="text" id="cha"/><input type="button"  id ="select" value="查询">
     <button onclick="window.location.href='AddOrder'">新增</button>
     <table id="tabless" class="table table-striped table-bordered dt-responsive <%--nowrap--%>" cellspacing="0" width="100%" >
 
@@ -48,6 +54,7 @@
             $(this).text(cur === '显示' ? '隐藏' : '显示');
         }
     });
+
     $(document).ready(function() {
 
         $("#tabless").DataTable({
@@ -57,6 +64,16 @@
             "ajax": {
                 "url":"/OrangBank/OrderList",
                 "type": "POST",
+                "data":function(data){
+                    var param = {
+                        "zhi": $("#cha").val(),
+                        "pan": $("#pan").val()
+                    };
+                    param.length = data.length;//页面显示记录条数，在页面显示每页显示多少项的时候
+                    param.start = data.start;//开始的记录序号
+                    param.draw = data.draw;
+                    return param;
+                },
                 "dataType" : "JSON"
             },
             lengthMenu: [ //自定义分页长度
@@ -139,12 +156,17 @@
         $(".btn-success").on("click",function () {
             $('#datatable-responsive').DataTable().ajax.reload();
         });
-        $("#queryAppInfo").on("click",function () {
-            $('#datatable-responsive').DataTable().ajax.reload();
+        $("#select").on("click",function () {
+            alert($("#cha").val());
+            $('#tabless').DataTable().ajax.reload();
         });
         $('#datatable-fixed-header').DataTable({
             fixedHeader: true
         });
     });
+
+    function select() {
+
+    }
 
 </script>

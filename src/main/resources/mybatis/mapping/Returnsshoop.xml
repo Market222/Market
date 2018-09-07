@@ -3,6 +3,21 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.OrangeBank.dao.ReturnsshoopMapper">
+    <resultMap id="re" type="Returnsshoop">
+        <association property="shop" javaType="Shoopping"></association>
+    </resultMap>
+    <select id="reList" resultMap="re">
+        SELECT * FROM returnsshoop r ,shoopping s <where>
+        r.`returnsshoop_shooppingid`=s.`shoopping_id`
+        <if test="shop!=null and shop.shoopping_id>0">
+           and r.`returnsshoop_shooppingid`=#{shop.shoopping_id}
+        </if>
+        <if test="returnsshoop_orderid!=null and returnsshoop_orderid!=''">
+          and  r.`returnsshoop_orderid`=#{returnsshoop_orderid}
+        </if>
+    </where>
+
+    </select>
     <insert id="addReShop" >
          INSERT INTO returnsshoop(`returnsshoop_id`,`returnsshoop_shooppingid`,`returnsshoop_count`,`returnsshoop_orderid`)
                 VALUES	(default,#{shop.shoopping_id},#{returnsshoop_count},#{returnsshoop_orderid});
@@ -11,5 +26,7 @@
     <delete id="delReShop" >
         delete from returnsshoop where returnsshoop_orderid=#{id}
     </delete>
-
+    <update id="updateShop">
+        update returnsshoop set returnsshoop_count=#{returnsshoop_count} where returnsshoop_id=#{returnsshoop_id}
+    </update>
 </mapper>

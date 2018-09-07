@@ -8,6 +8,7 @@ import org.hibernate.validator.constraints.pl.REGON;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Service
 public class ReturnsshoopServiceImpl implements ReturnsshoopService {
@@ -16,11 +17,19 @@ public class ReturnsshoopServiceImpl implements ReturnsshoopService {
     ReturnsshoopMapper returnsshoopMapper;
 
 
+    public List<Returnsshoop> reList(Returnsshoop re) {
+        return returnsshoopMapper.reList(re);
+    }
+
     public int addReShop(Returnsshoop reShop) {
         return returnsshoopMapper.addReShop(reShop);
     }
 
     public int delReShop(String id) {
         return returnsshoopMapper.delReShop(id);
+    }
+
+    public int updateShop(Returnsshoop reShop) {
+        return returnsshoopMapper.updateShop(reShop);
     }
 }
