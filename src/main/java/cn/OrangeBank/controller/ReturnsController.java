@@ -78,6 +78,7 @@ public class ReturnsController {
                              @RequestParam(required = false,defaultValue = "0")Integer length,
                              @RequestParam(required = false,defaultValue = "0")Integer draw,
                              @RequestParam(required = false,defaultValue = "") String  appInfo){
+
              Page<Returns> pages=new Page<Returns>();
             Map<String ,Object> map=new HashMap<String, Object>();
             Returns returns=new Returns();
@@ -117,7 +118,7 @@ public class ReturnsController {
                 Shoopping shoopping = shooppingService.queryShoopping(sh).get(0);
                 reShop.setShop(shoopping);
                 reShop.setReturnsshoop_count(Integer.valueOf(shopcont[1]));
-                reShop.setReturnsshoop_orderid(uuid);
+                   reShop.setReturnsshoop_orderid(uuid);
                 countMoney+=shoopping.getShoopping_stockmoney()*Integer.valueOf(shopcont[1]);
                 int zhi = returnsshoopService.addReShop(reShop);
             }
@@ -135,10 +136,11 @@ public class ReturnsController {
 
     @RequestMapping("/DelReturn")
     @ResponseBody
-    public String delReturn( @RequestParam() Integer id) {
+    public String delReturn( @RequestParam() String id) {
         int i = returnsService.delReturns(id);
         String pan="";
         if(i>0){
+            int shop = returnsshoopService.delReShop(id);
             pan="true";
         }
         return JSON.toJSONString(pan);

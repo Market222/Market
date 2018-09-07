@@ -27,7 +27,7 @@ public class ReturnsServiceImpl implements ReturnsService {
         return returnsMapper.addReturns(returns);
     }
 
-    public int delReturns(Integer id) {
+    public int delReturns(String id) {
         return returnsMapper.delReturns(id);
     }
 }

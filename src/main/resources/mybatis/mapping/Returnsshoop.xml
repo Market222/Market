@@ -7,4 +7,9 @@
          INSERT INTO returnsshoop(`returnsshoop_id`,`returnsshoop_shooppingid`,`returnsshoop_count`,`returnsshoop_orderid`)
                 VALUES	(default,#{shop.shoopping_id},#{returnsshoop_count},#{returnsshoop_orderid});
     </insert>
+
+    <delete id="delReShop" >
+        delete from returnsshoop where returnsshoop_orderid=#{id}
+    </delete>
+
 </mapper>

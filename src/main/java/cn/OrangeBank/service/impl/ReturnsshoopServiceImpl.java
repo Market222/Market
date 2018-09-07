@@ -19,4 +19,8 @@ public class ReturnsshoopServiceImpl implements ReturnsshoopService {
     public int addReShop(Returnsshoop reShop) {
         return returnsshoopMapper.addReShop(reShop);
     }
+
+    public int delReShop(String id) {
+        return returnsshoopMapper.delReShop(id);
+    }
 }
