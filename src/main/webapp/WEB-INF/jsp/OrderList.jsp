@@ -22,7 +22,7 @@
             style="vertical-align: inherit;">进货订单</font></font></a>
     </li>
 </ul>
-<div class="main2">
+<div class="main2" style="width: 80%">
     <button   class="btn btn-danger" onclick="window.location.href='AddOrder'">新增订单</button>
     <table id="tabless" class="table table-striped table-bordered dt-responsive <%--nowrap--%>" cellspacing="0" width="100%" >
 
