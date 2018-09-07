@@ -20,15 +20,7 @@
         <div id="myTabContent" class="row">
             <div role="tabpanel" class="tab-pane fade active in col-md-3" id="tab_content1" aria-labelledby="home-tab">
                 <p><font style="vertical-align: inherit;"><strong
-                        style="vertical-align: inherit;">深圳市绿色原野公司，张三</strong></font></p>
-            </div>
-            <div role="tabpanel" class="col-md-3" aria-labelledby="home-tab">
-                <p><font style="vertical-align: inherit;"><strong
-                        style="vertical-align: inherit;">财富号：</strong><b>88888888</b></font></p>
-            </div>
-            <div class="col-md-3" aria-labelledby="home-tab">
-                <p><font style="vertical-align: inherit;"><strong
-                        style="vertical-align: inherit;">天下通：</strong><b>88888888</b></font></p>
+                        style="vertical-align: inherit;">${userEntity.users_company},${userEntity.users_truename}</strong></font></p>
             </div>
         </div>
 
@@ -69,19 +61,17 @@
                         src="../statics/img/jinhuo.png"></a></div>
                 <div class="col-md-3"><a href="/Returns/tiao" style="margin-left: -6px"><img src="../statics/img/jinhuotuihui.png"></a>
                 </div>
-                <div class="col-md-3"><a href="/OrangBank/tiao2" style="margin-left: -10px"><img src="../statics/img/fukuan.png"></a></div>
+                <div class="col-md-3"><a href="/sInfo" style="margin-left: -10px"><img src="../statics/img/fukuan.png"></a></div>
                 <div class="col-md-3" style="border-right:0px">
                         <ul style="text-align: center;margin-top: 20px">
                             <li> <a href="#">进货订单入库</a></li>
-                            <li><a href="#">要货申请入库</a></li>
-                            <li> <a href="#">其他入库</a></li>
                             <li> <a href="#">进货退回</a></li>
                         </ul>
                 </div>
                 <div class="col-md-3" style="border-left:0px"><a href="/OrangBank/xiaoshou" style="margin-left: -10px">
                     <img src="../statics/img/xiaoshou.png"></a></div>
 
-                <div class="col-md-3"><a href="/sInfo" style="margin-left: -10px">
+                <div class="col-md-3"><a href="#" style="margin-left: -10px">
                     <img src="../statics/img/xiaoshoutuihuo.png"></a></div>
 
                 <div class="col-md-3"><a href="#" style="margin-left: -10px">
@@ -92,7 +82,7 @@
             </div>
 
         </div>
-        <div class="main2" >
+      <%--  <div class="main2" >
             <ul>
                 <li style="text-align:center;background-color: orange">快速查看</li>
                 <li><a href="#">进货订单及退回单列表</a></li>
@@ -105,7 +95,7 @@
                 <li><a onclick="Sales_charts('销售排行榜','/OrangBank/Sales_charts2','800','700')"  href="javascript:;" title="修改">销售排行榜</a></li>
                 <%--<li><a  href="#" onclick="tk()" >销售排行榜</a></li>--%>
             </ul>
-        </div>
+        </div>--%>
     </div>
 <%@include file="../jsp/common/foot.jsp" %>
 

@@ -36,6 +36,7 @@
     </resultMap>
     <select id="orderList" resultMap="ordermap">
 SELECT * FROM `order` o,stock s WHERE o.`order_id`= s.stock_orderid
+LIMIT #{start},#{length}
    </select>
     <delete id="delOrder" >
            DELETE  FROM  `order` WHERE order_id=#{order_id}

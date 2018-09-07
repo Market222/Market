@@ -119,7 +119,7 @@
                      { "data": "returns_id","render": function ( data, type, full, meta ) {
 
 
-                            return "  <td ><a href='OrderView/" +data + "'><i class=\"fa fa-desktop \"></i></a>&nbsp;&nbsp;<a   href='javascript:del(0)'><i\n" +
+                            return "  <td ><a href='OrderView/" +data + "'><i class=\"fa fa-desktop \"></i></a>&nbsp;&nbsp;<a   href='javascript:del(\""+data+"\")'><i\n" +
                                 "class=\"fa fa-trash\"></i></a>&nbsp;&nbsp;<a  href='javascript:xg("+data+")'><i class=\"fa fa-edit\"></i><span\n" +
                                 "class=\"text-muted\"></span></a></td>";
                       }}
@@ -152,6 +152,18 @@
             fixedHeader: true
         });
     });
+
+
+
+    /*
+    var table = $('#example').DataTable();
+
+    table.draw(true);  // 重新绘制维护表格，分页将会被重置为第一页。
+
+    table.draw( false );  //  重新绘制维护当前分页位置的表格。
+
+    table.page( 'next' ).draw( 'page' );  // 更改表格页面，然后重新绘制
+     */
     var del=  function (data) {
 
             if(confirm("确认删除吗")){
@@ -162,12 +174,17 @@
                     data:{"id": data},
                     dataType: "json",//ajax接口（请求url）返回的数据类型
                     success: function (data) {//data：返回数据（json对象）
+
                         if(data=="true"){
-                            alert(删除成功);
+                            alert("删除成功");
+                            var tab= $("#tabless").DataTable();
+                            tab.draw( false );
+
                         }else{
-                            alert(删除失败);
+                            alert("删除失败");
                         }
                     }
+
                 });
             }
             else{
