@@ -102,10 +102,6 @@ public class SupplierController {
         return mv;
     }
 
-
-
-
-
     /**
      * 删除供应商信息
      * @param mv
@@ -115,7 +111,7 @@ public class SupplierController {
      */
     @RequestMapping("/deleteSupp")
     @ResponseBody
-    public Object deletePro( ModelAndView mv, Map<String,Object> map,Integer proid){
+    public Object deletePro(ModelAndView mv, Map<String,Object> map,Integer proid){
         map=new HashMap<String, Object>();
         int p = supplierService.deleteById(proid);
         if(p>0){

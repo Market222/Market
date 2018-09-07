@@ -56,19 +56,17 @@
                         src="../statics/img/jinhuo.png"></a></div>
                 <div class="col-md-3"><a href="/Returns/tiao" style="margin-left: -6px"><img src="../statics/img/jinhuotuihui.png"></a>
                 </div>
-                <div class="col-md-3"><a href="/OrangBank/tiao2" style="margin-left: -10px"><img src="../statics/img/fukuan.png"></a></div>
+                <div class="col-md-3"><a href="/sInfo" style="margin-left: -10px"><img src="../statics/img/fukuan.png"></a></div>
                 <div class="col-md-3" style="border-right:0px">
                         <ul style="text-align: center;margin-top: 20px">
                             <li> <a href="#">进货订单入库</a></li>
-                            <li><a href="#">要货申请入库</a></li>
-                            <li> <a href="#">其他入库</a></li>
                             <li> <a href="#">进货退回</a></li>
                         </ul>
                 </div>
                 <div class="col-md-3" style="border-left:0px"><a href="/OrangBank/xiaoshou" style="margin-left: -10px">
                     <img src="../statics/img/xiaoshou.png"></a></div>
 
-                <div class="col-md-3"><a href="/sInfo" style="margin-left: -10px">
+                <div class="col-md-3"><a href="#" style="margin-left: -10px">
                     <img src="../statics/img/xiaoshoutuihuo.png"></a></div>
 
                 <div class="col-md-3"><a href="#" style="margin-left: -10px">
@@ -79,7 +77,7 @@
             </div>
 
         </div>
-        <div class="main2" >
+      <%--  <div class="main2" >
             <ul>
                 <li style="text-align:center;background-color: orange">快速查看</li>
                 <li><a href="#">进货订单及退回单列表</a></li>
@@ -91,6 +89,6 @@
                 <li><a href="#">客户历史价格查询</a></li>
                 <li><a href="#">销售排行榜</a></li>
             </ul>
-        </div>
+        </div>--%>
     </div>
 <%@include file="../jsp/common/foot.jsp" %>

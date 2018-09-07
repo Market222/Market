@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletRequest;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
@@ -121,9 +123,6 @@ public class UsersController {
         return mv;
     }
 
-
-
-
     //根据id查询用户
     @RequestMapping("/SelectUsersid")
     public ModelAndView SelectUsersid(Users users , @Param("users_id") Integer users_id) {
@@ -142,7 +141,7 @@ public class UsersController {
     //     * @return
     //
     @RequestMapping("/update")
-    public ModelAndView update(Users users, ModelAndView mv, @RequestParam(required = false) Integer users_id){
+    public ModelAndView update(Users users, @RequestParam(required = false) Integer users_id){
         users.setUsers_id(users_id);
         int i = usersService.Update(users);
         if(i>0){
@@ -152,4 +151,16 @@ public class UsersController {
         }
         return mv;
     }
+
+    //退出
+    @RequestMapping("/exitUser")
+    public ModelAndView exitUser(HttpServletRequest request){
+        Object obj = request.getSession().getAttribute("userEntity");
+        if(obj != null){
+            request.getSession().invalidate();//清除 session 中的所有信息
+            return new ModelAndView("redirect:/OrangBank/b");
+        }
+        return mv;
+    }
+
 }
