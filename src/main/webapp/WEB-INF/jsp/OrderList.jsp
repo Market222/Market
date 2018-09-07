@@ -22,6 +22,15 @@
             style="vertical-align: inherit;">进货订单</font></font></a>
     </li>
 </ul>
+<div class="main">
+    条件：<select id="pan">
+    <option value="1">订单号</option>
+    <option value="2">商品名称</option>
+    <option value="3">仓库</option>
+</select>
+    <input type="text" id="cha"/><input type="button"  id ="select" value="查询">
+    <button onclick="window.location.href='AddOrder'">新增</button>
+
 <div class="main2" style="width: 80%">
     <button   class="btn btn-danger" onclick="window.location.href='AddOrder'">新增订单</button>
     <table id="tabless" class="table table-striped table-bordered dt-responsive <%--nowrap--%>" cellspacing="0" width="100%" >

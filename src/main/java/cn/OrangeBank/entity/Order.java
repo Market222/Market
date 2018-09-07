@@ -23,6 +23,18 @@ public class Order {
     private Date order_shiptime;//发货时间
     private String order_warehousestatus;
     private long order_usersid;
+    private String stock_name;   //商品名称 简单的方法
+    private String  position_name;  //仓库名称  简单的方法
+
+
+    public String getPosition_name() {
+        return position_name;
+    }
+
+    public void setPosition_name(String position_name) {
+        this.position_name = position_name;
+    }
+
     private List<Stock> stocks=new ArrayList<Stock>();
 
     public String getOrder_warehousestatus() {
@@ -31,6 +43,14 @@ public class Order {
 
     public void setOrder_warehousestatus(String order_warehousestatus) {
         this.order_warehousestatus = order_warehousestatus;
+    }
+
+    public String getStock_name() {
+        return stock_name;
+    }
+
+    public void setStock_name(String stock_name) {
+        this.stock_name = stock_name;
     }
 
     public long getOrder_usersid() {

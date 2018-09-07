@@ -19,10 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.io.UnsupportedEncodingException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 @Controller
 @RequestMapping("/OrangBank")
@@ -193,13 +190,19 @@ public class OrderController {
     public String orderList(@RequestParam(required = false,defaultValue = "0") Integer start,
                             @RequestParam(required = false,defaultValue = "0")Integer length,
                             @RequestParam(required = false,defaultValue = "0")Integer draw,
-                            @RequestParam(required = false,defaultValue = "") String  appInfo){
+                            @RequestParam("pan") String pan,
+                            @RequestParam("zhi") String zhi){
          Page<Order> pages=new Page<Order>();
         Map<String ,Object> map=new HashMap<String, Object>();
         Order order=new Order();
-        if(!"".equals(appInfo)){
-            //String 转换为对象
-            order =(Order) JSON.parseObject(appInfo,Order.class);
+        if(zhi!=null && !zhi.equals("")){
+            if(pan.equals("1")){
+                order.setOrder_id(zhi);
+            }else if(pan.equals("2")){
+               order.setStock_name(zhi);
+            }else if(pan.equals("3")){
+                order.setPosition_name(zhi);
+            }
         }
         int count =orderService.TotalRows(order).size();
         //分页条件数据

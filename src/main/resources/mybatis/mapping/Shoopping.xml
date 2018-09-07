@@ -13,7 +13,9 @@ SELECT  * FROM shoopping ORDER BY shoopping_sales DESC LIMIT 0,10;
                 <if test="shoopping_name!=null and shoopping_name!=''">
                   and  shoopping_name=#{shoopping_name}
                 </if>
-
+                <if test="shoopping_id>0">
+                    shoopping_id=#{shoopping_id}
+                </if>
             </where>
         ORDER BY shoopping_sales DESC
     </select>
