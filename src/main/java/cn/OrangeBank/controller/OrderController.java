@@ -54,11 +54,15 @@ public class OrderController {
     }
 
     //跳转
+    @RequestMapping("tiao3")
+    public String tiao3(){
+        return "Sales_charts";
+    }
+    //跳转
     @RequestMapping("tiao")
     public String tiao(){
         return "OrderList";
     }
-
     //详情
     @RequestMapping("/OrderView/{id}")
     public String orderView(@PathVariable String id, Model m , Order order ){

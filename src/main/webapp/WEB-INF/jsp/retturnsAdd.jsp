@@ -29,13 +29,11 @@
             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="number">选择商品<span class="required">*</span>
             </label>
             <div class="col-md-6 col-sm-6 col-xs-12">
-                <select id="shop" style="display: inline-block ;width: 27%">
-
-                </select>
+                <select id="shop" style="display: inline-block ;width: 27%"></select>
                 数量：
                 <input type="number" id="num" style="display: inline-block;height: 4.2%"/>
                 <input type="button" value="确定" id="ok"  style="display: inline-block;">
-            </div>
+            </div>a
         </div>
         <div class="item form-group" >
             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="number">退回商品列表<span class="required">*</span>
@@ -415,6 +413,8 @@
 
 
     <script src="../statics/vendors/jquery/dist/jquery.min.js"></script>
+
+
     <script>
         /*时间隐藏*/
         $("#pid4").change(function () {
@@ -452,18 +452,19 @@
                         var options = "<option value=\"0\">请选择</option>";
 
 
-                            for (var i = 0; i < data.length; i++) {
-                                        options += "<option>" + data[i].shoopping_name + "</option>";
-                                    }
-                            }
-
-
-                        $("#shop").html(options);
+                        for (var i = 0; i < data.length; i++) {
+                            options += "<option>" + data[i].shoopping_name + "</option>";
+                        }
                     }
+
+
+                    $("#shop").html(options);
+                }
 
             });
         }
         function gong(){
+
             /*供应商*/
             $.ajax({
                 type: "POST",//请求类型
@@ -492,7 +493,7 @@
         }
         $("#ok").click(function () {
 
-               var tui=$("#tui").text();
+            var tui=$("#tui").text();
             if(tui==null || tui==""){
                 tui+=$("#shop").val()+"-"+$("#num").val();
 
@@ -526,6 +527,7 @@
             }
         });
     </script>
+
 
     <%--仓库：${orders.stockcommodities.stockcommodity_warehouseid} <br/>--%>
 </div>
