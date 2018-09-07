@@ -8,7 +8,8 @@ public class Users {
     private String users_company;//公司名称
     private String users_truename;//真实姓名
     private String users_email;//邮箱
-    private Integer users_roleid;//角色表id
+    private  Integer role_id; //关联角色id
+    private Role role; //角色
 
     public String getUsers_truename() {
         return users_truename;
@@ -26,13 +27,7 @@ public class Users {
         this.users_email = users_email;
     }
 
-    public Integer getUsers_roleid() {
-        return users_roleid;
-    }
 
-    public void setUsers_roleid(Integer users_roleid) {
-        this.users_roleid = users_roleid;
-    }
 
     public Integer getUsers_id() {
         return users_id;
@@ -72,5 +67,21 @@ public class Users {
 
     public void setUsers_company(String users_company) {
         this.users_company = users_company;
+    }
+
+    public Integer getRole_id() {
+        return role_id;
+    }
+
+    public void setRole_id(Integer role_id) {
+        this.role_id = role_id;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 }

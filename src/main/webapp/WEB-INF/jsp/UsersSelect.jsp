@@ -42,11 +42,11 @@
                     <td>${users.users_truename}</td>
                     <td>${users.users_phone}</td>
                     <td>${users.users_email}</td>
-                    <td>${users.users_admin}</td>
-                    <c:if test="${users.users_admin==0}">
+                    <td>${users.role.role_name}</td>
+                    <c:if test="${users.role_id==1}">
                         <td></td>
                     </c:if>
-                    <c:if test="${users.users_admin!=0}">
+                    <c:if test="${users.role_id!=1}">
                         <td>
                             <i class="fa fa-wrench"  onclick="update('用户修改','/OrangBank/SelectUsersid?users_id=${users.users_id}','800','700')"  href="javascript:;" title="修改"></i>
                             &nbsp; &nbsp;

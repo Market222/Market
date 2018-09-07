@@ -1,5 +1,6 @@
 package cn.OrangeBank.dao;
 
+import cn.OrangeBank.entity.Role;
 import cn.OrangeBank.entity.Users;
 import org.apache.ibatis.annotations.Param;
 
@@ -20,4 +21,6 @@ public interface UsersMapper {
     int Delete(@Param("id") Integer id);
     //修改查询 //
     int  Update(Users users);
+    //查询角色
+    List<Role> SelectRole(Role role);
 }

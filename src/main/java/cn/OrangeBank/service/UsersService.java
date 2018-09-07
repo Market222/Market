@@ -1,5 +1,6 @@
 package cn.OrangeBank.service;
 
+import cn.OrangeBank.entity.Role;
 import cn.OrangeBank.entity.Users;
 import org.apache.ibatis.annotations.Param;
 
@@ -22,4 +23,6 @@ public interface UsersService {
     //
     //修改查询
     int  Update(Users users);
+    //查询角色
+    List<Role> SelectRole(Role role);
 }

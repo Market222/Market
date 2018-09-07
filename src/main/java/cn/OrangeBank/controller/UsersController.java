@@ -1,5 +1,6 @@
 package cn.OrangeBank.controller;
 
+import cn.OrangeBank.entity.Role;
 import cn.OrangeBank.entity.Users;
 import cn.OrangeBank.service.UsersService;
 import cn.OrangeBank.util.MD5andKL;
@@ -125,9 +126,11 @@ public class UsersController {
 
     //根据id查询用户
     @RequestMapping("/SelectUsersid")
-    public ModelAndView SelectUsersid(Users users , @Param("users_id") Integer users_id) {
+    public ModelAndView SelectUsersid(Users users , @Param("users_id") Integer users_id ,Role role) {
         users.setUsers_id(users_id);
         List<Users> users1 = usersService.SelectUsers(users);
+        List<Role> grroleList = usersService.SelectRole(role);
+        mv.addObject("grroleList", grroleList);
         for (Users users2 : users1) {
             mv.addObject("users2", users2);
         }
@@ -148,6 +151,37 @@ public class UsersController {
             return new ModelAndView("redirect:/OrangBank/SelectUsers");
         }else{
             mv.setViewName("UsersSelect");
+        }
+        return mv;
+    }
+
+    //根据id查询用户
+    @RequestMapping("/queryUseraa")
+    public ModelAndView queryUserid(Users users ,  @Param("users_id")  Integer users_id ,Role role ) {
+        users.setUsers_id(users_id);
+        List<Users> grusers = usersService.SelectUsers(users);
+        List<Role> grroleList = usersService.SelectRole(role);
+        mv.addObject("roleList1", grroleList);
+        for (Users grusers2:grusers){
+            mv.addObject("users3", grusers2);
+        }
+        mv.setViewName("GRUsersUpdate");
+        return mv;
+    }
+    // *
+    //     *  修改用户
+    //     * @param users
+    //     * @param mv
+    //     * @return
+    //
+    @RequestMapping("/GRupdate")
+    public ModelAndView GRupdate(Users users, ModelAndView mv, @RequestParam(required = false) Integer users_id){
+        users.setUsers_id(users_id);
+        int i = usersService.Update(users);
+        if(i>0){
+            return new ModelAndView("redirect:/OrangBank/queryUseraa");
+        }else{
+            mv.setViewName("GRUsersUpdate");
         }
         return mv;
     }

@@ -58,8 +58,12 @@
             <label class="control-label col-md-3">角&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;色</label>
             <div class="col-md-7">
                 <select  class="form-control col-md-5" style="width: 196px">
-                    <option >1</option>
-                    <option >2</option>
+                    <c:if test="${roleList1 != null }">
+                        <c:forEach var="dep" items="${roleList1}">
+                            <option <c:if test="${dep.role_id == users2.role_id}">selected="selected"</c:if>
+                                    value="${dep.role_id}">${dep.role_name}</option>
+                        </c:forEach>
+                    </c:if>
                 </select>
             </div>
         </div>
