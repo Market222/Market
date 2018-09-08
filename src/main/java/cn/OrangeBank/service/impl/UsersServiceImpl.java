@@ -35,11 +35,12 @@ public class UsersServiceImpl implements UsersService {
         return usersMapper.Delete(id);
     }
 
-    public int Update(Users users) {
-        return usersMapper.Update(users);
-    }
 
     public List<Role> SelectRole(Role role) {
         return usersMapper.SelectRole(role);
+    }
+    //修改用户
+    public int updateUser(Users user) {
+        return usersMapper.updateUser(user);
     }
 }

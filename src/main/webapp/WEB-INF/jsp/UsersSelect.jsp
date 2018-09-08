@@ -78,6 +78,10 @@
     </div>
 </div>
 <script>
+    function aa() {
+        window.location="/OrangBank/SelectUsers";
+
+    };
     //刷新页面
     $(function(){
         $(".xian").click(function(){
@@ -92,9 +96,10 @@
     function delete1(id){
             $(".deletes").click(function () {
                 window.location.href="/OrangBank/delete?users_id="+id+"";
-                $('#delete').modal('hide')
-                alert("删除成功")
+                $('#delete').modal('hide');
+                alert("删除成功");
             });
-        }
+        };
+
 </script>
 <%@include file="../jsp/common/foot.jsp" %>

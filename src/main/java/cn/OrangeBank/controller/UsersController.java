@@ -136,23 +136,17 @@ public class UsersController {
         mv.setViewName("UsersUpdate");
         return mv;
     }
-    // *
-    //     *  修改用户
-    //     * @param users
-    //     * @param mv
-    //     * @return
-    //
-    @RequestMapping("/update")
-    public ModelAndView update(Users users, @RequestParam(required = false) Integer users_id){
-        users.setUsers_id(users_id);
-        int i = usersService.Update(users);
-        if(i>0){
-            return new ModelAndView("redirect:/OrangBank/SelectUsers");
-        }else{
-            mv.setViewName("UsersSelect");
-        }
-        return mv;
+
+    /**
+     * 修改
+     */
+    @RequestMapping(value = "/Update")
+    @ResponseBody
+    public Object Update(Users user){
+        int i = usersService.updateUser(user);
+        return JSON.toJSONString(i);
     }
+
 
     // *
     //     *  修改个人用户
@@ -163,7 +157,7 @@ public class UsersController {
     @RequestMapping("/GRupdate")
     public ModelAndView GRupdate(Users users, ModelAndView mv, @RequestParam(required = false) Integer users_id){
         users.setUsers_id(users_id);
-        int i = usersService.Update(users);
+        int i = usersService.updateUser(users);
         if(i>0){
             return SelectUsersid(users,users_id,null);
             /* return new ModelAndView("redirect:/OrangBank/queryUseraa?id=users_id");*/

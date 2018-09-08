@@ -59,4 +59,18 @@
     <select id="SelectRole" resultType="Role">
         select * from role;
     </select>
+    <!--修改用户-->
+    <update id="updateUser">
+        UPDATE users
+        <set>
+            <if test="users_name != null">users_name=#{users_name},</if>
+            <if test="users_company != null">users_company=#{users_company},</if>
+            <if test="users_phone != null">users_phone=#{users_phone},</if>
+            <if test="users_password != null">users_password=#{users_password},</if>
+            <if test="users_truename != null">users_truename=#{users_truename},</if>
+            <if test="users_email != null">users_email=#{users_email},</if>
+            <if test="role_id != null">role_id=#{role_id},</if>
+        </set>
+        where  users_id = #{users_id}
+    </update>
 </mapper>
