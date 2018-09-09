@@ -3,20 +3,16 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@include file="../jsp/common/head.jsp" %>
 
-<link type="text/css" rel="styleSheet" href="../statics/CSS/xiaoshou.css"/>
+<link type="text/css" rel="styleSheet" href="../statics/CSS/OrderList.css"/>
 
 <link rel="stylesheet" type="text/css" href="../statics/CSS/hzw-city-picker.css">
-<style>
 
-
-</style>
 <!-- Datatables -->
 <link href="../statics/datatables/css/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
 <link href="../statics/datatables/css/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
 <link href="../statics/datatables/css/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
 <link href="../statics/datatables/css/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
 <link href="../statics/datatables/css/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
-
 <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
     <li><a href="/OrangBank/tiao2"><font style="vertical-align: inherit;"><font
             style="vertical-align: inherit;">首页</font></font></a>
@@ -35,6 +31,9 @@
     <input type="text" id="cha"/><input type="button"  id ="select" value="查询">
     <div id="quan" style="border: 1px solid black; height: 10%;width: 10%;display: none"></div>
 <div class="main2">
+    <button onclick="window.location.href='AddOrder'">新增</button>
+
+<div class="main2" style="width: 80%">
     <button   class="btn btn-danger" onclick="window.location.href='AddOrder'">新增订单</button>
     <table id="tabless" class="table table-striped table-bordered dt-responsive <%--nowrap--%>" cellspacing="0" width="100%" >
 
@@ -59,9 +58,10 @@
     $(document).ready(function() {
 
         $("#tabless").DataTable({
-
+            "bAutoWidth":true,
             "serverSide":true,//服务器端获取数据
             "bStateSave": false,//不缓存数据
+            "dom": '<"row"<"col-lg-1"<"toolbar">><"col-lg-4"B><"col-lg-7"f>>t<"row"<"col-lg-2"l><"col-lg-3"i><"col-lg-7"p>>',
             "ajax": {
                 "url":"/OrangBank/OrderList",
                 "type": "POST",
@@ -82,6 +82,7 @@
             ],
             "searching" : false,//关闭搜索框
             "columnDefs":[
+
                 {"title":"订单号","targets":0},
                 {"title":"商品名称","targets":1},
                 {"title":"单位","targets":2},
@@ -93,41 +94,49 @@
             "columns": [
                 { "data": "order_id"},
                 { "data": "stocks","render": function ( data, type, full, meta ) {
-                    var zhi='';
+                        var zhi='';
                         for(var i=0;i<data.length;i++){
-                            zhi+="<p>"+data[i].stock_name+"</p>"
+                            // zhi="<p>"+data[i].stock_name+"</p>"
+                            zhi+="<option value='"+i+"'>"+data[i].stock_name+"</option>";
                         }
-                  return zhi;
+
+                        var zhi2="<select class=\"form-control1 odd\" id=\"one"+meta.row+"\" onchange=\"one("+meta.row+")\"  name=\"order_state\">"+zhi+"</select>";
+                        return zhi2;
                     } },
                 { "data": "stocks","render": function ( data, type, full, meta ) {
                         var zhi='';
                         for(var i=0;i<data.length;i++){
-                            zhi+="<p>"+data[i].stock_unit+"</p>"
+                            zhi+="<option  value='"+i+"'>"+data[i].stock_unit+"</option>"
                         }
-                        return zhi;
+                        var zhi2="<select class=\"form-control1 odd\" id='two"+meta.row+"'   name=\"order_state\"  disabled=\"disabled\"> "+zhi+"</select>";
+                        return zhi2;
                     } },
                 { "data": "stocks","render": function ( data, type, full, meta ) {
                         var zhi='';
                         for(var i=0;i<data.length;i++){
-                            zhi+="<p>"+data[i].stock_count+"</p>"
+                            zhi+="<option  value='"+i+"'>"+data[i].stock_count+"</option>"
                         }
-                        return zhi;
+                        var zhi2="<select class=\"form-control1 odd\"  id='three"+meta.row+"' name=\"order_state\"  disabled=\"disabled\">"+zhi+"</select>";
+                        return zhi2;
                     } },
                 { "data": "stocks","render": function ( data, type, full, meta ) {
                         var zhi='';
                         for(var i=0;i<data.length;i++){
-                            zhi+="<p>"+data[i].stock_ordermoney+"元</p>"
+                            zhi+="<option  value='"+i+"'>"+data[i].stock_ordermoney+"元</option>"
                         }
-                        return zhi;
+                        var zhi2="<select class=\"form-control1 odd\" id='four"+meta.row+"'  name=\"order_state\"  disabled=\"disabled\">"+zhi+"</select>";
+                        return zhi2;
                     } },
                 { "data": "stocks","render": function ( data, type, full, meta ) {
                         var zhi='';
                         for(var i=0;i<data.length;i++){
                             if(data[i].pos!=null){
-                                zhi+="<p>"+data[i].pos.position_name+"</p>"
+                                zhi+="<option  value='"+i+"'>"+data[i].pos.position_name+"</option>"
                             }else{
                                 zhi+="<p>空</p>"
                             }
+                            var zhi2="<select class=\"form-control1 odd\"   id='five"+meta.row+"' name=\"order_state\"  disabled=\"disabled\">"+zhi+"</select>";
+                            return zhi2;
                             }
 
                         return zhi;
@@ -135,7 +144,7 @@
                 { "data": "order_id","render": function ( data, type, full, meta ) {
 
 
-                        return "  <td ><a href='OrderView/" +data + "'><i class=\"fa fa-desktop \"></i></a>&nbsp;&nbsp;<a href='OrderDel/"+data+"'><i\n" +
+                        return "  <td><a  href='OrderView/" +data + "'><i class=\"fa fa-desktop \"></i></a>&nbsp;&nbsp;<a href='OrderDel/"+data+"'><i\n" +
                             "                            class=\"fa fa-trash\"></i></a>&nbsp;&nbsp;<a  href='javascript:xg("+data+")'><i class=\"fa fa-edit\"></i><span\n" +
                             "                            class=\"text-muted\"></span></a></td>";
                     }}
@@ -168,6 +177,15 @@
             fixedHeader: true
         });
     });
+    one=function(data){
+        var objS = document.getElementById("one"+data);
+        var  grade= objS.options[objS.selectedIndex].value;
+        $("#two"+data).val(grade);
+        $("#three"+data).val(grade);
+        $("#four"+data).val(grade);
+        $("#five"+data).val(grade);
+
+    }
 
         document.onkeyup=function (ev) {
             var cha=$("#cha").val();
@@ -233,3 +251,4 @@
             $("#cha").val(data.innerText)
         }
 </script>
+

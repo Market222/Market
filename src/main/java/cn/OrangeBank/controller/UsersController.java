@@ -1,5 +1,6 @@
 package cn.OrangeBank.controller;
 
+import cn.OrangeBank.entity.Role;
 import cn.OrangeBank.entity.Users;
 import cn.OrangeBank.service.UsersService;
 import cn.OrangeBank.util.MD5andKL;
@@ -22,7 +23,6 @@ import java.util.Map;
 @Controller
 @RequestMapping("/OrangBank")
 public class UsersController {
-
     @Resource
     private UsersService usersService;
 
@@ -125,29 +125,44 @@ public class UsersController {
 
     //根据id查询用户
     @RequestMapping("/SelectUsersid")
-    public ModelAndView SelectUsersid(Users users , @Param("users_id") Integer users_id) {
+    public ModelAndView SelectUsersid(Users users , @Param("users_id") Integer users_id ,Role role) {
         users.setUsers_id(users_id);
         List<Users> users1 = usersService.SelectUsers(users);
+        List<Role> grroleList = usersService.SelectRole(role);
+        mv.addObject("grroleList", grroleList);
         for (Users users2 : users1) {
             mv.addObject("users2", users2);
         }
         mv.setViewName("UsersUpdate");
         return mv;
     }
+
+    /**
+     * 修改
+     */
+    @RequestMapping(value = "/Update")
+    @ResponseBody
+    public Object Update(Users user){
+        int i = usersService.updateUser(user);
+        return JSON.toJSONString(i);
+    }
+
+
     // *
-    //     *  修改用户
+    //     *  修改个人用户
     //     * @param users
     //     * @param mv
     //     * @return
     //
-    @RequestMapping("/update")
-    public ModelAndView update(Users users, @RequestParam(required = false) Integer users_id){
+    @RequestMapping("/GRupdate")
+    public ModelAndView GRupdate(Users users, ModelAndView mv, @RequestParam(required = false) Integer users_id){
         users.setUsers_id(users_id);
-        int i = usersService.Update(users);
+        int i = usersService.updateUser(users);
         if(i>0){
-            return new ModelAndView("redirect:/OrangBank/SelectUsers");
+            return SelectUsersid(users,users_id,null);
+            /* return new ModelAndView("redirect:/OrangBank/queryUseraa?id=users_id");*/
         }else{
-            mv.setViewName("UsersSelect");
+            mv.setViewName("UsersUpdate");
         }
         return mv;
     }
