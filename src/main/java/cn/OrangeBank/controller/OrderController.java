@@ -77,7 +77,6 @@ public class OrderController {
     @RequestMapping(value = "/Shop",produces = {"application/json;charset=utf-8"})
     @ResponseBody
     public String shop(@RequestParam("id") Integer id){
-
         List<Stock> stocks = stockService.stoList(id);
         return JSON.toJSONString(stocks);
     }
@@ -150,7 +149,6 @@ public class OrderController {
     //删除
     @RequestMapping("/OrderDel/{id}")
     public String orderDel(@PathVariable String id){
-
         int i = orderService.delOrder(id);
         if(i>0)
         {
@@ -171,7 +169,6 @@ public class OrderController {
     @ResponseBody
     public String Suppliershoop(@RequestParam Integer id){
         List<Suppliershoop> suppliershoops = suppliershoopService.supList(id,null);
-
         return JSON.toJSONString(suppliershoops);
     }
 

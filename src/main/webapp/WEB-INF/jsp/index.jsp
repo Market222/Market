@@ -66,7 +66,7 @@
                 <div class="col-md-3" style="border-left:0px"><a href="/OrangBank/xiaoshou" style="margin-left: -10px">
                     <img src="../statics/img/xiaoshou.png"></a></div>
 
-                <div class="col-md-3"><a href="#" style="margin-left: -10px">
+                <div class="col-md-3"><a href="/Creturns/CreturnsList" style="margin-left: -10px">
                     <img src="../statics/img/xiaoshoutuihuo.png"></a></div>
 
                 <div class="col-md-3"><a href="#" style="margin-left: -10px">

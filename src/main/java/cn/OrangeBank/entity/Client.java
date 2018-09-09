@@ -2,7 +2,7 @@ package cn.OrangeBank.entity;
 
 public class Client {
     private Integer client_id;//客户ID
-    private String client_name;//联系人
+    private String client_name;//客户姓名
     private String client_address;//送货地址
     private String client_phone;//手机
     private String client_specialplane;//座机
