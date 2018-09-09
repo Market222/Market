@@ -2,11 +2,9 @@ package cn.OrangeBank.controller;
 
 import cn.OrangeBank.dao.SupplierMapper;
 import cn.OrangeBank.entity.*;
-import cn.OrangeBank.service.OrderService;
-import cn.OrangeBank.service.PositionService;
-import cn.OrangeBank.service.StockService;
-import cn.OrangeBank.service.SuppliershoopService;
+import cn.OrangeBank.service.*;
 import com.alibaba.fastjson.JSON;
+import jdk.internal.org.objectweb.asm.tree.InnerClassNode;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,12 +32,13 @@ public class OrderController {
     @Resource
     private StockService stockService;
 
-
     @Resource
     private SuppliershoopService suppliershoopService;
 
     @Resource
     private SupplierMapper supplierMapper;
+    @Resource
+    private ShooppingService shooppingService;
 
     ModelAndView mv = new ModelAndView();
 
@@ -116,13 +115,22 @@ public class OrderController {
         if(order.getOrder_state()==null){
             return "OrderAdd";
         }
+        Integer[] count2=new Integer[count.length];
+        int n=0;
+        for(int i=0 ;i<count.length; i++){
+            if(count[i]!=null){
+                count2[n]=count[i];
+                n+=1;
+            }
+
+        }
         Users userEntity =(Users) session.getAttribute("userEntity");
         String uuid = UUID.randomUUID().toString().replaceAll("-","");
         double countMoney=0;
         if(name!=null){
             for (int i=0;i<name.length;i++) {
                 List<Suppliershoop> suppliershoops = suppliershoopService.supList(null, name[i]);
-                countMoney += suppliershoops.get(0).getSuppliershoop_stockmoney()*count[0];
+                countMoney += suppliershoops.get(0).getSuppliershoop_stockmoney()*count2[i];
             }
         }
 
@@ -132,18 +140,44 @@ public class OrderController {
 
         if(name!=null) {
             Stock st=new Stock();
+            Shoopping sh=new Shoopping();
             for (int i = 0; i < name.length; i++) {
                 List<Suppliershoop> suppliershoops = suppliershoopService.supList(null, name[i]);
                 st.setStock_name(suppliershoops.get(0).getSuppliershoop_name());
                 st.setStock_describe(suppliershoops.get(0).getSuppliershoop_describe());
                 st.setStock_unit(suppliershoops.get(0).getSuppliershoop_unit());
                 st.setStock_ordermoney(suppliershoops.get(0).getSuppliershoop_stockmoney());
-                st.setStock_count(count[i]);
+                st.setStock_count(count2[i]);
                 st.setStock_orderid(uuid);
                 st.setStock_warehouseid(cang);
                 int i1 = stockService.addStock(st);
+                if("已入库".equals(order.getOrder_warehousestatus())){
+                    sh.setShoopping_name(st.getStock_name());
+                    sh.setShoopping_stockmoney(st.getStock_ordermoney());
+                    sh.setShoopping_warehouseid(cang);
+                    List<Shoopping> shooppings = shooppingService.queryShoopping(sh);
+                    int size = shooppings.size();
+
+                    if(size==1){
+                        sh.setShoopping_id(shooppings.get(0).getShoopping_id());
+                        sh.setShoopping_count(count2[i]+shooppings.get(0).getShoopping_count());
+                        int shop = shooppingService.updateShop(sh);
+                        System.out.println(shop);
+                    }else{
+                        sh.setShoopping_name(st.getStock_name());
+                        sh.setShoopping_warehouseid(st.getStock_warehouseid());
+                        sh.setShoopping_count(count2[i]);
+                        sh.setShoopping_stockmoney(st.getStock_ordermoney());
+                        sh.setShoopping_describe(st.getStock_describe());
+                        sh.setShoopping_sales(0);
+                        sh.setShoopping_unit(st.getStock_unit());
+                        int shop = shooppingService.addShop(sh);
+                        System.out.println(shop);
+                    }
+                }
             }
         }
+
         int i = orderService.addOrder(order);
         return  "redirect:/OrangBank/tiao";
     }
@@ -218,4 +252,21 @@ public class OrderController {
         pages.setDraw(draw);
         return JSON.toJSONString(pages);
     }
+    //供应商
+    @RequestMapping(value = "/ding", produces = {"application/json;charset=utf-8"})
+    @ResponseBody
+    public String ding(@RequestParam("zhi") String zhi, @RequestParam("pan")Integer pan){
+         Order or=new Order();
+        if(pan==1){
+            or.setOrder_id(zhi);
+        }else  if(pan==2){
+            List<Stock> shop = orderService.shop(zhi);
+            return JSON.toJSONString(shop);
+        }else  if(pan==3){
+            or.setPosition_name(zhi);
+        }
+        List<Order> orders = orderService.TotalRows(or);
+          return JSON.toJSONString(orders);
+    }
+
 }

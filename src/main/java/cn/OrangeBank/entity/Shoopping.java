@@ -12,6 +12,24 @@ public class Shoopping {
     private double shoopping_marketmoney;//销货单价
     private Integer shoopping_sales;//销量
     private Integer shoopping_warehouseid;//仓库id
+    private String position_name; //仓库名称   简单的方法
+    private  Position pos;
+
+    public String getPosition_name() {
+        return position_name;
+    }
+
+    public void setPosition_name(String position_name) {
+        this.position_name = position_name;
+    }
+
+    public Position getPos() {
+        return pos;
+    }
+
+    public void setPos(Position pos) {
+        this.pos = pos;
+    }
 
 
     public Integer getShoopping_sales() {

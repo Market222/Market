@@ -29,6 +29,8 @@
     <option value="3">仓库</option>
 </select>
     <input type="text" id="cha"/><input type="button"  id ="select" value="查询">
+    <div id="quan" style="border: 1px solid black; height: 10%;width: 10%;display: none"></div>
+<div class="main2">
     <button onclick="window.location.href='AddOrder'">新增</button>
 
 <div class="main2" style="width: 80%">
@@ -63,6 +65,15 @@
             "ajax": {
                 "url":"/OrangBank/OrderList",
                 "type": "POST",
+                "data":function (data) {
+                    var param = {
+                        "zhi": $("#cha").val(),
+                        "pan": $("#pan").val()
+                    };
+                    param.length = data.length;//页面显示记录条数，在页面显示每页显示多少项的时候
+                    param.start = data.start;//开始的记录序号
+                    param.draw = data.draw;
+                    return param;},
                 "dataType" : "JSON"
             },
             lengthMenu: [ //自定义分页长度
@@ -119,10 +130,16 @@
                 { "data": "stocks","render": function ( data, type, full, meta ) {
                         var zhi='';
                         for(var i=0;i<data.length;i++){
-                            zhi+="<option  value='"+i+"'>"+data[i].stock_warehouseid+"</option>"
-                        }
-                        var zhi2="<select class=\"form-control1 odd\"   id='five"+meta.row+"' name=\"order_state\"  disabled=\"disabled\">"+zhi+"</select>";
-                        return zhi2;
+                            if(data[i].pos!=null){
+                                zhi+="<option  value='"+i+"'>"+data[i].pos.position_name+"</option>"
+                            }else{
+                                zhi+="<p>空</p>"
+                            }
+                            var zhi2="<select class=\"form-control1 odd\"   id='five"+meta.row+"' name=\"order_state\"  disabled=\"disabled\">"+zhi+"</select>";
+                            return zhi2;
+                            }
+
+                        return zhi;
                     } },
                 { "data": "order_id","render": function ( data, type, full, meta ) {
 
@@ -153,8 +170,8 @@
         $(".btn-success").on("click",function () {
             $('#datatable-responsive').DataTable().ajax.reload();
         });
-        $("#queryAppInfo").on("click",function () {
-            $('#datatable-responsive').DataTable().ajax.reload();
+        $("#select").on("click",function () {
+            $('#tabless').DataTable().ajax.reload();
         });
         $('#datatable-fixed-header').DataTable({
             fixedHeader: true
@@ -170,5 +187,68 @@
 
     }
 
+        document.onkeyup=function (ev) {
+            var cha=$("#cha").val();
+            var pan=$("#pan").val();
+            if(cha.trim().length!=0){
+
+                $.ajax({
+                    type: "POST",//请求类型
+                    url: "/OrangBank/ding",//请求的url
+                    data:{"zhi":cha,"pan":pan},
+                    dataType: "json",//ajax接口（请求url）返回的数据类型
+                    success: function (data) {//data：返回数据（json对象）
+                        if(data!=null)
+                        {
+
+
+                            var htm="";
+                            if(data.length>5){
+                                num=5;
+                            }
+                            if(pan==1){
+
+                                for (var i=0; i<num;i++) {
+                                    if(data[i]!=null){
+                                        htm+= "<p onclick='dian(this)'>"+data[i].order_id+"</p>";
+                                    }
+
+                                }
+                            }else if(pan==2){
+                                for (var i=0; i<num;i++) {
+                                    if(data[i]!=null) {
+                                        htm += "<p onclick='dian(this)'>" + data[i].stock_name + "</p>";
+                                    }
+
+                                }
+                            }else if(pan==3){
+                                for (var i=0; i<num;i++) {
+                                    if(data[i]!=null) {
+                                        htm += "<p onclick='dian(this)'>" + data[i].position_name + "</p>";
+                                    }
+
+                                }
+                            }
+                            if(data.length>0 ){
+                                $("#quan").show();
+                            }else{
+                                $("#quan").hide();
+                            }
+                               $("#quan").html(htm);
+                        }else{
+                            $("#quan").hide();
+                        }
+
+                    }
+                });
+
+            }else{
+                $("#quan").hide();
+            }
+
+        }
+        function dian(data) {
+            $("#cha").val(data.innerText)
+        }
 </script>
 

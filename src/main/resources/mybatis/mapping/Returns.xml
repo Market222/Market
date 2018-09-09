@@ -7,14 +7,27 @@
         <id property="returns_id" column="returns_id"></id>
         <collection property="ret" javaType="Returnsshoop">
             <association property="shop" javaType="Shoopping">
+                <association property="pos" javaType="Position"></association>
 
             </association>
         </collection>
     </resultMap>
     <select id="returnsList" resultMap="list">
-          SELECT * FROM `returns` r ,returnsshoop s,shoopping p
-          WHERE s.`returnsshoop_shooppingid`=p.`shoopping_id`
-          AND s.`returnsshoop_orderid` =r.`returns_id`
+            SELECT * FROM `returns` r
+            LEFT JOIN returnsshoop s
+            ON s.`returnsshoop_orderid` =r.`returns_id`
+            LEFT JOIN shoopping p
+            ON  s.`returnsshoop_shooppingid`=p.`shoopping_id`
+             LEFT JOIN shoopping sh
+        ON  s.`returnsshoop_shooppingid`=sh.`shoopping_id`
+        <where>
+            <if test="returns.returns_id!=null and returns.returns_id!=''">
+                and r.returns_id like CONCAT('%',#{returns.returns_id},'%')
+            </if>
+            <if test="returns.shop_name!=null and returns.shop_name!=''">
+                and sh.shoopping_name like CONCAT('%',#{returns.shop_name},'%')
+            </if>
+        </where>
            LIMIT #{start},#{length}
     </select> 
     
@@ -23,21 +36,40 @@
 
         <collection property="ret" javaType="Returnsshoop">
             <association property="shop" javaType="Shoopping">
+                <association property="pos" javaType="Position"></association>
 
             </association>
         </collection>
     </resultMap>
     <select id="TotalRows" resultMap="count">
-          SELECT * FROM `returns` r ,returnsshoop s,shoopping p
-          <where>
-              s.`returnsshoop_shooppingid`=p.`shoopping_id`
-              AND s.`returnsshoop_orderid` =r.`returns_id`
+        SELECT * FROM `returns` r
+        LEFT JOIN returnsshoop s
+        ON s.`returnsshoop_orderid` =r.`returns_id`
+        LEFT JOIN shoopping p
+        ON  s.`returnsshoop_shooppingid`=p.`shoopping_id`
+        LEFT JOIN shoopping sh
+        ON  s.`returnsshoop_shooppingid`=sh.`shoopping_id`
+        <where>
+
               <if test="returns_id!=null and returns_id!=''">
-                 and r.returns_id=#{returns_id}
+                 and r.returns_id like CONCAT('%',#{returns_id},'%')
               </if>
+            <if test="shop_name!=null and shop_name!=''">
+                and sh.shoopping_name like CONCAT('%',#{shop_name},'%')
+            </if>
           </where>
 
 
+    </select>
+    <select id="shop" resultType="Shoopping">
+        SELECT shoopping_name FROM returnsshoop s ,shoopping sh
+        <where>
+            s.`returnsshoop_shooppingid`=sh.`shoopping_id`
+            <if test="shop_name!=null and shop_name!=''">
+                and sh.shoopping_name like CONCAT('%',#{shop_name},'%')
+            </if>
+        </where>
+        GROUP BY shoopping_name
     </select>
     <insert id="addReturns">
         INSERT INTO `returns` (`returns_id`,`returns_returnsobjection`,`returns_state`,`returns_sendtime`,`returns_stateConfirmation`,`returns_confirmedtime`,`returns_objectionstatus`,`returns_objection`,`returns_countmoney`,`returns_warehousestatus`,`returns_warehousetime`,`returns_takestatus`,`returns_taketime`,`returns_paymentstatus`,`returns_userid`)

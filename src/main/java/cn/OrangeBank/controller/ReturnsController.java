@@ -86,18 +86,23 @@ public class ReturnsController {
     public String returnList(@RequestParam(required = false,defaultValue = "0") Integer start,
                              @RequestParam(required = false,defaultValue = "0")Integer length,
                              @RequestParam(required = false,defaultValue = "0")Integer draw,
-                             @RequestParam(required = false,defaultValue = "") String  appInfo){
+                             @RequestParam("pan") String pan,
+                             @RequestParam("zhi") String zhi){
 
              Page<Returns> pages=new Page<Returns>();
             Map<String ,Object> map=new HashMap<String, Object>();
             Returns returns=new Returns();
-            if(!"".equals(appInfo)){
-                //String 转换为对象
-                returns =(Returns) JSON.parseObject(appInfo,Returns.class);
+            if(zhi!=null && !zhi.equals("")){
+                if (pan.equals("1")){
+                    returns.setReturns_id(zhi);
+                }else   if (pan.equals("2")){
+                    returns.setShop_name(zhi);
+                }
             }
+
             int count =returnsService.TotalRows(returns).size();
             //分页条件数据
-            map.put("appInfo",returns);
+            map.put("returns",returns);
             map.put("start",start);
             map.put("length",length);
             //查询分页结果
@@ -185,4 +190,22 @@ public class ReturnsController {
         int shop = returnsshoopService.updateShop(re);
         return JSON.toJSONString(shop);
     }
+
+    @RequestMapping(value = "/ding",produces = {"application/json;charset=utf-8"})
+    @ResponseBody
+    public String ding(@RequestParam("zhi") String zhi, @RequestParam("pan")String pan){
+        Returns returns=new Returns();
+        if(zhi!=null && !zhi.equals("")){
+            if (pan.equals("1")){
+                returns.setReturns_id(zhi);
+            }else   if (pan.equals("2")){
+                returns.setShop_name(zhi);
+            }
+        }
+
+        List<Returns> returnsList = returnsService.TotalRows(returns);
+        return JSON.toJSONString(returnsList);
+    }
+
+
 }
