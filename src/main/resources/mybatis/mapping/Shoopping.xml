@@ -5,18 +5,70 @@
 <mapper namespace="cn.OrangeBank.dao.ShooppingMapper">
     <select id="shopList" resultType="Shoopping">
 
-SELECT  * FROM shoopping ORDER BY shoopping_sales DESC LIMIT 0,10;
+SELECT  * FROM shoopping ;
 </select>
     <select id="queryShoopping" resultType="Shoopping">
             SELECT * FROM shoopping
             <where>
                 <if test="shoopping_name!=null and shoopping_name!=''">
-                  and  shoopping_name=#{shoopping_name}
+                    and  shoopping_name=#{shoopping_name}
                 </if>
                 <if test="shoopping_id>0">
-                    shoopping_id=#{shoopping_id}
+                   and shoopping_id=#{shoopping_id}
+                </if>
+                <if test="shoopping_stockmoney!=null and shoopping_stockmoney>0">
+                    and shoopping_stockmoney=#{shoopping_stockmoney}
+                </if>
+                <if test="shoopping_warehouseid>0">
+                    and shoopping_warehouseid=#{shoopping_warehouseid}
                 </if>
             </where>
-        ORDER BY shoopping_sales DESC
+--         ORDER BY shoopping_sales DESC
     </select>
+    <insert id="addShop">
+        INSERT INTO shoopping(`shoopping_id`,`shoopping_name`,`shoopping_describe`,`shoopping_unit`,`shoopping_count`,`shoopping_stockmoney`,`shoopping_marketmoney`,`shoopping_warehouseid`)
+          VALUES	(DEFAULT,#{shoopping_name},#{shoopping_describe},#{shoopping_unit},#{shoopping_count},#{shoopping_stockmoney},#{shoopping_marketmoney},#{shoopping_warehouseid})
+    </insert>
+    <update id="updateShop">
+          UPDATE shoopping SET shoopping_count=#{shoopping_count}  WHERE shoopping_id =#{shoopping_id}
+    </update>
+
+    <resultMap id="shop2" type="Shoopping">
+      <association property="pos" javaType="Position"></association>
+    </resultMap>
+    <select id="TotalRows" resultMap="shop2">
+        SELECT * FROM shoopping s,`position` p
+        <where>
+            s.`shoopping_warehouseid`=p.`position_id`
+            <if test="shoopping_id>0">
+               and s.shoopping_id =#{shoopping_id}
+            </if>
+            <if test="shoopping_name!=null and shoopping_name!=''">
+                and s.shoopping_name like CONCAT('%',#{shoopping_name},'%')
+            </if>
+            <if test="position_name!=null and position_name!=''">
+                and p.position_name like CONCAT('%',#{position_name},'%')
+            </if>
+        </where>
+    </select>
+
+    <resultMap id="shop" type="Shoopping">
+        <association property="pos" javaType="Position"></association>
+    </resultMap>
+    <select id="shooppingList" resultMap="shop">
+        SELECT * FROM shoopping s,`position` p
+        <where>
+            s.`shoopping_warehouseid`=p.`position_id`
+            <if test="shop.shoopping_name!=null and shop.shoopping_name!=''">
+                and s.shoopping_name like CONCAT('%',#{shop.shoopping_name},'%')
+            </if>
+            <if test="shop.position_name!=null and shop.position_name!=''">
+                and p.position_name like CONCAT('%',#{shop.position_name},'%')
+            </if>
+        </where>
+        LIMIT #{start},#{length}
+    </select>
+    <delete id="deleteShopping">
+        delete FROM shoopping  where shoopping_id =#{id}
+    </delete>
 </mapper>

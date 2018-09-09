@@ -18,7 +18,8 @@
         <where>
             <if test="supplierId!=null and supplierId!=''"> AND  s.supplier_id LIKE CONCAT ('%',#{supplierId},'%') or s.supplier_name  LIKE CONCAT ('%',#{supplierId},'%')</if>
         </where>
-        limit #{begin},#{end}
+        <if test="begin>0">limit #{begin},#{end}</if>
+
     </select>
 
 

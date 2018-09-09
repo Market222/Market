@@ -85,7 +85,7 @@
       <div class="main2" >
             <ul>
                 <li style="text-align:center;background-color: orange">快速查看</li>
-                <li><a href="#">进货订单及退回单列表</a></li>
+                <li><a href="/OrangBank/tiaoShop">仓库商品</a></li>
                 <li><a href="#">销售订单及销售退货列表</a></li>
                 <li><a href="#">要货申请单列表</a></li>
                 <li><a href="#">收款单列表</a></li>

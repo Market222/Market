@@ -13,16 +13,21 @@
     <resultMap id="ordermap2" type="Order">
         <id column="order_id" property="order_id"></id>
         <collection property="stocks" javaType="Stock">
-
+            <association property="pos" javaType="Position"></association>
         </collection>
     </resultMap>
     <select id="TotalRows" resultMap="ordermap2">
-        SELECT * FROM `order` o,stock s,`position` p
+        SELECT * FROM `order` o LEFT JOIN stock s ON  o.`order_id`= s.stock_orderid LEFT JOIN `position` p ON p.`position_id`=s.stock_warehouseid
         <where>
-            o.`order_id`= s.stock_orderid
-            AND p.`position_id`=s.stock_warehouseid
+
             <if test="order_id !=null  ">
                 AND o.order_id LIKE CONCAT('%',#{order_id},'%')
+            </if>
+            <if test="stock_name!=null and stock_name!=''">
+                AND  s.`stock_name` LIKE CONCAT('%',#{stock_name},'%')
+            </if>
+            <if test="position_name!=null and position_name!=''">
+                AND  p.`position_name` LIKE CONCAT('%',#{position_name},'%')
             </if>
          </where>
 
@@ -33,13 +38,13 @@
     <resultMap id="ordermap" type="Order">
         <id column="order_id" property="order_id"></id>
         <collection property="stocks" javaType="Stock">
+            <association property="pos" javaType="Position"></association>
         </collection>
     </resultMap>
     <select id="orderList" resultMap="ordermap">
-        SELECT * FROM `order` o,stock s ,`position` p
+        SELECT * FROM `order` o LEFT JOIN stock s ON  o.`order_id`= s.stock_orderid LEFT JOIN `position` p ON p.`position_id`=s.stock_warehouseid
 <where>
-    o.`order_id`= s.stock_orderid
-    AND p.`position_id`=s.stock_warehouseid
+
     <if test=" appInfo.order_id!=null and appInfo.order_id!=''">
         AND o.order_id LIKE CONCAT('%',#{appInfo.order_id},'%')
     </if>
@@ -52,6 +57,16 @@
 </where>
    LIMIT #{start},#{length}
    </select>
+
+    <select id="shop" resultType="Stock">
+        SELECT s.`stock_name` FROM   stock s
+        <where>
+            <if test="stock_name!=null and stock_name!=''">
+                AND  s.`stock_name` LIKE CONCAT('%',#{stock_name},'%')
+            </if>
+        </where>
+        GROUP BY s.`stock_name`
+    </select>
     <delete id="delOrder" >
            DELETE  FROM  `order` WHERE order_id=#{order_id}
     </delete>
