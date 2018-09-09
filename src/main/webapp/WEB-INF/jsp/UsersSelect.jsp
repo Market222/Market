@@ -8,6 +8,7 @@
 <script type="text/javascript" src="../statics/JSPwindow/js/xadmin.js"></script>
 <link type="text/css" rel="styleSheet" href="../statics/CSS/xiaoshou.css"/>
 <link rel="stylesheet" type="text/css" href="../statics/CSS/hzw-city-picker.css">
+
 <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
     <li role="presentation" class="active"><a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab"
                                               aria-expanded="true"><font style="vertical-align: inherit;"><font
@@ -44,6 +45,7 @@
                     <td>${users.users_email}</td>
                     <td>${users.role.role_name}</td>
                     <c:if test="${users.role_id==1}">
+                    <c:if test="${users.role_id==1}">
                         <td></td>
                     </c:if>
                     <c:if test="${users.role_id!=1}">
@@ -51,6 +53,15 @@
                             <i class="fa fa-wrench"  onclick="update('用户修改','/OrangBank/SelectUsersid?users_id=${users.users_id}','800','700')"  href="javascript:;" title="修改"></i>
                             &nbsp; &nbsp;
                             <i class="fa fa-trash" data-toggle="modal" data-target="#delete" onclick="delete1('${users.users_id}')"href="javascript:;" title="删除"></i>
+                        </td>
+                    </c:if>
+                    </c:if>
+                    <c:if test="${users.role_id==2}">
+                        <td></td>
+                    </c:if>
+                    <c:if test="${users.role_id!=2 and users.role_id!=1}">
+                        <td>
+                            <i class="fa fa-wrench"  onclick="update('用户修改','/OrangBank/SelectUsersid?users_id=${users.users_id}','800','700')"  href="javascript:;" title="修改"></i>
                         </td>
                     </c:if>
                 </tr>
@@ -79,8 +90,7 @@
 </div>
 <script>
     function aa() {
-        window.location="/OrangBank/SelectUsers";
-
+        window.location="/OrangBank/SelectUsers/?users_companyid=${users.users_companyid}";
     };
     //刷新页面
     $(function(){

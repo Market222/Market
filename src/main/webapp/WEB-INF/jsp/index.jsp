@@ -2,6 +2,8 @@
          pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@include file="../jsp/common/head.jsp" %>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link href="../statics/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
 <link type="text/css" rel="styleSheet"  href="../statics/CSS/index.css" />
 <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
@@ -20,14 +22,27 @@
         <div id="myTabContent" class="row">
             <div role="tabpanel" class="tab-pane fade active in col-md-3" id="tab_content1" aria-labelledby="home-tab">
                 <p><font style="vertical-align: inherit;"><strong
-                        style="vertical-align: inherit;">${userEntity.users_company},${userEntity.users_truename}</strong></font></p>
+                        style="vertical-align: inherit;">
+                    <c:if test="${companiesList1 != null }">
+                        <c:forEach var="dep" items="${companiesList1}">
+                                    <c:if test="${userEntity.users_companyid == dep.company_id}">
+                                        ${dep.company_name}
+                                    </c:if>
+                        </c:forEach>
+                    </c:if>
+                    ,${userEntity.users_truename}</strong></font></p>
             </div>
             <c:if test="${userEntity.role_id==1}">
             <div role="tabpanel" class="tab-pane fade active in col-md-3" id="tab_content2" aria-labelledby="home-tab">
-                <a href="/OrangBank/SelectUsers">成员管理</a>
+                <a href="/OrangBank/SelectUsers?users_companyid=${userEntity.users_companyid}">成员管理</a>
             </div>
             </c:if>
-            <c:if test="${userEntity.role_id!=1}">
+            <c:if test="${userEntity.role_id==2}">
+                <div role="tabpanel" class="tab-pane fade active in col-md-3" id="tab_content2" aria-labelledby="home-tab">
+                    <a href="/OrangBank/SelectUsers?users_companyid=${userEntity.users_companyid}">员工管理</a>
+                </div>
+            </c:if>
+            <c:if test="${userEntity.role_id==3}">
             <div role="tabpanel" class="tab-pane fade active in col-md-3" id="tab_content3" aria-labelledby="home-tab">
                 <a href="/OrangBank/SelectUsersid?users_id=${userEntity.users_id}">个人信息</a>
             </div>

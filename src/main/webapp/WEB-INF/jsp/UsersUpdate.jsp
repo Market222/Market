@@ -19,15 +19,15 @@
         background-color: white;
     }
 </style>
-<c:if test="${userEntity.role_id!=1}">
+<c:if test="${userEntity.role_id!=1 and userEntity.role_id!=2}">
     <%@include file="../jsp/common/head.jsp" %>
     <h3 style="text-align: center">个人信息</h3>
 </c:if>
 <div style="display: flex;justify-content: center;margin-top: 50px">
-    <c:if test="${userEntity.role_id!=1}">
+    <c:if test="${userEntity.role_id!=1 and userEntity.role_id!=2 }">
     <form class="form-horizontal form-label-left" novalidate="" action="/OrangBank/GRupdate" method="post">
         </c:if>
-        <c:if test="${userEntity.role_id==1}">
+        <c:if test="${userEntity.role_id==1 or userEntity.role_id==2}">
         <form class="form-horizontal form-label-left" novalidate="" method="post">
             </c:if>
             <input type="hidden" value="${users2.users_id} " name="users_id" id="users_id">
@@ -49,8 +49,8 @@
             <div class="form-group">
                 <label class="control-label col-md-3">公司名称</label>
                 <div class="col-md-7 ">
-                    <input class="form-control" type="text" value="${users2.users_company}" name="users_company"
-                           id="users_company">
+                    <input class="form-control" type="text" value="${users2.company.company_name}" name="users_company"
+                           id="users_company"  disabled="disabled">
                 </div>
             </div>
             <div class="form-group">
@@ -73,12 +73,15 @@
                     <c:if test="${userEntity.role_id==1}">
                         <select class="form-control col-md-5" style="width: 196px" name="role_id" id="role_id">
                             <c:if test="${grroleList != null }">
-                                <c:forEach var="dep" items="${grroleList}">
-                                    <option
-                                            <c:if test="${dep.role_id == users2.role_id}">selected="selected"</c:if>
-                                            value="${dep.role_id}">${dep.role_name}</option>
-                                </c:forEach>
-                            </c:if>
+                            <c:forEach var="dep" items="${grroleList}">
+                                <option
+                                        <c:if test="${dep.role_id == users2.role_id}">selected="selected"</c:if>
+                                        value="${dep.role_id}">${dep.role_name}
+
+                                </option>
+
+                            </c:forEach>
+                        </c:if>
                         </select>
                     </c:if>
                     <c:if test="${userEntity.role_id!=1}">
@@ -90,7 +93,7 @@
             <div class="ln_solid"></div>
             <div class="form-group">
                 <div class="col-md-7">
-                    <c:if test="${userEntity.role_id==1}">
+                    <c:if test="${userEntity.role_id==1  or userEntity.role_id==2}">
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <button id="send" type="button" class="btn btn-success" href="javascript:;" onclick=" xiugai()">
                             <font style="vertical-align: inherit;"><font
@@ -100,7 +103,7 @@
                                 style="vertical-align: inherit;"><font style="vertical-align: inherit;">返回</font></font>
                         </button>
                     </c:if>
-                    <c:if test="${userEntity.role_id!=1}">
+                    <c:if test="${userEntity.role_id!=1 and  userEntity.role_id!=2}">
                         <button id="send2" type="submit" class="btn btn-success"><font style="vertical-align: inherit;"><font
                                 style="vertical-align: inherit;">保存</font></font></button>
                         <button type="button" class="btn btn-primary" href="javascript:;" onclick="index()"><font
@@ -128,7 +131,6 @@
             data: {
                 "users_id": $("#users_id").val(),
                 "users_phone": $("#users_phone").val(),
-                "users_company": $("#users_company").val(),
                 "users_truename": $("#users_truename").val(),
                 "users_email": $("#users_email").val(),
                 "role_id": $("#role_id").val()
