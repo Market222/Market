@@ -1,5 +1,7 @@
 package cn.OrangeBank.controller;
 
+import cn.OrangeBank.entity.Company;
+import cn.OrangeBank.entity.Role;
 import cn.OrangeBank.entity.Users;
 import cn.OrangeBank.service.UsersService;
 import cn.OrangeBank.util.MD5andKL;
@@ -15,6 +17,7 @@ import javax.annotation.Resource;
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,7 +25,6 @@ import java.util.Map;
 @Controller
 @RequestMapping("/OrangBank")
 public class UsersController {
-
     @Resource
     private UsersService usersService;
 
@@ -35,6 +37,10 @@ public class UsersController {
         String pwd = MD5andKL.MD5(users.getUsers_password(),"md5").toLowerCase();
         for (Users us :usersList) {
             if(users.getUsers_name().equals(us.getUsers_name()) && pwd.equals(us.getUsers_password())){
+                Company company = new Company();
+                company.setCompany_id(us.getUsers_companyid());
+                List<Company>  companiesList1= usersService.SelectCompany(company);
+               session.setAttribute("companiesList1",companiesList1);
                 session.setAttribute("userEntity",us);
                 return "redirect:/OrangBank/aa";
             }
@@ -104,7 +110,9 @@ public class UsersController {
 
     //查询用户
     @RequestMapping("/SelectUsers")
-    public ModelAndView SelectUsers(Users users) {
+    public ModelAndView SelectUsers(Users users , @Param("users_companyid") Integer users_companyid ,HttpServletRequest request) {
+        /* users.setCompany(new String(request.getParameter("users_company").getBytes("iso8859-1"),"utf-8"));*/
+        users.setUsers_companyid(users_companyid);
         List<Users> usersList = usersService.SelectUsers(users);
         mv.addObject("usersList", usersList);
         mv.setViewName("UsersSelect");
@@ -125,29 +133,54 @@ public class UsersController {
 
     //根据id查询用户
     @RequestMapping("/SelectUsersid")
-    public ModelAndView SelectUsersid(Users users , @Param("users_id") Integer users_id) {
+    public ModelAndView SelectUsersid(Users users , @Param("users_id") Integer users_id , Role role, Company company) {
         users.setUsers_id(users_id);
         List<Users> users1 = usersService.SelectUsers(users);
+        List<Role> grroleList = usersService.SelectRole(role);
+        List<Company>  companiesList= usersService.SelectCompany(company);
+        mv.addObject("companiesList", companiesList);
+        mv.addObject("grroleList", grroleList);
         for (Users users2 : users1) {
             mv.addObject("users2", users2);
         }
         mv.setViewName("UsersUpdate");
         return mv;
     }
+
+    /**
+     * 修改
+     */
+    @RequestMapping(value = "/SelectCompany")
+    @ResponseBody
+    public ModelAndView SelectCompany(Company company){
+        List<Company> companies = usersService.SelectCompany(company);
+        mv.addObject("companies", companies);
+        mv.setViewName("longin");
+        return mv;
+    }
+
+    @RequestMapping(value = "/Update")
+    @ResponseBody
+    public Object Update(Users user){
+        int i = usersService.updateUser(user);
+        return JSON.toJSONString(i);
+    }
+
     // *
-    //     *  修改用户
+    //     *  修改个人用户
     //     * @param users
     //     * @param mv
     //     * @return
     //
-    @RequestMapping("/update")
-    public ModelAndView update(Users users, @RequestParam(required = false) Integer users_id){
+    @RequestMapping("/GRupdate")
+    public ModelAndView GRupdate(Users users, ModelAndView mv, @RequestParam(required = false) Integer users_id){
         users.setUsers_id(users_id);
-        int i = usersService.Update(users);
+        int i = usersService.updateUser(users);
         if(i>0){
-            return new ModelAndView("redirect:/OrangBank/SelectUsers");
+            return SelectUsersid(users,users_id,null,null);
+            /* return new ModelAndView("redirect:/OrangBank/queryUseraa?id=users_id");*/
         }else{
-            mv.setViewName("UsersSelect");
+            mv.setViewName("UsersUpdate");
         }
         return mv;
     }

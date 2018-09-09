@@ -2,6 +2,7 @@ package cn.OrangeBank.service.impl;
 
 import cn.OrangeBank.dao.ReturnsMapper;
 import cn.OrangeBank.entity.Returns;
+import cn.OrangeBank.entity.Shoopping;
 import cn.OrangeBank.service.ReturnsService;
 import org.springframework.stereotype.Service;
 
@@ -29,5 +30,9 @@ public class ReturnsServiceImpl implements ReturnsService {
 
     public int delReturns(String id) {
         return returnsMapper.delReturns(id);
+    }
+
+    public List<Shoopping> shop(Returns returns) {
+        return returnsMapper.shop(returns);
     }
 }

@@ -2,6 +2,7 @@ package cn.OrangeBank.dao;
 
 
 import cn.OrangeBank.entity.Returns;
+import cn.OrangeBank.entity.Shoopping;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -13,4 +14,5 @@ public interface ReturnsMapper{
 
     int addReturns(Returns returns);
     int delReturns(@Param("id") String id);
+    List<Shoopping> shop(Returns returns);
 }

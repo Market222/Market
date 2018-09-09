@@ -28,8 +28,17 @@ public class Returns {
   private Date returns_taketime;
   private String returns_paymentstatus;
   private long returns_userid;
+  private String shop_name;  //商品名称  简单的方法
 
   List<Returnsshoop> ret=new ArrayList<Returnsshoop>();
+
+  public String getShop_name() {
+    return shop_name;
+  }
+
+  public void setShop_name(String shop_name) {
+    this.shop_name = shop_name;
+  }
 
   public List<Returnsshoop> getRet() {
     return ret;

@@ -1,6 +1,8 @@
 package cn.OrangeBank.service.impl;
 
 import cn.OrangeBank.dao.UsersMapper;
+import cn.OrangeBank.entity.Company;
+import cn.OrangeBank.entity.Role;
 import cn.OrangeBank.entity.Users;
 import cn.OrangeBank.service.UsersService;
 import org.springframework.stereotype.Service;
@@ -34,7 +36,13 @@ public class UsersServiceImpl implements UsersService {
         return usersMapper.Delete(id);
     }
 
-    public int Update(Users users) {
-        return usersMapper.Update(users);
+    public List<Company> SelectCompany(Company company) { return usersMapper.SelectCompany(company); }
+
+    public List<Role> SelectRole(Role role) {
+        return usersMapper.SelectRole(role);
+    }
+    //修改用户
+    public int updateUser(Users user) {
+        return usersMapper.updateUser(user);
     }
 }

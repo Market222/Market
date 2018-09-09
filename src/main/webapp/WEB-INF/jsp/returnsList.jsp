@@ -25,6 +25,12 @@
     </li>
 </ul>
 <div class="main">
+    条件：<select id="pan">
+    <option value="1">订单号</option>
+    <option value="2">商品名称</option>
+</select>
+    <div id="quan" style="border: 1px solid black; height: 10%;width: 10%;display: none"></div>
+    <input type="text" id="cha"/><input type="button"  id ="select" value="查询">
     <button onclick="window.location.href='ReturnsAdd'">新增</button>
     <table id="tabless" class="table table-striped table-bordered dt-responsive <%--nowrap--%>" cellspacing="0" width="100%" >
 
@@ -56,14 +62,16 @@
             "ajax": {
                 "url":"/Returns/ReturnsList",
                 "type": "POST",
-                "dataType" : "JSON"
-                // "data": function (datas) {
-                //     datas.appInfo=JSON.stringify({"softwareName":$("#softwareName").val(),
-                //         "status":$("#status").val(),
-                //         "flatformId":$("#flatformId").val(),
-                //         "categoryLevel1":$("#class1").val(),"categoryLevel2":$("#class2").val(),
-                //         "categoryLevel3":$("#class3").val()});
-                // }
+                "dataType" : "JSON",
+                "data":function (data) {
+                    var param = {
+                        "zhi": $("#cha").val(),
+                        "pan": $("#pan").val()
+                    };
+                    param.length = data.length;//页面显示记录条数，在页面显示每页显示多少项的时候
+                    param.start = data.start;//开始的记录序号
+                    param.draw = data.draw;
+                    return param;},
             },
             lengthMenu: [ //自定义分页长度
                 [ 10, 20, 50 ],
@@ -84,43 +92,66 @@
                 { "data": "ret","render": function ( data, type, full, meta ) {
                         var zhi='';
                         for(var i=0;i<data.length;i++){
-                            zhi+="<p>"+data[i].shop.shoopping_name+"</p>"
+                            if(data[i].shop!=null){
+                                zhi+="<p>"+data[i].shop.shoopping_name+"</p>"
+
+                            }else{
+                                zhi="空"
+                            }
                         }
                         return zhi;
                     } },
                 { "data": "ret","render": function ( data, type, full, meta ) {
                         var zhi='';
                         for(var i=0;i<data.length;i++){
-                            zhi+="<p>"+data[i].shop.shoopping_unit+"</p>"
+                            if(data[i].shop!=null){
+                                zhi+="<p>"+data[i].shop.shoopping_unit+"</p>"
+                            }else{
+                                zhi="空"
+                            }
                         }
                         return zhi;
                     } },
                 { "data": "ret","render": function ( data, type, full, meta ) {
                         var zhi='';
                         for(var i=0;i<data.length;i++){
+                            if(data[i].returnsshoop_count!=null){
                             zhi+="<p>"+data[i].returnsshoop_count+"</p>"
+                            }else{
+                                zhi="空"
+                            }
                         }
                         return zhi;
                     } },
                 { "data": "ret","render": function ( data, type, full, meta ) {
                         var zhi='';
                         for(var i=0;i<data.length;i++){
-                            zhi+="<p>"+data[i].shop.shoopping_stockmoney+"</p>"
+                             if(data[i].shop!=null){
+                                 zhi+="<p>"+data[i].shop.shoopping_stockmoney+"</p>"
+
+                             }else{
+                                zhi="空"
+                            }
                         }
                         return zhi;
                     } },
                 { "data": "ret","render": function ( data, type, full, meta ) {
                         var zhi='';
                         for(var i=0;i<data.length;i++){
-                            zhi+="<p>"+data[i].shop.shoopping_warehouseid+"</p>"
+                            if(data[i].shop !=null && data[i].shop.pos!=null){
+                                zhi+="<p>"+data[i].shop.pos.position_name+"</p>"
+                            }else{
+                                zhi="空"
+                            }
+
                         }
                         return zhi;
                     } },
                      { "data": "returns_id","render": function ( data, type, full, meta ) {
 
 
-                            return "  <td ><a href='OrderView/" +data + "'><i class=\"fa fa-desktop \"></i></a>&nbsp;&nbsp;<a   href='javascript:del(\""+data+"\")'><i\n" +
-                                "class=\"fa fa-trash\"></i></a>&nbsp;&nbsp;<a  href='javascript:xg("+data+")'><i class=\"fa fa-edit\"></i><span\n" +
+                            return "  <td ><a href='ReturnsView/" +data + "'><i class=\"fa fa-desktop \"></i></a>&nbsp;&nbsp;<a   href='javascript:del(\""+data+"\")'><i\n" +
+                                "class=\"fa fa-trash\"></i></a>&nbsp;&nbsp;<a  href='tiao2/"+data+"'><i class=\"fa fa-edit\"></i><span\n" +
                                 "class=\"text-muted\"></span></a></td>";
                       }}
             ],
@@ -145,8 +176,8 @@
         $(".btn-success").on("click",function () {
             $('#datatable-responsive').DataTable().ajax.reload();
         });
-        $("#queryAppInfo").on("click",function () {
-            $('#datatable-responsive').DataTable().ajax.reload();
+        $("#select").on("click",function () {
+            $('#tabless').DataTable().ajax.reload();
         });
         $('#datatable-fixed-header').DataTable({
             fixedHeader: true
@@ -190,5 +221,66 @@
             else{
                 return;
             }
+    }
+    document.onkeyup=function (ev) {
+        var cha=$("#cha").val();
+        var pan=$("#pan").val();
+        if(cha.trim().length!=0){
+
+            $.ajax({
+                type: "POST",//请求类型
+                url: "/Returns/ding",//请求的url
+                data:{"zhi":cha,"pan":pan},
+                dataType: "json",//ajax接口（请求url）返回的数据类型
+                success: function (data) {//data：返回数据（json对象）
+                    if(data!=null)
+                    {
+
+
+                        var htm="";
+                        if(pan==1){
+                            var num=data.length;
+                            if(data.length>5){
+                                num=5;
+                            }
+                            for (var i=0; i<num;i++) {
+                                if(data[i]!=null) {
+                                    htm += "<p onclick='dian(this)'>" + data[i].returns_id + "</p>";
+                                }
+
+                            }
+                        }else if(pan==2){
+                            var num=data.length;
+                            if(data.length>5){
+                                num=5;
+                            }
+                            for (var i=0; i<num;i++) {
+                                if(data[i]!=null) {
+                                    htm += "<p onclick='dian(this)'>" + data[i].shop_name + "</p>";
+                                }
+
+                            }
+                        }
+
+                        $("#quan").html(htm);
+                        if(data.length>0 ){
+                            $("#quan").show();
+                        }else{
+                            $("#quan").hide();
+                        }
+                    }else{
+                        $("#quan").hide();
+                    }
+
+                }
+            });
+
+        }else{
+            $("#quan").hide();
+        }
+
+    }
+    function dian(data) {
+        $("#cha").val(data.innerText)
     }
 </script>

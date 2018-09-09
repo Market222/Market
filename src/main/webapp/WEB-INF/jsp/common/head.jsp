@@ -44,14 +44,20 @@
         text-decoration: none;
         color: white;
     }
+
 </style>
 <body style="background-color: white">
+
 <div class="shouYe">
     <ul style="list-style: none;background-color: rgba(255,79,4,0.63)">
         <li><a href="#">进货</a></li>
         <li><a href="#">销货</a></li>
         <li><a href="#">仓库</a></li>
-        <li><a href="/OrangBank/exitUser">退出</a></li>
+        <li><a href="#">资金</a></li>
+        <li><a href="#">报表</a></li>
+        <li><a href="#">设置</a></li>
+
+        <li style="float: right"><a href="/OrangBank/exitUser">退出</a></li>
     </ul>
 </div>
 

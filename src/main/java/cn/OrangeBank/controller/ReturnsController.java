@@ -5,6 +5,7 @@ import cn.OrangeBank.entity.*;
 import cn.OrangeBank.service.*;
 import com.alibaba.fastjson.JSON;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -40,7 +41,7 @@ public class ReturnsController {
     @RequestMapping(value = "SupShopList",produces = {"application/json;charset=utf-8"})
     @ResponseBody
     public String supShopList(@RequestParam()String shop){
-        Suppliershoop sup=new Suppliershoop();
+            Suppliershoop sup=new Suppliershoop();
         sup.setSuppliershoop_name(shop);
         List<Suppliershoop> suppliershoops = suppliershoopService.supShopList(sup);
         int suppId = (int)suppliershoops.get(0).getSuppliershoop_supplierid();
@@ -62,6 +63,14 @@ public class ReturnsController {
     public String tiao(){
         return  "returnsList";
     }
+    @RequestMapping("tiao2/{id}")
+    public String tiao2(@PathVariable() String id ,Model m){
+        Returns returns=new Returns();
+        returns.setReturns_id(id);
+        List<Returns> returnsList = returnsService.TotalRows(returns);
+        m.addAttribute("returnsList",returnsList.get(0));
+        return  "returnsUpdate";
+    }
 
     @RequestMapping(value = "ShopList",produces = {"application/json;charset=utf-8"})
     @ResponseBody
@@ -77,18 +86,23 @@ public class ReturnsController {
     public String returnList(@RequestParam(required = false,defaultValue = "0") Integer start,
                              @RequestParam(required = false,defaultValue = "0")Integer length,
                              @RequestParam(required = false,defaultValue = "0")Integer draw,
-                             @RequestParam(required = false,defaultValue = "") String  appInfo){
+                             @RequestParam("pan") String pan,
+                             @RequestParam("zhi") String zhi){
 
              Page<Returns> pages=new Page<Returns>();
             Map<String ,Object> map=new HashMap<String, Object>();
             Returns returns=new Returns();
-            if(!"".equals(appInfo)){
-                //String 转换为对象
-                returns =(Returns) JSON.parseObject(appInfo,Returns.class);
+            if(zhi!=null && !zhi.equals("")){
+                if (pan.equals("1")){
+                    returns.setReturns_id(zhi);
+                }else   if (pan.equals("2")){
+                    returns.setShop_name(zhi);
+                }
             }
+
             int count =returnsService.TotalRows(returns).size();
             //分页条件数据
-            map.put("appInfo",returns);
+            map.put("returns",returns);
             map.put("start",start);
             map.put("length",length);
             //查询分页结果
@@ -145,4 +159,53 @@ public class ReturnsController {
         }
         return JSON.toJSONString(pan);
     }
+
+    @RequestMapping("/ReturnsView/{id}")
+    public String returnsView(@PathVariable() String id, Model m) {
+        Returns returns=new Returns();
+        returns.setReturns_id(id);
+        List<Returns> returnsList = returnsService.TotalRows(returns);
+        m.addAttribute("returnsList",returnsList.get(0));
+        return "returnsView";
+    }
+
+
+    @RequestMapping(value = "/Shop",produces = {"application/json;charset=utf-8"})
+    @ResponseBody
+    public String shop(@RequestParam("id") Integer id,@RequestParam("orderId") String orderId){
+        Returnsshoop ret =new Returnsshoop();
+        ret.setShop(new Shoopping());
+        ret.getShop().setShoopping_id(id);
+        ret.setReturnsshoop_orderid(orderId);
+        List<Returnsshoop> returnsshoops = returnsshoopService.reList(ret);
+        return JSON.toJSONString(returnsshoops);
+    }
+
+    @RequestMapping(value = "/UpdateReturns",produces = {"application/json;charset=utf-8"})
+    @ResponseBody
+    public String updateReturns(@RequestParam("id") Integer id,@RequestParam("count")Integer count){
+        Returnsshoop re=new Returnsshoop();
+        re.setReturnsshoop_id(id);
+        re.setReturnsshoop_count(count);
+        int shop = returnsshoopService.updateShop(re);
+        return JSON.toJSONString(shop);
+    }
+
+    @RequestMapping(value = "/ding",produces = {"application/json;charset=utf-8"})
+    @ResponseBody
+    public String ding(@RequestParam("zhi") String zhi, @RequestParam("pan")String pan){
+        Returns returns=new Returns();
+        if(zhi!=null && !zhi.equals("")){
+            if (pan.equals("1")){
+                returns.setReturns_id(zhi);
+            }else   if (pan.equals("2")){
+                returns.setShop_name(zhi);
+            }
+        }
+
+        List<Returns> returnsList = returnsService.TotalRows(returns);
+        return JSON.toJSONString(returnsList);
+    }
+
+
 }

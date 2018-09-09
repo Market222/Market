@@ -362,7 +362,7 @@
                     for (var i = 0; i < data.length; i++) {
                         //alert(data[i].id);
                         //alert(data[i].proName);
-                        options += "<option value=\"" + data[i].supplier_id + "\">" + data[i].supplier_name + "</option>";
+                        options += "<option value=\"" + data[i].supplierId + "\">" + data[i].supplierName + "</option>";
                     }
                     $("#gong").html(options);
                 }

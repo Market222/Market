@@ -2,8 +2,15 @@
          pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@include file="../jsp/common/head.jsp" %>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link href="../statics/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
 <link type="text/css" rel="styleSheet"  href="../statics/CSS/index.css" />
+<script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.bootcss.com/Swiper/3.4.2/js/swiper.jquery.min.js"></script>
+<script src="../statics/JSPwindow/lib/layui/layui.js"></script>
+<script type="text/javascript" src="../statics/JSPwindow/js/xadmin.js"></script>
+
 <div class="x_content">
     <div class="" role="tabpanel" data-example-id="togglable-tabs" style="position: relative;">
         <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
@@ -15,8 +22,31 @@
         <div id="myTabContent" class="row">
             <div role="tabpanel" class="tab-pane fade active in col-md-3" id="tab_content1" aria-labelledby="home-tab">
                 <p><font style="vertical-align: inherit;"><strong
-                        style="vertical-align: inherit;">${userEntity.users_company},${userEntity.users_truename}</strong></font></p>
+                        style="vertical-align: inherit;">
+                    <c:if test="${companiesList1 != null }">
+                        <c:forEach var="dep" items="${companiesList1}">
+                                    <c:if test="${userEntity.users_companyid == dep.company_id}">
+                                        ${dep.company_name}
+                                    </c:if>
+                        </c:forEach>
+                    </c:if>
+                    ,${userEntity.users_truename}</strong></font></p>
             </div>
+            <c:if test="${userEntity.role_id==1}">
+            <div role="tabpanel" class="tab-pane fade active in col-md-3" id="tab_content2" aria-labelledby="home-tab">
+                <a href="/OrangBank/SelectUsers?users_companyid=${userEntity.users_companyid}">成员管理</a>
+            </div>
+            </c:if>
+            <c:if test="${userEntity.role_id==2}">
+                <div role="tabpanel" class="tab-pane fade active in col-md-3" id="tab_content2" aria-labelledby="home-tab">
+                    <a href="/OrangBank/SelectUsers?users_companyid=${userEntity.users_companyid}">员工管理</a>
+                </div>
+            </c:if>
+            <c:if test="${userEntity.role_id==3}">
+            <div role="tabpanel" class="tab-pane fade active in col-md-3" id="tab_content3" aria-labelledby="home-tab">
+                <a href="/OrangBank/SelectUsersid?users_id=${userEntity.users_id}">个人信息</a>
+            </div>
+            </c:if>
         </div>
 
         <div class="main ">
@@ -58,7 +88,7 @@
                 </div>
                 <div class="col-md-3"><a href="/sInfo" style="margin-left: -10px"><img src="../statics/img/fukuan.png"></a></div>
                 <div class="col-md-3" style="border-right:0px">
-                        <ul style="text-align: center;margin-top: 20px">
+                        <ul style="text-align: center;margin-top: 30%;">
                             <li> <a href="#">进货订单入库</a></li>
                             <li> <a href="#">进货退回</a></li>
                         </ul>
@@ -77,18 +107,28 @@
             </div>
 
         </div>
-      <%--  <div class="main2" >
+      <div class="main2" >
             <ul>
                 <li style="text-align:center;background-color: orange">快速查看</li>
-                <li><a href="#">进货订单及退回单列表</a></li>
+                <li><a href="/OrangBank/tiaoShop">仓库商品</a></li>
                 <li><a href="#">销售订单及销售退货列表</a></li>
                 <li><a href="#">要货申请单列表</a></li>
                 <li><a href="#">收款单列表</a></li>
                 <li><a href="#">付款单列表</a></li>
                 <li><a href="#">供应商历史价格查询</a></li>
                 <li><a href="#">客户历史价格查询</a></li>
-                <li><a href="#">销售排行榜</a></li>
+                <li><a onclick="Sales_charts('销售排行榜','/OrangBank/Sales_charts2','800','700')"  href="javascript:;" title="修改">销售排行榜</a></li>
+            <%--<li><a  href="#" onclick="tk()" >销售排行榜</a></li>--%>
             </ul>
-        </div>--%>
+        </div>
     </div>
 <%@include file="../jsp/common/foot.jsp" %>
+
+    <script>
+        // 编辑
+        function Sales_charts(title,url,w,h) {
+            x_admin_show(title,url,w,h);
+        }
+
+
+         </script>

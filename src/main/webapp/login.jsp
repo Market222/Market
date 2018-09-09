@@ -54,9 +54,7 @@
                         <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" >注册</button>
                         <button type="button" class="btn btn-success" onclick="qk()">重填</button>
                     </div>
-
                     <div class="clearfix"></div>
-
                     <div class="separator">
                         <p class="change_link">@2018
                             <a href="#signup" class="to_register"> All Rights Reserved. </a>
@@ -78,7 +76,7 @@
             <div class="modal-body">
                 <form id="form-insert" class="form-horizontal" action="/OrangBank/insertUsers" method="post">
                     <div class="form-group">
-                        <label for="recipient-name" class="control-label col-sm-4">管理员用户名:</label>
+                        <label for="recipient-name" class="control-label col-sm-4">用户名:</label>
                         <div class="col-sm-5">
                             <input type="text" class="form-control" id="recipient-name" name="users_name" value="">
                             <!-- 放置提示信息 -->
@@ -99,15 +97,45 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="phone" class="control-label col-sm-4">管理员手机号:</label>
+                        <label for="phone" class="control-label col-sm-4">手机号:</label>
                         <div class="col-sm-5">
                             <input type="text" class="form-control" id="phone" name="users_phone">
                         </div>
                     </div>
                     <div class="form-group">
+                        <label for="phone" class="control-label col-sm-4">职位:</label>
+                        <div class="col-sm-5">
+                            <select class="form-control col-md-5"  name="role_id" id="role_id" onchange="xlk()">
+                                <option value="0"  selected="selected">-请选择职位-</option>
+                                <option value="1" id="role1">老板</option>
+                                <option  value="3" id="role2">员工</option>
+                            </select>
+                        </div>
+                    </div>
+                       <%--老板显示公司--%>
+                    <div class="form-group"  style="display :none"  id="laob">
                         <label for="name" class="control-label col-sm-4">公司名称:</label>
                         <div class="col-sm-5">
-                            <input type="text" class="form-control" id="name" name="users_company">
+                            <input type="text" class="form-control" id="name" name="company">
+                        </div>
+                    </div>
+                    <%--员工显示公司--%>
+                    <div class="form-group"  style="display :none" id="yung">
+                        <label for="name" class="control-label col-sm-4">公司名称:</label>
+                        <div class="col-sm-5">
+                                <select class="form-control col-md-5"  name="company_name" id="company_name">
+                                    <option value="0"  selected="selected">-请选择公司-</option>
+                                    <option value="1" id="users_companyid1">admin有限公司</option>
+                                    <option  value="2" id="users_companyid2">鹏飞有限公司</option>
+                                    <option  value="3" id="users_companyid3">阳光有限公司</option>
+                                    <option  value="4" id="users_companyid4">才德有限公司</option>
+                                </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone" class="control-label col-sm-4">邮箱:</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" id="users_email" name="users_email">
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -128,6 +156,23 @@
 <script src="statics/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="statics/build/js/users.js"></script>
 <script>
+    function xlk(){
+        //获取下拉框选中项的value属性值
+        var selectValue = $("#role_id").val();
+        alert(selectValue);
+        if(selectValue==0){
+            $("#laob").css("display","none");
+            $("#yung").css("display","none");
+        }else
+        if(selectValue==1){
+            $("#laob").css("display","");
+            $("#yung").css("display","none");
+        }else if(selectValue==3){
+            $("#yung").css("display","");
+            $("#laob").css("display","none");
+        }
+    }
+
     $(window).load(function(){
         setTimeout(function () {
             $("#ui-pnotifydark2").fadeOut(600);
@@ -145,7 +190,6 @@
         var pwd2 = $("#pwd2").val();
         var pan = $("#pan").val();
         if(pwd!=pwd2){
-            alert("sdfdsf");
             alert("两次密码输入不一样");
             return false;
         }

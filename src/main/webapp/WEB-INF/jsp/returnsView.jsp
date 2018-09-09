@@ -22,11 +22,11 @@
             style="vertical-align: inherit;">首页</font></font></a>
     </li>
     <li><a href="/OrangBank/tiao"><font style="vertical-align: inherit;"><font
-            style="vertical-align: inherit;">进货订单</font></font></a>
+            style="vertical-align: inherit;">进货退回订单</font></font></a>
     </li>
     <li role="presentation" class="active"><a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab"
                                               aria-expanded="true"><font style="vertical-align: inherit;"><font
-            style="vertical-align: inherit;">进货订单详情</font></font></a>
+            style="vertical-align: inherit;">进货退回订单详情</font></font></a>
     </li>
 </ul>
 <div class="main">
@@ -52,15 +52,18 @@
             <br>
             <form class="form-horizontal form-label-left input_mask">
                 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                    订单编号：<input type="text" class="form-control" id="input1" value="${orders.order_id}"
+                    订单编号：<input type="text" class="form-control" id="input1" value="${returnsList.returns_id}"
                                 disabled="disabled">
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                    退回理由：<textarea>${returnsList.returns_returnsobjection}</textarea>
                 </div>
                 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback" >
                     发送状态:
                         <select id="pid"  onchange="gradeChange()" class="form-control"   disabled="disabled"
                                 name="order_state">
-                            <option <c:if test="${orders.order_state=='未发送'}"> selected="selected"</c:if>>未发送</option>
-                            <option <c:if test="${orders.order_state=='已发送'}"> selected="selected"</c:if>>已发送</option>
+                            <option <c:if test="${returnsList.returns_state=='未发送'}"> selected="selected"</c:if>>未发送</option>
+                            <option <c:if test="${returnsList.returns_state=='已发送'}"> selected="selected"</c:if>>已发送</option>
                         </select>
                 </div>
                 <script>
@@ -109,7 +112,7 @@
 
                 </script>
                 <div class=" item col-md-6 col-sm-6 col-xs-12 form-grou fasong p "  >
-                    发送时间: <input disabled="disabled"  class="form-control laydate-icon " style="height: 33px" id="demo5" value="<fmt:formatDate  type="date" value="${orders.order_sendtime}" />" />
+                    发送时间: <input disabled="disabled"  class="form-control laydate-icon " style="height: 33px" id="demo5" value="<fmt:formatDate  type="date" value="${returnsList.returns_sendtime}" />" />
                     <script>
                         !function () {
                             laydate.skin('molv');//切换皮肤，请查看skins下面皮肤库
@@ -161,75 +164,114 @@
                 </div>
 
                 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                    确认状态:<select id="pid2" class="form-control"   onchange="gradeChange2()"   disabled="disabled"
+                    供应商确认状态:<select id="pid2" class="form-control"   onchange="gradeChange2()"   disabled="disabled"
                                  name="order_state">
-                    <option <c:if test="${orders.order_stateConfirmation=='未确定'}"> selected="selected"</c:if>>未确认</option>
-                    <option <c:if test="${orders.order_stateConfirmation=='已确定'}"> selected="selected"</c:if>>已确认</option>
+                    <option <c:if test="${returnsList.returns_stateConfirmation=='未确定'}"> selected="selected"</c:if>>未确认</option>
+                    <option <c:if test="${returnsList.returns_stateConfirmation=='已确定'}"> selected="selected"</c:if>>已确认</option>
                 </select>
                 </div>
-                <c:if test="${orders.order_confirmedTime!=null && orders.order_confirmedTime!='' }">
+                <c:if test="${returnsList.returns_confirmedtime!=null && returnsList.returns_confirmedtime!='' }">
                     <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback queren">
-                        确认时间:
+                        供应商确认时间:
                         <input type="text" id="input5" class="form-control has-feedback-left" readonly="readonly"
-                                     value="<fmt:formatDate  type="date" value="${orders.order_confirmedTime}" />"/>
+                                     value="<fmt:formatDate  type="date" value="${returnsList.returns_confirmedtime}" />"/>
                     </div>
                 </c:if>
-                <c:if test="${orders.order_objection!=null && orders.order_objection!='' }">
+
                     <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        拒绝理由:<input type="text" id="input6" class="form-control" value="${orders.order_objection}"
+                        拒绝状态:<select id="" class="form-control"   onchange="gradeChange2()"   disabled="disabled"
+                                     name="order_state">
+                        <option <c:if test="${returnsList.returns_objectionstatus=='未拒绝'}"> selected="selected"</c:if>>未确认</option>
+                        <option <c:if test="${returnsList.returns_objectionstatus=='已拒绝'}"> selected="selected"</c:if>>已确认</option>
+
+
+                    <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                        拒绝理由:<input type="text" id="input6" class="form-control" value="${returnsList.returns_objection}"
                                     readonly="readonly">
                     </div>
-                </c:if>
+
+
+
+
+              <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                            总金额 :<input type="text"  class="form-control" value="${returnsList.returns_countmoney}"
+                                        readonly="readonly">
+              </div>
+
                 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                    发货状态:
+                    出库状态:
                     <select id="pid3" class="form-control"  onchange="gradeChange3()"   disabled="disabled"
                             name="order_state">
-                        <option <c:if test="${orders.order_isship=='未发货'}"> selected="selected"</c:if>>供应商未发货</option>
-                        <option <c:if test="${orders.order_isship=='已发货'}"> selected="selected"</c:if>>供应商已发货</option>
+                        <option <c:if test="${returnsList.returns_warehousestatus=='未出库'}"> selected="selected"</c:if>>未出库</option>
+                        <option <c:if test="${returnsList.returns_warehousestatus=='已出库'}"> selected="selected"</c:if>>已出库</option>
                         </select>
                 </div>
 
                 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                    发货时间:<input type="text" id="input8" class="form-control"
+                    出库时间:<input type="text" id="input8" class="form-control"
                                 readonly="readonly"
-                                value="<fmt:formatDate  type="date" value="${orders.order_shiptime}" />"/>
+                                value="<fmt:formatDate  type="date" value="${returnsList.returns_warehousetime}" />"/>
                 </div>
+                 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                     供应商收货状态:
+                     <select  class="form-control"  onchange="gradeChange3()"   disabled="disabled"
+                             name="order_state">
+                         <option <c:if test="${returnsList.returns_takestatus=='未收货'}"> selected="selected"</c:if>>供应商未收货</option>
+                         <option <c:if test="${returnsList.returns_takestatus=='已收货'}"> selected="selected"</c:if>>供应商已收货</option>
+                     </select>
+                 </div>
 
+                 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                     供应商收货时间:<input type="text"  class="form-control"
+                                 readonly="readonly"
+                                 value="<fmt:formatDate  type="date" value="${returnsList.returns_taketime}" />"/>
+                 </div>
+                 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                     供应商付款状态:
+                     <select  class="form-control"  onchange="gradeChange3()"   disabled="disabled"
+                              name="order_state">
+                         <option <c:if test="${returnsList.returns_paymentstatus=='未付款'}"> selected="selected"</c:if>>供应商未付款</option>
+                         <option <c:if test="${returnsList.returns_paymentstatus=='已付款'}"> selected="selected"</c:if>>供应商已付款</option>
+                     </select>
+                 </div>
 
+                  <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                      制单人 :<input type="text"  class="form-control" value="${returnsList.returns_userid}"
+                                  readonly="readonly">
+                  </div>
 
                 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                     商品名称:<select id="name" class="form-control has-feedback-left">
-                                    <c:forEach items="${orders.stocks}" var="sto">
-                                        <option value="${sto.stock_id}">${sto.stock_name}</option>
+                                    <c:forEach items="${returnsList.ret}" var="sto">
+                                        <option value="${sto.shop.shoopping_id}">${sto.shop.shoopping_name}</option>
                                     </c:forEach>
                              </select>
-
                 </div>
                 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                     商品编号: <input type="text" id="input9" class="form-control has-feedback-left" disabled="disabled"
-                                 value="${stocks.stock_id}"/>
+                                 value="${returnsList.ret[0].returnsshoop_id}"/>
                 </div>
                 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                     商品描述: <input type="text" id="input11" class="form-control form-control2 has-feedback-left" readonly="readonly"
-                                 value="${stocks.stock_describe}"/>
+                                 value="${returnsList.ret[0].shop.shoopping_describe}"/>
                 </div>
                 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                     商品单位:<input type="text" id="input12" class="form-control"
-                                readonly="readonly" value="${stocks.stock_unit}"/>
+                                readonly="readonly" value="${returnsList.ret[0].shop.shoopping_unit}"/>
                 </div>
                 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback-left">
-                    单价:<input type="text" id="input13" class="form-control form-control2"   readonly="readonly" value="${stocks.stock_ordermoney}"/>
+                    单价:<input type="text" id="input13" class="form-control form-control2"   readonly="readonly" value="${returnsList.ret[0].shop.shoopping_stockmoney}"/>
                 </div>
                 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                     商品数量: <input type="number" id="input14" class="form-control form-control2 has-feedback-left" readonly="readonly"
-                                 value="${stocks.stock_count}" />
+                                 value="${returnsList.ret[0].returnsshoop_count}" />
 
                 </div>
 
                 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback-left">
                     总金额:<input type="text" id="input15" class="form-control"
                                readonly="readonly"
-                               value="${stocks.stock_count*stocks.stock_ordermoney}"/>
+                               value="${returnsList.ret[0].returnsshoop_count*returnsList.ret[0].shop.shoopping_stockmoney}"/>
                 </div>
                 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                     <%--仓库: <input type="text" id="input16" class="form-control has-feedback" readonly="readonly"--%>
@@ -262,18 +304,18 @@
          var num=$(this).val();
         $.ajax({
             type: "GET",//请求类型
-            url: "/OrangBank/Shop",//请求的url
-            data:{"id":num},
+            url: "/Returns/Shop",//请求的url
+            data:{"id":num,"orderId":$("#input1").val()},
             dataType: "json",//ajax接口（请求url）返回的数据类型
             success: function (data) {//data：返回数据（json对象）
 
-              $("#input9").val(data[0].stock_id);
-                $("#input11").val(data[0].stock_describe);
-                $("#input12").val(data[0].stock_unit);
-                $("#input13").val(data[0].stock_ordermoney);
-                $("#input14").val(data[0].stock_count);
-                $("#input15").val(data[0].stock_count*data[0].stock_ordermoney);
-                $("#pid4").val(data[0].stock_warehouseid)
+              $("#input9").val(data[0].returnsshoop_id);
+                $("#input11").val(data[0].shop.shoopping_describe);
+                $("#input12").val(data[0].shop.shoopping_unit);
+                $("#input13").val(data[0].shop.shoopping_stockmoney);
+                $("#input14").val(data[0].returnsshoop_count);
+                $("#input15").val(data[0].returnsshoop_count*data.shop.shoopping_stockmoney);
+                $("#pid4").val(data[0].shop.shoopping_warehouseid)
             }
         });
     })
@@ -287,21 +329,20 @@
         }else if($(".bianji").html()=='保存'){
             if(confirm("确认保存您修改的订单信息么？")){
                 var id=$("#input9").val();
-                var de=$("#input11").val();
-                var co=$("#input13").val();
                 var m=$("#input14").val();
+                var money=$("#input13").val();
                 $.ajax({
                     type: "GET",//请求类型
-                    url: "/OrangBank/UpdateOrder",//请求的url
+                    url: "/Returns/UpdateReturns",//请求的url
                     data: {
                             "id":id,
-                                "describe":de,
-                                "count":co,
-                                "ordermoney":m
+                                "count":m
                         },
                     dataType: "json",//ajax接口（请求url）返回的数据类型
                     success: function (data) {//data：返回数据（json对象）
-                        if(data=="true"){
+                        if(data>0){
+                            $("#input15").val( money*m)
+
                             alert("保存成功")
                         }else{
                             alert("保存失败");
