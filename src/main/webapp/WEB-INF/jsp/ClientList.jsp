@@ -21,14 +21,12 @@
 <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
     <li role="presentation" class="active"><a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab"
                                               aria-expanded="true"><font style="vertical-align: inherit;"><font
-            style="vertical-align: inherit;">进货退货</font></font></a>
+            style="vertical-align: inherit;">我的客户</font></font></a>
     </li>
 </ul>
 <div class="main">
-    <button onclick="window.location.href='ReturnsAdd'">新增</button>
+    <button onclick="window.location.href='/OrangBank/addClient'">新增</button>
     <table id="tabless" class="table table-striped table-bordered dt-responsive <%--nowrap--%>" cellspacing="0" width="100%" >
-
-
     </table>
 </div>
 
@@ -54,16 +52,12 @@
             "serverSide":true,//服务器端获取数据
             "bStateSave": false,//不缓存数据
             "ajax": {
-                "url":"/Returns/ReturnsList",
+                "url":"/OrangBank/ShowC",
                 "type": "POST",
-                "dataType" : "JSON"
-                // "data": function (datas) {
-                //     datas.appInfo=JSON.stringify({"softwareName":$("#softwareName").val(),
-                //         "status":$("#status").val(),
-                //         "flatformId":$("#flatformId").val(),
-                //         "categoryLevel1":$("#class1").val(),"categoryLevel2":$("#class2").val(),
-                //         "categoryLevel3":$("#class3").val()});
-                // }
+                "dataType" : "JSON",
+                "data": function (data) {
+
+                }
             },
             lengthMenu: [ //自定义分页长度
                 [ 10, 20, 50 ],
@@ -71,58 +65,27 @@
             ],
             "searching" : false,//关闭搜索框
             "columnDefs":[
-                {"title":"退货单号","targets":0},
-                {"title":"商品名称","targets":1},
-                {"title":"单位","targets":2},
-                {"title":"值","targets":3},
-                {"title":"进货单价","targets":4},
-                {"title":"仓库","targets":5},
-                {"title":"操作","targets":6}
+                {"title":"客户ID","targets":0},
+                {"title":"联系人","targets":1},
+                {"title":"送货地址","targets":2},
+                {"title":"手机","targets":3},
+                {"title":"座机","targets":4},
+                {"title":"销售员","targets":5},
+                {"title":"销售发票号","targets":6}
             ],
             "columns": [
-                { "data": "returns_id"},
-                { "data": "ret","render": function ( data, type, full, meta ) {
-                        var zhi='';
-                        for(var i=0;i<data.length;i++){
-                            zhi+="<p>"+data[i].shop.shoopping_name+"</p>"
-                        }
-                        return zhi;
-                    } },
-                { "data": "ret","render": function ( data, type, full, meta ) {
-                        var zhi='';
-                        for(var i=0;i<data.length;i++){
-                            zhi+="<p>"+data[i].shop.shoopping_unit+"</p>"
-                        }
-                        return zhi;
-                    } },
-                { "data": "ret","render": function ( data, type, full, meta ) {
-                        var zhi='';
-                        for(var i=0;i<data.length;i++){
-                            zhi+="<p>"+data[i].returnsshoop_count+"</p>"
-                        }
-                        return zhi;
-                    } },
-                { "data": "ret","render": function ( data, type, full, meta ) {
-                        var zhi='';
-                        for(var i=0;i<data.length;i++){
-                            zhi+="<p>"+data[i].shop.shoopping_stockmoney+"</p>"
-                        }
-                        return zhi;
-                    } },
-                { "data": "ret","render": function ( data, type, full, meta ) {
-                        var zhi='';
-                        for(var i=0;i<data.length;i++){
-                            zhi+="<p>"+data[i].shop.shoopping_warehouseid+"</p>"
-                        }
-                        return zhi;
-                    } },
-                     { "data": "returns_id","render": function ( data, type, full, meta ) {
-
-
-                            return "  <td ><a href='OrderView/" +data + "'><i class=\"fa fa-desktop \"></i></a>&nbsp;&nbsp;<a   href='javascript:del(\""+data+"\")'><i\n" +
-                                "class=\"fa fa-trash\"></i></a>&nbsp;&nbsp;<a  href='javascript:xg("+data+")'><i class=\"fa fa-edit\"></i><span\n" +
-                                "class=\"text-muted\"></span></a></td>";
-                      }}
+                { "data": "client_id"},
+                { "data": "client_name" },
+                { "data": "client_address" },
+                { "data": "client_phone" },
+                { "data": "client_specialplane" },
+                { "data": "client_salesman" },
+                { "data": "client_invoice" },
+                { "data": "client_id","render": function ( data, type, full, meta ) {
+                        return "  <td ><a href='/OrangBank/ClientId?client_id=" +data + "'><i class=\"fa fa-desktop \"></i></a>&nbsp;&nbsp;<a href='javascript:del("+data+")'><i\n" +
+                            "                            class=\"fa fa-trash\"></i></a>&nbsp;&nbsp;<a  href='/OrangBank/ClientId?upid=" +data + "'><i class=\"fa fa-edit\"></i><span\n" +
+                            "                            class=\"text-muted\"></span></a></td>";
+                    }}
             ],
             "oLanguage" : { // 国际化配置
                 "sProcessing": "正在获取数据，请稍后...",
@@ -165,20 +128,18 @@
     table.page( 'next' ).draw( 'page' );  // 更改表格页面，然后重新绘制
      */
     var del=  function (data) {
-
             if(confirm("确认删除吗")){
                 /*供应商*/
                 $.ajax({
                     type: "POST",//请求类型
-                    url: "/Returns/DelReturn",//请求的url
-                    data:{"id": data},
+                    url: "/OrangBank/deleteClient",//请求的url
+                    data:{"client_id": data},
                     dataType: "json",//ajax接口（请求url）返回的数据类型
                     success: function (data) {//data：返回数据（json对象）
-                        if(data=="true"){
+                        if(data>0){
                             alert("删除成功");
                             var tab= $("#tabless").DataTable();
                             tab.draw( false );
-
                         }else{
                             alert("删除失败");
                         }

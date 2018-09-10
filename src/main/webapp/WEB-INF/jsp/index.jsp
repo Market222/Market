@@ -60,7 +60,9 @@
                 <div class="col-md-3" style="border-right:0px">
                         <ul style="text-align: center;margin-top: 20px">
                             <li> <a href="#">进货订单入库</a></li>
+                            <li> <a href="#">我的供应商</a></li>
                             <li> <a href="#">进货退回</a></li>
+                            <li> <a href="/OrangBank/C">我的客户</a></li>
                         </ul>
                 </div>
                 <div class="col-md-3" style="border-left:0px"><a href="/OrangBank/xiaoshou" style="margin-left: -10px">
@@ -77,7 +79,7 @@
             </div>
 
         </div>
-      <%--  <div class="main2" >
+        <div class="main2" >
             <ul>
                 <li style="text-align:center;background-color: orange">快速查看</li>
                 <li><a href="#">进货订单及退回单列表</a></li>
@@ -89,6 +91,6 @@
                 <li><a href="#">客户历史价格查询</a></li>
                 <li><a href="#">销售排行榜</a></li>
             </ul>
-        </div>--%>
+        </div>
     </div>
 <%@include file="../jsp/common/foot.jsp" %>

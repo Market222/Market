@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.OrangeBank.dao.ClientMapper">
+    <select id="showClient" resultType="Client">
+        SELECT * FROM `client`
+        <where>
+            <if test="client!=null and  client.client_id!=null and client.client_id!=''">client_id=#{client.client_id}</if>
+        </where>
+        LIMIT #{start},#{length}
+    </select>
+
+    <select id="countClient" resultType="int">
+        select count(1) from client
+         <where>
+             <if test="client_name!=null and client_name!=''">client_name = #{client_name}</if>
+         </where>
+    </select>
+
+    <delete id="deleteClient">
+        delete from client where client_id = #{client_id}
+    </delete>
+
+    <update id="updateClient">
+        update client
+        <set>
+            <if test="client_name!=null and client_name!=''">client_name=#{client_name},</if>
+            <if test="client_address!=null and client_address!=''">client_address=#{client_address},</if>
+            <if test="client_phone!=null and client_phone!=''">client_phone=#{client_phone},</if>
+            <if test="client_specialplane!=null and client_specialplane!=''">client_specialplane=#{client_specialplane},</if>
+            <if test="client_salesman!=null and client_salesman!=''">client_salesman=#{client_salesman},</if>
+            <if test="client_invoice!=null and client_invoice!=''">client_invoice=#{client_invoice},</if>
+        </set>
+        where client_id = #{client_id}
+    </update>
+
+    <insert id="addClient">
+        insert into client (client_name,client_address,client_phone,client_specialplane,client_salesman,client_invoice)
+        values (#{client_name},#{client_address},#{client_phone},#{client_specialplane},#{client_salesman},#{client_invoice})
+    </insert>
+
+</mapper>

@@ -188,7 +188,6 @@
                         <option <c:if test="${orders.order_isship=='已发货'}"> selected="selected"</c:if>>供应商已发货</option>
                         </select>
                 </div>
-
                 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                     发货时间:<input type="text" id="input8" class="form-control"
                                 readonly="readonly"
