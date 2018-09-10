@@ -2,6 +2,7 @@ package cn.OrangeBank.service.impl;
 
 import cn.OrangeBank.dao.OrderMapper;
 import cn.OrangeBank.entity.Order;
+import cn.OrangeBank.entity.Stock;
 import cn.OrangeBank.service.OrderService;
 import org.springframework.stereotype.Service;
 
@@ -38,6 +39,10 @@ public class OrderServiceImpl implements OrderService {
 
     public int updateOrder(Order order) {
         return orderMapper.updateOrder(order);
+    }
+
+    public List<Stock> shop(String stock_name) {
+        return orderMapper.shop(stock_name);
     }
 
 }

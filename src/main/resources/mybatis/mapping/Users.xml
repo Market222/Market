@@ -3,6 +3,22 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.OrangeBank.dao.UsersMapper">
+    <resultMap id="UsersMap" type="Users">
+        <id column="users_id" property="users_id" ></id>
+        <result column="users_name" property="users_name" ></result>
+        <result column="users_password" property="users_password" ></result>
+        <result column="users_phone" property="users_phone" ></result>
+        <result column="users_truename" property="users_truename" ></result>
+        <result column="users_email" property="users_email" ></result>
+        <association property="role" javaType="Role">
+            <id column="rid" property="role_id" ></id>
+            <result column="role_name" property="role_name" ></result>
+        </association>
+        <association property="company" javaType="Company">
+            <id column="cid" property="company_id" ></id>
+            <result column="company_name" property="company_name" ></result>
+        </association>
+    </resultMap>
     <select id="queryUsers" resultType="Users">
         SELECT * FROM users
     </select>
@@ -15,23 +31,30 @@
     </select>
 
     <!--查询全部用户 -->
-    <select id="SelectUsers" resultType="Users">
-        SELECT * FROM users where 1=1
-        <if test="users_id>0">
-            and users_id=#{users_id}
-        </if>
+    <select id="SelectUsers" resultMap="UsersMap">
+        SELECT u.*, r.*,r.role_id rid ,co.*,co.company_id cid
+        FROM users u, role r,company co
+        <where>
+            u.role_id=r.role_id  AND  u.users_companyid=co.company_id
+            <if test="users_companyid>0">
+                and users_companyid=#{users_companyid}
+            </if>
+            <if test="users_id>0">
+                and users_id=#{users_id}
+            </if>
+           ORDER BY u.role_id
+        </where>
+
     </select>
     <!--修改-->
     <update id="Update" >
         UPDATE users
         <set>
             <if test="users_name != null">users_name=#{users_name},</if>
-            <if test="users_company != null">users_company=#{users_company},</if>
             <if test="users_phone != null">users_phone=#{users_phone},</if>
-            <if test="users_password != null">users_password=#{users_password},</if>
             <if test="users_truename != null">users_truename=#{users_truename},</if>
             <if test="users_email != null">users_email=#{users_email},</if>
-            <if test="users_admin != null">users_admin=#{users_admin},</if>
+            <if test="role_id != null">role_id=#{role_id},</if>
         </set>
         where  users_id = #{users_id}
     </update>
@@ -40,4 +63,23 @@
         Delete from users where  users_id=#{id}
     </delete>
 
+    <select id="SelectRole" resultType="Role">
+        select * from role where  role_id>1;
+
+    </select>
+    <select id="SelectCompany" resultType="Company">
+        select * from company;
+    </select>
+    <!--修改用户-->
+    <update id="updateUser">
+        UPDATE users
+        <set>
+            <if test="users_name != null">users_name=#{users_name},</if>
+            <if test="users_phone != null">users_phone=#{users_phone},</if>
+            <if test="users_truename != null">users_truename=#{users_truename},</if>
+            <if test="users_email != null">users_email=#{users_email},</if>
+            <if test="role_id != null">role_id=#{role_id},</if>
+        </set>
+        where  users_id = #{users_id}
+    </update>
 </mapper>

@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.Map;
 
 public interface SupplierMapper {
-    //查询条数
-    int count(Supplier supplier);
+        //查询条数
+        int count(Supplier supplier);
 
     //分页查询
     List<Supplier> queryList(Map map);

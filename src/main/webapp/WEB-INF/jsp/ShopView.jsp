@@ -17,12 +17,12 @@
     <li><a href="/OrangBank/tiao2"><font style="vertical-align: inherit;"><font
             style="vertical-align: inherit;">首页</font></font></a>
     </li>
-    <li><a href="/OrangBank/tiao"><font style="vertical-align: inherit;"><font
-            style="vertical-align: inherit;">进货订单</font></font></a>
+    <li><a href="/OrangBank/xiaoshou"><font style="vertical-align: inherit;"><font
+            style="vertical-align: inherit;">销售订单</font></font></a>
     </li>
     <li role="presentation" class="active"><a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab"
                                               aria-expanded="true"><font style="vertical-align: inherit;"><font
-            style="vertical-align: inherit;">进货订单详情</font></font></a>
+            style="vertical-align: inherit;">销售订单详情</font></font></a>
     </li>
 </ul>
 <div class="main">
@@ -79,9 +79,9 @@
                 <div class="clearfix"></div>
                 <div class="ln_solid"></div>
                 <div class="form-group">
-                    <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                        <button type="button" class="btn btn-primary"><font style="vertical-align: inherit;"><font
-                                style="vertical-align: inherit;" onclick="guanbi()">关闭</font></font></button>
+                    <div>
+                        <button type="button" class="btn btn-primary"><font
+                                style="vertical-align: inherit;" onclick="guanbi()">关闭</font></button>
                     </div>
                 </div>
             </form>

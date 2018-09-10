@@ -10,6 +10,15 @@ public class Stock {
     private int stock_warehouseid;
     private String stock_orderid;
 
+    private  Position pos;
+
+    public Position getPos() {
+        return pos;
+    }
+
+    public void setPos(Position pos) {
+        this.pos = pos;
+    }
 
     public int getStock_warehouseid() {
         return stock_warehouseid;
