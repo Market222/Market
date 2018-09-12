@@ -51,7 +51,7 @@
                     </div>
                     <div class="col-md-10 col-sm-10 col-xs-12 col-md-offset-1">
                         <button type="submit" class="btn btn-primary">登录</button>
-                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" >注册</button>
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal"  id="zc"  href="javascript:;" onclick=" cx()">注册</button>
                         <button type="button" class="btn btn-success" onclick="qk()">重填</button>
                     </div>
                     <div class="clearfix"></div>
@@ -123,12 +123,8 @@
                     <div class="form-group"  style="display :none" id="yung">
                         <label for="name" class="control-label col-sm-4">公司名称:</label>
                         <div class="col-sm-5">
-                                <select class="form-control col-md-5"  name="company_name" id="company_name">
-                                    <option value="0"  selected="selected">-请选择公司-</option>
-                                    <option value="1" id="users_companyid1">admin有限公司</option>
-                                    <option  value="2" id="users_companyid2">鹏飞有限公司</option>
-                                    <option  value="3" id="users_companyid3">阳光有限公司</option>
-                                    <option  value="4" id="users_companyid4">才德有限公司</option>
+                                <select class="form-control col-md-5"  name="users_companyid" id="users_companyid">
+
                                 </select>
                         </div>
                     </div>
@@ -155,11 +151,13 @@
 <script src="statics/vendors/jquery/dist/jquery.min.js"></script>
 <script src="statics/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="statics/build/js/users.js"></script>
+<script type="text/javascript" src="https://cdn.bootcss.com/Swiper/3.4.2/js/swiper.jquery.min.js"></script>
+<script type="text/javascript" src="../statics/build/js/jquery-2.1.3.min.js"></script>
 <script>
+
     function xlk(){
         //获取下拉框选中项的value属性值
         var selectValue = $("#role_id").val();
-        alert(selectValue);
         if(selectValue==0){
             $("#laob").css("display","none");
             $("#yung").css("display","none");
@@ -182,9 +180,7 @@
         $("#users_name").val("");
         $("#users_password").val("");
     }
-    function insert() {
-        window.location.href="/OrangBank/insertUsers";
-    }
+
     $("#submit").click(function () {
         var pwd = $("#pwd").val();
         var pwd2 = $("#pwd2").val();
@@ -197,4 +193,44 @@
             return false;
         }
     })
+
+
+    function cx() {
+        alert(2);
+        $.ajax({
+            type: "POST",
+            url: "/OrangBank/SelectCompany",
+            dataType:"json",
+            success: function (data) {
+                if(data){
+                    $("#users_companyid").html("");//通过标签选择器，得到select标签，适用于页面里只有一个select
+                    var options = "<option value=\"0\">请选择</option>";
+                    for (var i = 0; i < data.length; i++) {
+                        options += "<option value=\"" + data[i].id + "\">" + data[i].company_name + "</option>";
+                    }
+                    $("#users_companyid").html(options);
+                }
+            }
+        })
+    };
+
+   /*
+    $("#zc").click(function () {
+        alert(2);
+        $.ajax({
+            type: "POST",
+            url: "OrangBank/SelectCompany",
+            dataType:"json",
+            success: function (data) {
+                if(data){
+                    $("#users_companyid").html("");//通过标签选择器，得到select标签，适用于页面里只有一个select
+                    var options = "<option value=\"0\">请选择</option>";
+                    for (var i = 0; i < data.length; i++) {
+                        options += "<option value=\"" + data[i].id + "\">" + data[i].company_name + "</option>";
+                    }
+                    $("#users_companyid").html(options);
+                }
+            }
+        })
+    })*/
 </script>

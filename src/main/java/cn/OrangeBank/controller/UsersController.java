@@ -152,15 +152,15 @@ public class UsersController {
      */
     @RequestMapping(value = "/SelectCompany")
     @ResponseBody
-    public ModelAndView SelectCompany(Company company){
+    public Object SelectCompany(Company company){
         List<Company> companies = usersService.SelectCompany(company);
         mv.addObject("companies", companies);
-        mv.setViewName("longin");
+        mv.setViewName("login");
         return mv;
+
     }
 
     @RequestMapping(value = "/Update")
-    @ResponseBody
     public Object Update(Users user){
         int i = usersService.updateUser(user);
         return JSON.toJSONString(i);
