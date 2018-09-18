@@ -45,4 +45,12 @@ public class UsersServiceImpl implements UsersService {
     public int updateUser(Users user) {
         return usersMapper.updateUser(user);
     }
+
+    public int insertCompany(Company company) {
+        return usersMapper.insertCompany(company);
+    }
+
+    public int countCompany(Company company) {
+        return usersMapper.countCompany(company);
+    }
 }

@@ -23,12 +23,18 @@
         SELECT * FROM users
     </select>
     <insert id="insertUsers">
-        INSERT INTO users(users_name,users_password,users_phone,users_company)
-        VALUES(#{users_name},#{users_password},#{users_phone},#{users_company});
+        INSERT INTO users(users_name,users_password,users_phone,users_companyid,users_truename,users_email,role_id)
+        VALUES(#{users_name},#{users_password},#{users_phone},#{users_companyid},#{users_truename},#{users_email},#{role_id});
     </insert>
+    <insert id="insertCompany">
+        INSERT INTO Company(company_name)
+        VALUES(#{company_name});
+    </insert>
+
     <select id="countUsers" resultType="_int">
         SELECT COUNT(1) FROM users WHERE  users_name = #{users_name}
     </select>
+
 
     <!--查询全部用户 -->
     <select id="SelectUsers" resultMap="UsersMap">
@@ -69,6 +75,9 @@
     </select>
     <select id="SelectCompany" resultType="Company">
         select * from company;
+    </select>
+    <select id="countCompany" resultType="_int">
+        SELECT COUNT(1) FROM users WHERE  company_name=#{company_name}
     </select>
     <!--修改用户-->
     <update id="updateUser">

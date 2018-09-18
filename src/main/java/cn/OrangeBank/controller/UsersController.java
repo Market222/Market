@@ -32,16 +32,16 @@ public class UsersController {
 
     //登陆//
     @RequestMapping("/Login")
-    public String Login(Users users, HttpSession session){
+    public String Login(Users users, HttpSession session) {
         List<Users> usersList = usersService.queryUsers(users);
-        String pwd = MD5andKL.MD5(users.getUsers_password(),"md5").toLowerCase();
-        for (Users us :usersList) {
-            if(users.getUsers_name().equals(us.getUsers_name()) && pwd.equals(us.getUsers_password())){
+        String pwd = MD5andKL.MD5(users.getUsers_password(), "md5").toLowerCase();
+        for (Users us : usersList) {
+            if (users.getUsers_name().equals(us.getUsers_name()) && pwd.equals(us.getUsers_password())) {
                 Company company = new Company();
                 company.setCompany_id(us.getUsers_companyid());
-                List<Company>  companiesList1= usersService.SelectCompany(company);
-               session.setAttribute("companiesList1",companiesList1);
-                session.setAttribute("userEntity",us);
+                List<Company> companiesList1 = usersService.SelectCompany(company);
+                session.setAttribute("companiesList1", companiesList1);
+                session.setAttribute("userEntity", us);
                 return "redirect:/OrangBank/aa";
             }
         }
@@ -50,27 +50,32 @@ public class UsersController {
 
     //登陆成功
     @RequestMapping("/aa")
-    public ModelAndView a(){
+    public ModelAndView a() {
         mv.setViewName("index");
         return mv;
     }
+
     //登陆失败
     @RequestMapping("/b")
-    public ModelAndView b(){
+    public ModelAndView b() {
         mv.setViewName("../login");
         return mv;
     }
 
     //注册
     @RequestMapping("/insertUsers")
-    public ModelAndView insertUsers(Users users){
-        String pwd = MD5andKL.MD5(users.getUsers_password(),"md5").toLowerCase();
+    public ModelAndView insertUsers(Users users, Company company, String company_name) {
+        if (company_name != null) {
+            company.setCompany_name(company_name);
+            usersService.insertCompany(company);
+        }
+        String pwd = MD5andKL.MD5(users.getUsers_password(), "md5").toLowerCase();
         users.setUsers_password(pwd);
         int i = usersService.insertUsers(users);
-        if(i>0){
+        if (i > 0) {
             System.out.println("添加成功！");
             return new ModelAndView("redirect:/OrangBank/b");
-        }else{
+        } else {
             System.out.println("添加失败！");
         }
         return mv;
@@ -78,7 +83,7 @@ public class UsersController {
 
     //跳入销售页面
     @RequestMapping("/xiaoshou")
-    public ModelAndView xiaoshou(){
+    public ModelAndView xiaoshou() {
         mv.setViewName("xiaoshou");
         return mv;
     }
@@ -87,14 +92,15 @@ public class UsersController {
     //判断用户有没有注册
     @RequestMapping("/countUsers")
     @ResponseBody
-    public Object countUsers(Users users, String users_name){
+    public Object countUsers(Users users, String users_name) {
         users.setUsers_name(users_name);
+
         int i = usersService.countUsers(users);
-        Map<String,Object> map = new HashMap<String, Object>();
-        if(i>0){
-            map.put("usersname","exist");
-        }else{
-            map.put("usersname","true");
+        Map<String, Object> map = new HashMap<String, Object>();
+        if (i > 0) {
+            map.put("usersname", "exist");
+        } else {
+            map.put("usersname", "true");
         }
         return JSON.toJSONString(map);
     }
@@ -110,7 +116,7 @@ public class UsersController {
 
     //查询用户
     @RequestMapping("/SelectUsers")
-    public ModelAndView SelectUsers(Users users , @Param("users_companyid") Integer users_companyid ,HttpServletRequest request) {
+    public ModelAndView SelectUsers(Users users, @Param("users_companyid") Integer users_companyid, HttpServletRequest request) {
         /* users.setCompany(new String(request.getParameter("users_company").getBytes("iso8859-1"),"utf-8"));*/
         users.setUsers_companyid(users_companyid);
         List<Users> usersList = usersService.SelectUsers(users);
@@ -121,11 +127,11 @@ public class UsersController {
 
     //删除用户
     @RequestMapping("/delete")
-    public  ModelAndView Delete(@Param("users_id") Integer  users_id){
+    public ModelAndView Delete(@Param("users_id") Integer users_id) {
         int delete = usersService.Delete(users_id);
-        if(delete>0){
+        if (delete > 0) {
             return new ModelAndView("redirect:/OrangBank/SelectUsers");
-        }else {
+        } else {
             mv.setViewName("UsersSelect");
         }
         return mv;
@@ -133,11 +139,11 @@ public class UsersController {
 
     //根据id查询用户
     @RequestMapping("/SelectUsersid")
-    public ModelAndView SelectUsersid(Users users , @Param("users_id") Integer users_id , Role role, Company company) {
+    public ModelAndView SelectUsersid(Users users, @Param("users_id") Integer users_id, Role role, Company company) {
         users.setUsers_id(users_id);
         List<Users> users1 = usersService.SelectUsers(users);
         List<Role> grroleList = usersService.SelectRole(role);
-        List<Company>  companiesList= usersService.SelectCompany(company);
+        List<Company> companiesList = usersService.SelectCompany(company);
         mv.addObject("companiesList", companiesList);
         mv.addObject("grroleList", grroleList);
         for (Users users2 : users1) {
@@ -148,20 +154,34 @@ public class UsersController {
     }
 
     /**
-     * 修改
+     * 公司
      */
     @RequestMapping(value = "/SelectCompany")
-    @ResponseBody
-    public Object SelectCompany(Company company){
+    public ModelAndView SelectCompany(Company company) {
         List<Company> companies = usersService.SelectCompany(company);
         mv.addObject("companies", companies);
-        mv.setViewName("login");
+        mv.setViewName("register");
         return mv;
+    }
 
+    //判断公司有没有存在
+    @RequestMapping("/countCompany")
+    @ResponseBody
+    public Object countCompany(Company company, String company_name) {
+        company.setCompany_name(company_name);
+        int i = usersService.countCompany(company);
+        Map<String, Object> map = new HashMap<String, Object>();
+        if (i > 0) {
+            map.put("Companyname", "exist");
+        } else {
+            map.put("Companyname", "true");
+        }
+        return JSON.toJSONString(map);
     }
 
     @RequestMapping(value = "/Update")
-    public Object Update(Users user){
+    @ResponseBody
+    public Object Update(Users user) {
         int i = usersService.updateUser(user);
         return JSON.toJSONString(i);
     }
@@ -173,13 +193,13 @@ public class UsersController {
     //     * @return
     //
     @RequestMapping("/GRupdate")
-    public ModelAndView GRupdate(Users users, ModelAndView mv, @RequestParam(required = false) Integer users_id){
+    public ModelAndView GRupdate(Users users, ModelAndView mv, @RequestParam(required = false) Integer users_id) {
         users.setUsers_id(users_id);
         int i = usersService.updateUser(users);
-        if(i>0){
-            return SelectUsersid(users,users_id,null,null);
+        if (i > 0) {
+            return SelectUsersid(users, users_id, null, null);
             /* return new ModelAndView("redirect:/OrangBank/queryUseraa?id=users_id");*/
-        }else{
+        } else {
             mv.setViewName("UsersUpdate");
         }
         return mv;
@@ -187,9 +207,9 @@ public class UsersController {
 
     //退出
     @RequestMapping("/exitUser")
-    public ModelAndView exitUser(HttpServletRequest request){
+    public ModelAndView exitUser(HttpServletRequest request) {
         Object obj = request.getSession().getAttribute("userEntity");
-        if(obj != null){
+        if (obj != null) {
             request.getSession().invalidate();//清除 session 中的所有信息
             return new ModelAndView("redirect:/OrangBank/b");
         }
