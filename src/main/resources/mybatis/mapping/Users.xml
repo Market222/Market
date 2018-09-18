@@ -27,7 +27,7 @@
         VALUES(#{users_name},#{users_password},#{users_phone},#{users_companyid},#{users_truename},#{users_email},#{role_id});
     </insert>
     <insert id="insertCompany">
-        INSERT INTO Company(company_name)
+        INSERT INTO company(company_name)
         VALUES(#{company_name});
     </insert>
 
@@ -77,7 +77,7 @@
         select * from company;
     </select>
     <select id="countCompany" resultType="_int">
-        SELECT COUNT(1) FROM users WHERE  company_name=#{company_name}
+        SELECT COUNT(1) FROM company WHERE  company_name=#{company_name}
     </select>
     <!--修改用户-->
     <update id="updateUser">

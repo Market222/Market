@@ -94,7 +94,6 @@ public class UsersController {
     @ResponseBody
     public Object countUsers(Users users, String users_name) {
         users.setUsers_name(users_name);
-
         int i = usersService.countUsers(users);
         Map<String, Object> map = new HashMap<String, Object>();
         if (i > 0) {
@@ -167,8 +166,7 @@ public class UsersController {
     //判断公司有没有存在
     @RequestMapping("/countCompany")
     @ResponseBody
-    public Object countCompany(Company company, String company_name) {
-        company.setCompany_name(company_name);
+    public Object countCompany(Company company) {
         int i = usersService.countCompany(company);
         Map<String, Object> map = new HashMap<String, Object>();
         if (i > 0) {
@@ -176,7 +174,7 @@ public class UsersController {
         } else {
             map.put("Companyname", "true");
         }
-        return JSON.toJSONString(map);
+       return map;
     }
 
     @RequestMapping(value = "/Update")

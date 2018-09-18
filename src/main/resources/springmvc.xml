@@ -96,6 +96,7 @@
             <mvc:mapping path="/OrangBank/*"/>
             <mvc:exclude-mapping path="/OrangBank/Login"/>
             <mvc:exclude-mapping path="/OrangBank/SelectCompany"/>
+            <mvc:exclude-mapping path="/OrangBank/countCompany"/>
             <bean class="cn.OrangeBank.interceptor.MyInterceptor" />
         </mvc:interceptor>
     </mvc:interceptors>

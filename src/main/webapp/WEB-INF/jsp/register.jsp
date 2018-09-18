@@ -17,6 +17,8 @@
         background-color: white;
     }
 </style>
+
+
 <div>
     <div style="margin-top:20px ">
         <h4 class="modal-title" id="exampleModalLabel" style="text-align: center">请填写以下信息</h4>
@@ -106,10 +108,11 @@
     </div>
 </div>
 
-
-<script type="text/javascript" src="https://cdn.bootcss.com/Swiper/3.4.2/js/swiper.jquery.min.js"></script>
 <script type="text/javascript" src="../statics/build/js/jquery-2.1.3.min.js"></script>
-<script src="statics/vendors/jquery/dist/jquery.min.js"></script>
+<script src="../statics/vendors/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.bootcss.com/Swiper/3.4.2/js/swiper.jquery.min.js"></script>
+
+
 <script>
     function x() {
         x_admin_close();
@@ -131,7 +134,6 @@
     }
 
     function gs() {
-        alert("进来了！");
         $.ajax({
             type: "POST",
             url: "/OrangBank/countCompany",
@@ -140,9 +142,9 @@
             },
             dataType: "json",
             success: function (data) {
-                if (data > 0) {
+                if (data.Companyname == 'exist') {
                     alert("已存在该公司名！");
-                }else {
+                } else {
                     alert("该公司名可用");
                 }
             }
