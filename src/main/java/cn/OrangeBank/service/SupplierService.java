@@ -20,5 +20,5 @@ public interface SupplierService {
 
     boolean updateSupp(Supplier supplier);
 
-    int deleteById(@Param("delId") Integer delId);
+    boolean deleteById(@Param("delId") Integer delId);
 }

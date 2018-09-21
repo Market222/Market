@@ -86,7 +86,7 @@
                         src="../statics/img/jinhuo.png"></a></div>
                 <div class="col-md-3"><a href="/Returns/tiao" style="margin-left: -6px"><img src="../statics/img/jinhuotuihui.png"></a>
                 </div>
-                <div class="col-md-3"><a href="/sInfo" style="margin-left: -10px"><img src="../statics/img/fukuan.png"></a></div>
+                <div class="col-md-3"><a href="/Supplier/SuppList" style="margin-left: -10px"><img src="../statics/img/fukuan.png"></a></div>
                 <div class="col-md-3" style="border-right:0px">
                         <ul style="text-align: center;margin-top: 30%;">
                             <li> <a href="#">进货订单入库</a></li>

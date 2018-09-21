@@ -20,5 +20,4 @@ public interface SupplierMapper {
     int updateSupp(Supplier supplier);
 
     int deleteById(@Param("delId") Integer delId);
-
 }

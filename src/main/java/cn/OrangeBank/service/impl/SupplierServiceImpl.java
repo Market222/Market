@@ -35,7 +35,7 @@ public class SupplierServiceImpl implements SupplierService {
         return supplierMapper.updateSupp(supplier)>0;
     }
 
-    public int deleteById(Integer delId) {
-        return supplierMapper.deleteById(delId);
+    public boolean deleteById(Integer delId) {
+        return supplierMapper.deleteById(delId)>0;
     }
 }
