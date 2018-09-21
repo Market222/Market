@@ -27,4 +27,9 @@ public interface UsersService {
     List<Role> SelectRole(Role role);
     //修改用户
     int updateUser(Users user);
+
+    //添加公司
+    int insertCompany(Company company);
+    //判断有没有该公司
+    int countCompany(Company company);
 }
